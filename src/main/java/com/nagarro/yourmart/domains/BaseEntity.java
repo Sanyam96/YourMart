@@ -29,9 +29,7 @@ public class BaseEntity {
     }
 
 
-    /*
-    Getters and Setters
-     */
+//    Getters and Setters
     public long getCreatedAt() {
         return createdAt;
     }
@@ -48,9 +46,7 @@ public class BaseEntity {
         this.updatedAt = updatedAt;
     }
 
-    /**
-     * Constructors
-     */
+//     Constructors
     public BaseEntity(long createdAt, long updatedAt) {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

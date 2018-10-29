@@ -1,6 +1,8 @@
 package com.nagarro.yourmart.domains;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,7 +14,7 @@ public class Seller extends BaseEntity {
 
     @Id
     @Column(name = "seller_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "company_name")
@@ -36,21 +38,20 @@ public class Seller extends BaseEntity {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "seller_status_id")
-    @GeneratedValue
-    private long sellerStatusId;
+//    Mappings
+    @OneToMany(mappedBy = "seller")
+    private List<Products> products;
 
+    @OneToOne
+    @JoinColumn(name = "seller_status_id", nullable = false)
+    private SellerStatus sellerStatusId;
 
-    //Mappings
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<SellerStatus> sellerStatuses;
-
-
+//    Constructors
     public Seller() {
 
     }
 
-    public Seller(long createdAt, long updatedAt, long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, Set<SellerStatus> sellerStatuses) {
+    public Seller(long createdAt, long updatedAt, long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, List<Products> products, SellerStatus sellerStatusId) {
         super(createdAt, updatedAt);
         this.id = id;
         this.companyName = companyName;
@@ -60,11 +61,11 @@ public class Seller extends BaseEntity {
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
         this.password = password;
+        this.products = products;
         this.sellerStatusId = sellerStatusId;
-        this.sellerStatuses = sellerStatuses;
     }
 
-    public Seller(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, Set<SellerStatus> sellerStatuses) {
+    public Seller(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, List<Products> products, SellerStatus sellerStatusId) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -73,10 +74,11 @@ public class Seller extends BaseEntity {
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
         this.password = password;
+        this.products = products;
         this.sellerStatusId = sellerStatusId;
-        this.sellerStatuses = sellerStatuses;
     }
 
+//    Getter and Setters
     public long getId() {
         return id;
     }
@@ -141,19 +143,19 @@ public class Seller extends BaseEntity {
         this.password = password;
     }
 
-    public long getSellerStatusId() {
+    public List<Products> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Products> products) {
+        this.products = products;
+    }
+
+    public SellerStatus getSellerStatusId() {
         return sellerStatusId;
     }
 
-    public void setSellerStatusId(long sellerStatusId) {
+    public void setSellerStatusId(SellerStatus sellerStatusId) {
         this.sellerStatusId = sellerStatusId;
-    }
-
-    public Set<SellerStatus> getSellerStatuses() {
-        return sellerStatuses;
-    }
-
-    public void setSellerStatuses(Set<SellerStatus> sellerStatuses) {
-        this.sellerStatuses = sellerStatuses;
     }
 }

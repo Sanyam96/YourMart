@@ -1,6 +1,7 @@
 package com.nagarro.yourmart.domains;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,18 +12,16 @@ import java.util.Set;
 public class SellerStatus extends BaseEntity {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sellerStatusId;
+    @Column(name = "seller_status_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     @Column(name = "name")
     private String name;
 
-
-    // Mappings
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "sellerStatusId")
-    private Seller seller;
+//    Mappings
+    @OneToOne(mappedBy = "sellerStatusId")
+    private Seller Seller;
 
 
     // Constructors
@@ -30,25 +29,24 @@ public class SellerStatus extends BaseEntity {
 
     }
 
-    public SellerStatus(long createdAt, long updatedAt, Long sellerStatusId, String name, Seller seller) {
+    public SellerStatus(long createdAt, long updatedAt, long id, String name) {
         super(createdAt, updatedAt);
-        this.sellerStatusId = sellerStatusId;
+        this.id = id;
         this.name = name;
-        this.seller = seller;
     }
 
-    public SellerStatus(Long sellerStatusId, String name, Seller seller) {
-        this.sellerStatusId = sellerStatusId;
+    public SellerStatus(long id, String name) {
+        this.id = id;
         this.name = name;
-        this.seller = seller;
     }
 
-    public Long getSellerStatusId() {
-        return sellerStatusId;
+//    Getters and Setters
+    public long getId() {
+        return id;
     }
 
-    public void setSellerStatusId(Long sellerStatusId) {
-        this.sellerStatusId = sellerStatusId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,13 +55,5 @@ public class SellerStatus extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
     }
 }
