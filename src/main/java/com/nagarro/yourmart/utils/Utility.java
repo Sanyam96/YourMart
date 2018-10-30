@@ -22,4 +22,13 @@ public class Utility {
             return null;
         }
     }
+
+    public static <T> T convertModel(Object sourceClass, Class<T> destinationClass) {
+        try {
+//            JavaType javaType = typeFactory.constructType(destinationClass);
+            return objectMapper.convertValue(sourceClass, destinationClass);
+        } catch (Exception exp) {
+            return null;
+        }
+    }
 }

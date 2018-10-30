@@ -7,6 +7,7 @@ import com.nagarro.yourmart.repository.SellerRepository;
 import com.nagarro.yourmart.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class SellerService {
     @Autowired
     SellerRepository sellerRepository;
 
+    @Transactional
     public List<SellersDTO> getAllSellers() {
         List<Seller> sellerList = sellerRepository.getList(Seller.class);
         List<SellersDTO> sellersDTOList = Utility.convertModelList(sellerList, SellersDTO.class);
@@ -28,5 +30,16 @@ public class SellerService {
         }
 
         return sellersDTOList;
+    }
+
+    @Transactional
+    public SellersDTO getSellerById(long id) {
+        Seller seller = sellerRepository.getById(id, Seller.class);
+        SellersDTO sellerDTO = Utility.convertModel(seller, SellersDTO.class);
+
+        if(sellerDTO == null || seller == null) {
+            throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
+        }
+        return sellerDTO;
     }
 }
