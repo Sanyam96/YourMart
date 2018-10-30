@@ -46,6 +46,9 @@ public class Products extends BaseEntity {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "product_status_id", insertable = false, updatable = false)
+    private long productStatusId;
+
 //    MetaData -> Product Attributes
 //    private Metadata productAttributes
 
@@ -62,12 +65,17 @@ public class Products extends BaseEntity {
     @JoinColumn(name = "seller_id", referencedColumnName = "seller_id", nullable = false)
     private Seller seller;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "product_status_id", referencedColumnName = "product_status_id", nullable = false)
+    private ProductStatus productStatus;
+
 
     public Products() {
 
     }
 
-    public Products(long createdAt, long updatedAt, long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId, Seller seller) {
+    public Products(long createdAt, long updatedAt, long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long productStatusId, long sellerId, Seller seller, ProductStatus productStatus) {
         super(createdAt, updatedAt);
         this.id = id;
         this.productName = productName;
@@ -79,11 +87,13 @@ public class Products extends BaseEntity {
         this.longDescription = longDescription;
         this.dimensions = dimensions;
         this.comment = comment;
+        this.productStatusId = productStatusId;
         this.sellerId = sellerId;
         this.seller = seller;
+        this.productStatus = productStatus;
     }
 
-    public Products(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId, Seller seller) {
+    public Products(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long productStatusId, long sellerId, Seller seller, ProductStatus productStatus) {
         this.id = id;
         this.productName = productName;
         this.productCode = productCode;
@@ -94,8 +104,10 @@ public class Products extends BaseEntity {
         this.longDescription = longDescription;
         this.dimensions = dimensions;
         this.comment = comment;
+        this.productStatusId = productStatusId;
         this.sellerId = sellerId;
         this.seller = seller;
+        this.productStatus = productStatus;
     }
 
     public long getId() {
@@ -178,6 +190,14 @@ public class Products extends BaseEntity {
         this.comment = comment;
     }
 
+    public long getProductStatusId() {
+        return productStatusId;
+    }
+
+    public void setProductStatusId(long productStatusId) {
+        this.productStatusId = productStatusId;
+    }
+
     public long getSellerId() {
         return sellerId;
     }
@@ -192,5 +212,13 @@ public class Products extends BaseEntity {
 
     public void setSeller(Seller seller) {
         this.seller = seller;
+    }
+
+    public ProductStatus getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(ProductStatus productStatus) {
+        this.productStatus = productStatus;
     }
 }
