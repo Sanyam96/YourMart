@@ -1,5 +1,7 @@
 package com.nagarro.yourmart.domains;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -21,8 +23,13 @@ public class SellerStatus extends BaseEntity {
 
 //    Mappings
     // SellerStatus and Seller
-    @OneToOne(mappedBy = "sellerStatusId")
-    private Seller Seller;
+//    @JsonManagedReference
+//    @OneToOne(mappedBy = "sellerStatusId")
+//    private Seller Seller;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "sellerStatus", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Seller> sellers;
 
 
     // Constructors
@@ -30,18 +37,19 @@ public class SellerStatus extends BaseEntity {
 
     }
 
-    public SellerStatus(long createdAt, long updatedAt, long id, String name) {
+    public SellerStatus(long createdAt, long updatedAt, long id, String name, List<Seller> sellers) {
         super(createdAt, updatedAt);
         this.id = id;
         this.name = name;
+        this.sellers = sellers;
     }
 
-    public SellerStatus(long id, String name) {
+    public SellerStatus(long id, String name, List<Seller> sellers) {
         this.id = id;
         this.name = name;
+        this.sellers = sellers;
     }
 
-//    Getters and Setters
     public long getId() {
         return id;
     }
@@ -56,5 +64,13 @@ public class SellerStatus extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Seller> getSellers() {
+        return sellers;
+    }
+
+    public void setSellers(List<Seller> sellers) {
+        this.sellers = sellers;
     }
 }

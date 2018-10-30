@@ -1,8 +1,10 @@
 package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.domains.Products;
+import com.nagarro.yourmart.domains.Seller;
 import com.nagarro.yourmart.dtos.ProductsDTO;
 import com.nagarro.yourmart.dtos.ResponseModel;
+import com.nagarro.yourmart.dtos.SellersDTO;
 import com.nagarro.yourmart.service.YourMartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,12 @@ public class yourMartController extends RestResponseHandler {
     public ResponseEntity<ResponseModel<List<ProductsDTO>>> getAllProducts() {
         List<ProductsDTO> productsList = yourMartService.getAllProducts();
         return super.responseStandardizer(productsList);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/sellers", produces = "application/json")
+    public ResponseEntity<ResponseModel<List<SellersDTO>>> getAllSellers() {
+        List<SellersDTO> sellersList = yourMartService.getAllSellers();
+        return super.responseStandardizer(sellersList);
     }
 
 }

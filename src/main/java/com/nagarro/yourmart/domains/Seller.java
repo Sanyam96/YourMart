@@ -1,5 +1,6 @@
 package com.nagarro.yourmart.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -40,23 +41,32 @@ public class Seller extends BaseEntity {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "seller_status_id", insertable = false, updatable = false)
+    private long sellerStatusId;
+
 //    Mappings
     // Seller and Product
     @JsonManagedReference
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Products> products;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "seller_status_id", referencedColumnName = "seller_status_id", nullable = false)
+    private SellerStatus sellerStatus;
+
     // Seller and SellerStatus
-    @OneToOne
-    @JoinColumn(name = "seller_status_id", nullable = false)
-    private SellerStatus sellerStatusId;
+//    @JsonBackReference
+//    @OneToOne
+//    @JoinColumn(name = "seller_status_id", referencedColumnName = "seller_status_id", nullable = false)
+//    private SellerStatus sellerStatus;
 
 //    Constructors
     public Seller() {
 
     }
 
-    public Seller(long createdAt, long updatedAt, long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, List<Products> products, SellerStatus sellerStatusId) {
+    public Seller(long createdAt, long updatedAt, long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, List<Products> products, SellerStatus sellerStatus) {
         super(createdAt, updatedAt);
         this.id = id;
         this.companyName = companyName;
@@ -66,11 +76,12 @@ public class Seller extends BaseEntity {
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
         this.password = password;
-        this.products = products;
         this.sellerStatusId = sellerStatusId;
+        this.products = products;
+        this.sellerStatus = sellerStatus;
     }
 
-    public Seller(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, List<Products> products, SellerStatus sellerStatusId) {
+    public Seller(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, List<Products> products, SellerStatus sellerStatus) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -79,11 +90,11 @@ public class Seller extends BaseEntity {
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
         this.password = password;
-        this.products = products;
         this.sellerStatusId = sellerStatusId;
+        this.products = products;
+        this.sellerStatus = sellerStatus;
     }
 
-//    Getter and Setters
     public long getId() {
         return id;
     }
@@ -148,6 +159,14 @@ public class Seller extends BaseEntity {
         this.password = password;
     }
 
+    public long getSellerStatusId() {
+        return sellerStatusId;
+    }
+
+    public void setSellerStatusId(long sellerStatusId) {
+        this.sellerStatusId = sellerStatusId;
+    }
+
     public List<Products> getProducts() {
         return products;
     }
@@ -156,11 +175,11 @@ public class Seller extends BaseEntity {
         this.products = products;
     }
 
-    public SellerStatus getSellerStatusId() {
-        return sellerStatusId;
+    public SellerStatus getSellerStatus() {
+        return sellerStatus;
     }
 
-    public void setSellerStatusId(SellerStatus sellerStatusId) {
-        this.sellerStatusId = sellerStatusId;
+    public void setSellerStatus(SellerStatus sellerStatus) {
+        this.sellerStatus = sellerStatus;
     }
 }
