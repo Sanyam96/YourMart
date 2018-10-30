@@ -53,6 +53,8 @@ public class Products extends BaseEntity {
 //    private Metadata productAttributes
 
 //    CategoryID
+    @Column(name = "category_id", insertable = false, updatable = false)
+    private long categoryId;
 
     @Column(name = "seller_id", insertable = false, updatable = false)
     private long sellerId;
@@ -70,12 +72,17 @@ public class Products extends BaseEntity {
     @JoinColumn(name = "product_status_id", referencedColumnName = "product_status_id", nullable = false)
     private ProductStatus productStatus;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
+    private Categories categories;
+
 
     public Products() {
 
     }
 
-    public Products(long createdAt, long updatedAt, long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long productStatusId, long sellerId, Seller seller, ProductStatus productStatus) {
+    public Products(long createdAt, long updatedAt, long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long productStatusId, long categoryId, long sellerId, Seller seller, ProductStatus productStatus, Categories categories) {
         super(createdAt, updatedAt);
         this.id = id;
         this.productName = productName;
@@ -88,12 +95,14 @@ public class Products extends BaseEntity {
         this.dimensions = dimensions;
         this.comment = comment;
         this.productStatusId = productStatusId;
+        this.categoryId = categoryId;
         this.sellerId = sellerId;
         this.seller = seller;
         this.productStatus = productStatus;
+        this.categories = categories;
     }
 
-    public Products(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long productStatusId, long sellerId, Seller seller, ProductStatus productStatus) {
+    public Products(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long productStatusId, long categoryId, long sellerId, Seller seller, ProductStatus productStatus, Categories categories) {
         this.id = id;
         this.productName = productName;
         this.productCode = productCode;
@@ -105,9 +114,11 @@ public class Products extends BaseEntity {
         this.dimensions = dimensions;
         this.comment = comment;
         this.productStatusId = productStatusId;
+        this.categoryId = categoryId;
         this.sellerId = sellerId;
         this.seller = seller;
         this.productStatus = productStatus;
+        this.categories = categories;
     }
 
     public long getId() {
@@ -198,6 +209,14 @@ public class Products extends BaseEntity {
         this.productStatusId = productStatusId;
     }
 
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public long getSellerId() {
         return sellerId;
     }
@@ -220,5 +239,13 @@ public class Products extends BaseEntity {
 
     public void setProductStatus(ProductStatus productStatus) {
         this.productStatus = productStatus;
+    }
+
+    public Categories getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Categories categories) {
+        this.categories = categories;
     }
 }
