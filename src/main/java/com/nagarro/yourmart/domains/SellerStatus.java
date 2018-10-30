@@ -13,13 +13,14 @@ public class SellerStatus extends BaseEntity {
 
     @Id
     @Column(name = "seller_status_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")
     private String name;
 
 //    Mappings
+    // SellerStatus and Seller
     @OneToOne(mappedBy = "sellerStatusId")
     private Seller Seller;
 

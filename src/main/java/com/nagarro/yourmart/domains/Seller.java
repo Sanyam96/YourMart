@@ -1,5 +1,7 @@
 package com.nagarro.yourmart.domains;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +16,7 @@ public class Seller extends BaseEntity {
 
     @Id
     @Column(name = "seller_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "company_name")
@@ -39,9 +41,12 @@ public class Seller extends BaseEntity {
     private String password;
 
 //    Mappings
-    @OneToMany(mappedBy = "seller")
+    // Seller and Product
+    @JsonManagedReference
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private List<Products> products;
 
+    // Seller and SellerStatus
     @OneToOne
     @JoinColumn(name = "seller_status_id", nullable = false)
     private SellerStatus sellerStatusId;
