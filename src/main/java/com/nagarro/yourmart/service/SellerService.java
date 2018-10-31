@@ -94,4 +94,26 @@ public class SellerService {
 
         return "created";
     }
+
+
+    @Transactional
+    public Seller getSellerId(long id) {
+        Seller seller = sellerRepository.getById(id, Seller.class);
+//        SellerResponse sellerResponse = Utility.convertModel(seller, SellerResponse.class);
+//
+//        if(sellerResponse.getSellerStatusId() == 1) {
+//            sellerResponse.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
+//        } else if(sellerResponse.getSellerStatusId() == 2) {
+//            sellerResponse.setSellerStatus(SellerStatusEnum.NON_REGISTERED);
+//        } else {
+//            sellerResponse.setSellerStatus(SellerStatusEnum.REJECTED);
+//        }
+//
+//        if(sellerResponse == null || seller == null) {
+//            throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
+//        }
+        return seller;
+    }
+
+
 }

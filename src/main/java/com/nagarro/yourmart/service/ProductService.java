@@ -25,6 +25,12 @@ public class ProductService {
     @Autowired
     ProductStatusService productStatusService;
 
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    SellerService sellerService;
+
     @Transactional
     public List<ProductsDTO> getAllProducts() {
         List<Products> productsList = productRepository.getList(Products.class);
@@ -48,11 +54,13 @@ public class ProductService {
         product.setShortDescription(productRequest.getShortDescription());
         product.setLongDescription(productRequest.getLongDescription());
         product.setDimensions(productRequest.getDimensions());
-        product.setCategoryId(productRequest.getCategoryId()); // todo arraylist of categories Id or objects
+//        product.setCategoryId(productRequest.getCategoryId()); // todo arraylist of categories Id or objects
+        product.setCategories(categoryService.getCategoryById(productRequest.getCategoryId()));
         product.setMrp(productRequest.getMrp());
         product.setSsp(productRequest.getSsp());
         product.setYmp(productRequest.getYmp());
         product.setSellerId(productRequest.getSellerId()); // todo store object
+        product.setSeller(sellerService.getSellerId(productRequest.getSellerId()));
         System.out.println("halfDone");
 
 
