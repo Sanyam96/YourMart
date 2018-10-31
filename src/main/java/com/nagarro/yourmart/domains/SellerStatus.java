@@ -27,9 +27,7 @@ public class SellerStatus extends BaseEntity {
 //    @OneToOne(mappedBy = "sellerStatusId")
 //    private Seller Seller;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "sellerStatus", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Seller> sellers;
+
 
 
     // Constructors
@@ -37,17 +35,15 @@ public class SellerStatus extends BaseEntity {
 
     }
 
-    public SellerStatus(long createdAt, long updatedAt, long id, String name, List<Seller> sellers) {
+    public SellerStatus(long createdAt, long updatedAt, long id, String name) {
         super(createdAt, updatedAt);
         this.id = id;
         this.name = name;
-        this.sellers = sellers;
     }
 
-    public SellerStatus(long id, String name, List<Seller> sellers) {
+    public SellerStatus(long id, String name) {
         this.id = id;
         this.name = name;
-        this.sellers = sellers;
     }
 
     public long getId() {
@@ -66,11 +62,4 @@ public class SellerStatus extends BaseEntity {
         this.name = name;
     }
 
-    public List<Seller> getSellers() {
-        return sellers;
-    }
-
-    public void setSellers(List<Seller> sellers) {
-        this.sellers = sellers;
-    }
 }

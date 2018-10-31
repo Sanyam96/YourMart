@@ -41,8 +41,8 @@ public class Seller extends BaseEntity {
     @Column(name = "password")
     private String password;
 
-//    @Column(name = "seller_status_id", insertable = false, updatable = false)
-//    private long sellerStatusId;
+    @Column(name = "seller_status_id", insertable = false, updatable = false)
+    private long sellerStatusId;
 
 //    Mappings
     // Seller and Product
@@ -66,7 +66,7 @@ public class Seller extends BaseEntity {
 
     }
 
-    public Seller(long createdAt, long updatedAt, long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, List<Products> products, SellerStatus sellerStatus) {
+    public Seller(long createdAt, long updatedAt, long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, List<Products> products, SellerStatus sellerStatus) {
         super(createdAt, updatedAt);
         this.id = id;
         this.companyName = companyName;
@@ -76,11 +76,12 @@ public class Seller extends BaseEntity {
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
         this.password = password;
+        this.sellerStatusId = sellerStatusId;
         this.products = products;
         this.sellerStatus = sellerStatus;
     }
 
-    public Seller(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, List<Products> products, SellerStatus sellerStatus) {
+    public Seller(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, List<Products> products, SellerStatus sellerStatus) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -89,6 +90,7 @@ public class Seller extends BaseEntity {
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
         this.password = password;
+        this.sellerStatusId = sellerStatusId;
         this.products = products;
         this.sellerStatus = sellerStatus;
     }
@@ -155,6 +157,14 @@ public class Seller extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public long getSellerStatusId() {
+        return sellerStatusId;
+    }
+
+    public void setSellerStatusId(long sellerStatusId) {
+        this.sellerStatusId = sellerStatusId;
     }
 
     public List<Products> getProducts() {

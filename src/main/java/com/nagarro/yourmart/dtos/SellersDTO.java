@@ -1,6 +1,7 @@
 package com.nagarro.yourmart.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nagarro.yourmart.domains.SellerStatus;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -26,17 +27,14 @@ public class SellersDTO {
 
     private String gstNumber;
 
-    private String password;
-
     private long sellerStatusId;
-
 
 
     public SellersDTO() {
 
     }
 
-    public SellersDTO(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId) {
+    public SellersDTO(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -44,7 +42,6 @@ public class SellersDTO {
         this.emailAddress = emailAddress;
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
-        this.password = password;
         this.sellerStatusId = sellerStatusId;
     }
 
@@ -102,14 +99,6 @@ public class SellersDTO {
 
     public void setGstNumber(String gstNumber) {
         this.gstNumber = gstNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public long getSellerStatusId() {
