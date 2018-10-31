@@ -3,7 +3,7 @@ package com.nagarro.yourmart.service;
 import com.nagarro.yourmart.domains.Products;
 import com.nagarro.yourmart.domains.Seller;
 import com.nagarro.yourmart.dtos.ProductsDTO;
-import com.nagarro.yourmart.dtos.SellersDTO;
+import com.nagarro.yourmart.dtos.SellerResponse;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.YourMartRepository;
 import com.nagarro.yourmart.utils.Utility;
@@ -33,12 +33,12 @@ public class YourMartService {
         return productsDTOList;
     }
 
-    public List<SellersDTO> getAllSellers() {
+    public List<SellerResponse> getAllSellers() {
         List<Seller> sellerList = yourMartRepository.getList(Seller.class);
-        List<SellersDTO> sellersDTOList = Utility.convertModelList(sellerList, SellersDTO.class);
+        List<SellerResponse> sellerResponseList = Utility.convertModelList(sellerList, SellerResponse.class);
         System.out.println("Hello");
 
-        return sellersDTOList;
+        return sellerResponseList;
     }
 
 }

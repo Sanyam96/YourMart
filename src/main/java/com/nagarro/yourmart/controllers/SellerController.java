@@ -3,7 +3,6 @@ package com.nagarro.yourmart.controllers;
 import com.nagarro.yourmart.dtos.ResponseModel;
 import com.nagarro.yourmart.dtos.SellerRequest;
 import com.nagarro.yourmart.dtos.SellerResponse;
-import com.nagarro.yourmart.dtos.SellersDTO;
 import com.nagarro.yourmart.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +21,16 @@ public class SellerController extends RestResponseHandler {
     SellerService sellerService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/sellers", produces = "application/json")
-    public ResponseEntity<ResponseModel<List<SellersDTO>>> getAllSellers() {
-        List<SellersDTO> sellersList = sellerService.getAllSellers();
+    public ResponseEntity<ResponseModel<List<SellerResponse>>> getAllSellers() {
+        List<SellerResponse> sellersList = sellerService.getAllSellers();
         return super.responseStandardizer(sellersList);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/seller/{id}", produces = "application/json")
-    public ResponseEntity<ResponseModel<SellersDTO>> getSellerById(
+    public ResponseEntity<ResponseModel<SellerResponse>> getSellerById(
             @PathVariable("id") long id
     ) {
-        SellersDTO seller = sellerService.getSellerById(id);
+        SellerResponse seller = sellerService.getSellerById(id);
         return super.responseStandardizer(seller);
     }
 

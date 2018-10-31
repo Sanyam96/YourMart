@@ -1,8 +1,12 @@
 package com.nagarro.yourmart.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nagarro.yourmart.enums.SellerStatusEnum;
+
 /**
- * @author Sanyam Goel created on 31/10/18
+ * @author Sanyam Goel created on 30/10/18
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SellerResponse {
 
     private long id;
@@ -21,14 +25,14 @@ public class SellerResponse {
 
     private long sellerStatusId;
 
-    private String sellerStatus;
+    private SellerStatusEnum sellerStatus;
 
 
     public SellerResponse() {
 
     }
 
-    public SellerResponse(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId, String sellerStatus) {
+    public SellerResponse(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId, SellerStatusEnum sellerStatus) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -104,11 +108,11 @@ public class SellerResponse {
         this.sellerStatusId = sellerStatusId;
     }
 
-    public String getSellerStatus() {
+    public SellerStatusEnum getSellerStatus() {
         return sellerStatus;
     }
 
-    public void setSellerStatus(String sellerStatus) {
+    public void setSellerStatus(SellerStatusEnum sellerStatus) {
         this.sellerStatus = sellerStatus;
     }
 }

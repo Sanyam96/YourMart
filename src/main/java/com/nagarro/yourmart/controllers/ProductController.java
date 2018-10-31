@@ -27,4 +27,6 @@ public class ProductController extends RestResponseHandler {
         return super.responseStandardizer(productsList);
     }
 
+//    public ResponseEntity<ResponseModel<ProductsDTO>>
+
 }

@@ -3,7 +3,7 @@ package com.nagarro.yourmart.service;
 import com.nagarro.yourmart.domains.Seller;
 import com.nagarro.yourmart.domains.SellerStatus;
 import com.nagarro.yourmart.dtos.SellerRequest;
-import com.nagarro.yourmart.dtos.SellersDTO;
+import com.nagarro.yourmart.dtos.SellerResponse;
 import com.nagarro.yourmart.enums.SellerStatusEnum;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.SellerRepository;
@@ -27,21 +27,35 @@ public class SellerService {
     SellerStatusService sellerStatusService;
 
     @Transactional
-    public List<SellersDTO> getAllSellers() {
+    public List<SellerResponse> getAllSellers() {
         List<Seller> sellerList = sellerRepository.getList(Seller.class);
-        List<SellersDTO> sellersDTOList = Utility.convertModelList(sellerList, SellersDTO.class);
+        List<SellerResponse> sellerResponseList = Utility.convertModelList(sellerList, SellerResponse.class);
 
-        if(sellersDTOList == null || sellerList.isEmpty()) {
+        for (long i = 0; i < sellerResponseList.size(); i++) {
+
+            if(sellerResponseList.get((int) i).getSellerStatusId() == 1) {
+                sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
+            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 2) {
+                sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NON_REGISTERED);
+            } else {
+                sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.REJECTED);
+            }
+
+
+//            sellerResponseList.get(0).setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
+        }
+
+        if(sellerResponseList == null || sellerList.isEmpty()) {
             throw new YourMartResourceNotFoundException("Seller List not found");
         }
 
-        return sellersDTOList;
+        return sellerResponseList;
     }
 
     @Transactional
-    public SellersDTO getSellerById(long id) {
+    public SellerResponse getSellerById(long id) {
         Seller seller = sellerRepository.getById(id, Seller.class);
-        SellersDTO sellerDTO = Utility.convertModel(seller, SellersDTO.class);
+        SellerResponse sellerDTO = Utility.convertModel(seller, SellerResponse.class);
 
         if(sellerDTO.getSellerStatusId() == 1) {
             sellerDTO.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
