@@ -1,6 +1,7 @@
 package com.nagarro.yourmart.service;
 
 import com.nagarro.yourmart.domains.Categories;
+import com.nagarro.yourmart.dtos.CategoryRequest;
 import com.nagarro.yourmart.dtos.CategoryResponse;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.CategoryRepository;
@@ -42,10 +43,19 @@ public class CategoryService {
         return categoryResponse;
     }
 
+    public String createCategory(CategoryRequest categoryRequest) {
+
+        // db call
+        Categories category = new Categories();
+
+        category.setName(categoryRequest.getName());
+        categoryRepository.create(category);
+        return "created";
+    }
+
     @Transactional
     public Categories getCategoryById(long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
-//        CategoryResponse categoryResponse = Utility.convertModel(category, CategoryResponse.class);
 
         if(category == null) {
             throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);

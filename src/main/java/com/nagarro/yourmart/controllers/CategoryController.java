@@ -1,15 +1,13 @@
 package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.domains.Categories;
+import com.nagarro.yourmart.dtos.CategoryRequest;
 import com.nagarro.yourmart.dtos.CategoryResponse;
 import com.nagarro.yourmart.dtos.ResponseModel;
 import com.nagarro.yourmart.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +33,13 @@ public class CategoryController extends RestResponseHandler {
     ) {
         CategoryResponse category = categoryService.getCategoryByUniqueId(id);
         return super.responseStandardizer(category);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/category")
+    public ResponseEntity<ResponseModel<String>> addCategory(
+            @RequestBody CategoryRequest categoryRequest
+    ) {
+        String categoryResponse = categoryService.createCategory(categoryRequest);
+        return super.responseStandardizer(categoryResponse);
     }
 }
