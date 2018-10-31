@@ -1,9 +1,15 @@
 package com.nagarro.yourmart.service;
 
 import com.nagarro.yourmart.domains.Categories;
+import com.nagarro.yourmart.dtos.CategoryResponse;
+import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.CategoryRepository;
+import com.nagarro.yourmart.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author Sanyam Goel created on 31/10/18
@@ -14,21 +20,38 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    /*
     @Transactional
-    public SellerStatus getSellerStatusById(long id) {
-        SellerStatus sellerStatus = sellerStatusRepository.getById(id, SellerStatus.class);
-//        SellerResponse sellerDTO = Utility.convertModel(seller, SellerResponse.class);
+    public List<CategoryResponse> getAllCategories() {
+        List<Categories> categories = categoryRepository.getList(Categories.class);
+        List<CategoryResponse> categoryResponseList = Utility.convertModelList(categories, CategoryResponse.class);
 
-//        if(sellerDTO == null || seller == null) {
-//            throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
-//        }
-        return sellerStatus;
+        if(categoryResponseList == null || categories.isEmpty()) {
+            throw new YourMartResourceNotFoundException("Categories list not found!");
+        }
+        return categoryResponseList;
     }
-     */
 
+    @Transactional
+    public CategoryResponse getCategoryByUniqueId(long id) {
+        Categories category = categoryRepository.getById(id, Categories.class);
+        CategoryResponse categoryResponse = Utility.convertModel(category, CategoryResponse.class);
+
+        if(categoryResponse == null || category == null) {
+            throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
+        }
+        return categoryResponse;
+    }
+
+    @Transactional
     public Categories getCategoryById(long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
+//        CategoryResponse categoryResponse = Utility.convertModel(category, CategoryResponse.class);
+
+        if(category == null) {
+            throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
+        }
         return category;
     }
+
+
 }
