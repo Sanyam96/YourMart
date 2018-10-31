@@ -20,26 +20,24 @@ public class Categories extends BaseEntity  {
     @Column(name = "name")
     private String name;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Products> products;
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "categories", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Products> products;
 
 
     public Categories() {
 
     }
 
-    public Categories(long createdAt, long updatedAt, long id, String name, List<Products> products) {
+    public Categories(long createdAt, long updatedAt, long id, String name) {
         super(createdAt, updatedAt);
         this.id = id;
         this.name = name;
-        this.products = products;
     }
 
-    public Categories(long id, String name, List<Products> products) {
+    public Categories(long id, String name) {
         this.id = id;
         this.name = name;
-        this.products = products;
     }
 
     public long getId() {
@@ -56,13 +54,5 @@ public class Categories extends BaseEntity  {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Products> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Products> products) {
-        this.products = products;
     }
 }

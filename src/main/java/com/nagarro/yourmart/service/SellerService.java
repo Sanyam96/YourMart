@@ -63,7 +63,7 @@ public class SellerService {
         seller.setGstNumber(sellerRequest.getGstNumber());
         seller.setPassword(sellerRequest.getPassword());
 
-        seller.setSellerStatus(sellerStatusService.getSellerStatusById(2));
+        seller.setSellerStatus(sellerStatusService.getSellerStatusById(1));
         System.out.println("done-half");
 
         sellerRepository.create(seller);

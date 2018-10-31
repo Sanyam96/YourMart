@@ -46,9 +46,9 @@ public class Seller extends BaseEntity {
 
 //    Mappings
     // Seller and Product
-    @JsonManagedReference
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Products> products;
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Products> products;
 
     @JsonBackReference
     @ManyToOne
@@ -66,7 +66,7 @@ public class Seller extends BaseEntity {
 
     }
 
-    public Seller(long createdAt, long updatedAt, long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, List<Products> products, SellerStatus sellerStatus) {
+    public Seller(long createdAt, long updatedAt, long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, SellerStatus sellerStatus) {
         super(createdAt, updatedAt);
         this.id = id;
         this.companyName = companyName;
@@ -77,11 +77,10 @@ public class Seller extends BaseEntity {
         this.gstNumber = gstNumber;
         this.password = password;
         this.sellerStatusId = sellerStatusId;
-        this.products = products;
         this.sellerStatus = sellerStatus;
     }
 
-    public Seller(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, List<Products> products, SellerStatus sellerStatus) {
+    public Seller(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, String password, long sellerStatusId, SellerStatus sellerStatus) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -91,7 +90,6 @@ public class Seller extends BaseEntity {
         this.gstNumber = gstNumber;
         this.password = password;
         this.sellerStatusId = sellerStatusId;
-        this.products = products;
         this.sellerStatus = sellerStatus;
     }
 
@@ -165,14 +163,6 @@ public class Seller extends BaseEntity {
 
     public void setSellerStatusId(long sellerStatusId) {
         this.sellerStatusId = sellerStatusId;
-    }
-
-    public List<Products> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Products> products) {
-        this.products = products;
     }
 
     public SellerStatus getSellerStatus() {

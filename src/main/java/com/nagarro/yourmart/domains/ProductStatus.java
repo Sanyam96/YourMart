@@ -20,9 +20,9 @@ public class ProductStatus extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "productStatus", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Products> products;
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "productStatus", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Products> products;
 
 
     // Constructors
@@ -30,17 +30,53 @@ public class ProductStatus extends BaseEntity {
 
     }
 
-    public ProductStatus(long createdAt, long updatedAt, long id, String name, List<Products> products) {
+//    public ProductStatus(long createdAt, long updatedAt, long id, String name, List<Products> products) {
+//        super(createdAt, updatedAt);
+//        this.id = id;
+//        this.name = name;
+//        this.products = products;
+//    }
+//
+//    public ProductStatus(long id, String name, List<Products> products) {
+//        this.id = id;
+//        this.name = name;
+//        this.products = products;
+//    }
+//
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public List<Products> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Products> products) {
+//        this.products = products;
+//    }
+
+
+    public ProductStatus(long createdAt, long updatedAt, long id, String name) {
         super(createdAt, updatedAt);
         this.id = id;
         this.name = name;
-        this.products = products;
     }
 
-    public ProductStatus(long id, String name, List<Products> products) {
+    public ProductStatus(long id, String name) {
         this.id = id;
         this.name = name;
-        this.products = products;
     }
 
     public long getId() {
@@ -57,13 +93,5 @@ public class ProductStatus extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Products> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Products> products) {
-        this.products = products;
     }
 }
