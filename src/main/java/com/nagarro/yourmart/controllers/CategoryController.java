@@ -42,4 +42,13 @@ public class CategoryController extends RestResponseHandler {
         String categoryResponse = categoryService.createCategory(categoryRequest);
         return super.responseStandardizer(categoryResponse);
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/category/{id}")
+    public ResponseEntity<ResponseModel<String>> updateCategory(
+            @RequestBody CategoryRequest categoryRequest,
+            @PathVariable("id") long id
+    ) {
+        String categoryResponse = categoryService.updateCategory(categoryRequest, id);
+        return super.responseStandardizer(categoryResponse);
+    }
 }

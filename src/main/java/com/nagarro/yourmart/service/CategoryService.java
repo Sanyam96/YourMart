@@ -43,14 +43,26 @@ public class CategoryService {
         return categoryResponse;
     }
 
+    @Transactional
     public String createCategory(CategoryRequest categoryRequest) {
-
         // db call
         Categories category = new Categories();
-
         category.setName(categoryRequest.getName());
         categoryRepository.create(category);
         return "created";
+    }
+
+    @Transactional
+    public String updateCategory(CategoryRequest categoryRequest, long id) {
+        Categories category = categoryRepository.getById(id, Categories.class);
+
+        if(category == null) {
+            throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
+        }
+        // db call
+        category.setName(categoryRequest.getName());
+        categoryRepository.update(category);
+        return "updated";
     }
 
     @Transactional
