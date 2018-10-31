@@ -66,4 +66,12 @@ public class AbstractBaseRepository {
         }
     }
 
+    public void delete(Object entity) {
+        try {
+            this.getCurrentSession().delete(entity);
+        } catch (HibernateException var3) {
+            throw new YourMartHibernateException(String.format("Hibernate Exception occurred with cause %s", var3.getMessage()), var3);
+        }
+    }
+
 }

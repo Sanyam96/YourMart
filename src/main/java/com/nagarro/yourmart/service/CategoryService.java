@@ -66,6 +66,18 @@ public class CategoryService {
     }
 
     @Transactional
+    public String deleteCategory(long id) {
+        Categories category = categoryRepository.getById(id, Categories.class);
+
+        if(category == null) {
+            throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
+        }
+        // db call
+        categoryRepository.delete(category);
+        return "deleted";
+    }
+
+    @Transactional
     public Categories getCategoryById(long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
 

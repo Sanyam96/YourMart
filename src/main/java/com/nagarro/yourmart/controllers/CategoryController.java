@@ -51,4 +51,12 @@ public class CategoryController extends RestResponseHandler {
         String categoryResponse = categoryService.updateCategory(categoryRequest, id);
         return super.responseStandardizer(categoryResponse);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/category/{id}")
+    public ResponseEntity<ResponseModel<String>> deleteCategory(
+            @PathVariable("id") long id
+    ) {
+        String categoryResponse = categoryService.deleteCategory(id);
+        return super.responseStandardizer(categoryResponse);
+    }
 }
