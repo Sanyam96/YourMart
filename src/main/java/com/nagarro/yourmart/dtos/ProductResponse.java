@@ -2,6 +2,7 @@ package com.nagarro.yourmart.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nagarro.yourmart.domains.Seller;
+import com.nagarro.yourmart.enums.ProductStatusEnum;
 
 import javax.persistence.*;
 
@@ -37,16 +38,25 @@ public class ProductResponse {
 //    MetaData -> Product Attributes
 //    private Metadata productAttributes
 
-//    CategoryID
-
     private long sellerId;
+
+    private ProductStatusEnum productStatus;
+
+    private long productStatusId;
+
+    private long createdAt;
+
+    private long updatedAt;
+
+    // category
+    private long categoryId;
 
 
     public ProductResponse() {
 
     }
 
-    public ProductResponse(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId) {
+    public ProductResponse(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId, ProductStatusEnum productStatus, long productStatusId, long createdAt, long updatedAt, long categoryId) {
         this.id = id;
         this.productName = productName;
         this.productCode = productCode;
@@ -58,6 +68,11 @@ public class ProductResponse {
         this.dimensions = dimensions;
         this.comment = comment;
         this.sellerId = sellerId;
+        this.productStatus = productStatus;
+        this.productStatusId = productStatusId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.categoryId = categoryId;
     }
 
     public long getId() {
@@ -146,5 +161,45 @@ public class ProductResponse {
 
     public void setSellerId(long sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public ProductStatusEnum getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(ProductStatusEnum productStatus) {
+        this.productStatus = productStatus;
+    }
+
+    public long getProductStatusId() {
+        return productStatusId;
+    }
+
+    public void setProductStatusId(long productStatusId) {
+        this.productStatusId = productStatusId;
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 }

@@ -3,6 +3,7 @@ package com.nagarro.yourmart.service;
 import com.nagarro.yourmart.domains.Products;
 import com.nagarro.yourmart.dtos.ProductRequest;
 import com.nagarro.yourmart.dtos.ProductResponse;
+import com.nagarro.yourmart.enums.ProductStatusEnum;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.ProductRepository;
 import com.nagarro.yourmart.utils.Utility;
@@ -34,7 +35,19 @@ public class ProductService {
     public List<ProductResponse> getAllProducts() {
         List<Products> productsList = productRepository.getList(Products.class);
         List<ProductResponse> productResponseList = Utility.convertModelList(productsList, ProductResponse.class);
-        System.out.println("hello");
+//        System.out.println("hello");
+
+        for (long i = 0; i < productResponseList.size(); i++) {
+            if(productResponseList.get((int) i).getProductStatusId() == 1) {
+                productResponseList.get((int) i).setProductStatus(ProductStatusEnum.NEW);
+            } else if(productResponseList.get((int) i).getProductStatusId() == 2) {
+                productResponseList.get((int) i).setProductStatus(ProductStatusEnum.APPROVED);
+            } else if(productResponseList.get((int) i).getProductStatusId() == 3){
+                productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REJECTED);
+            } else if(productResponseList.get((int) i).getProductStatusId() == 4){
+                productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REVIEW);
+            }
+        }
 
         if(productResponseList == null || productsList.isEmpty()) {
             throw new YourMartResourceNotFoundException("product list not found!");
@@ -76,6 +89,20 @@ public class ProductService {
     public ProductResponse getProductById(long id) {
         Products product = productRepository.getById(id, Products.class);
         ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);
+
+        if(productResponse.getProductStatusId() == 1) {
+            productResponse.setProductStatus(ProductStatusEnum.NEW);
+        } else if(productResponse.getProductStatusId() == 2) {
+            productResponse.setProductStatus(ProductStatusEnum.APPROVED);
+        } else if(productResponse.getProductStatusId() == 3){
+            productResponse.setProductStatus(ProductStatusEnum.REJECTED);
+        } else if(productResponse.getProductStatusId() == 4){
+            productResponse.setProductStatus(ProductStatusEnum.REVIEW);
+        }
+
+        if(productResponse == null || product == null) {
+            throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
+        }
 
         return productResponse;
     }

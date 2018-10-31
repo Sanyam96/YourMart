@@ -32,7 +32,6 @@ public class SellerService {
         List<SellerResponse> sellerResponseList = Utility.convertModelList(sellerList, SellerResponse.class);
 
         for (long i = 0; i < sellerResponseList.size(); i++) {
-
             if(sellerResponseList.get((int) i).getSellerStatusId() == 1) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
             } else if(sellerResponseList.get((int) i).getSellerStatusId() == 2) {
@@ -40,9 +39,6 @@ public class SellerService {
             } else {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.REJECTED);
             }
-
-
-//            sellerResponseList.get(0).setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
         }
 
         if(sellerResponseList == null || sellerList.isEmpty()) {
