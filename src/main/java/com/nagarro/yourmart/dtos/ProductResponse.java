@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @author Sanyam Goel created on 29/10/18
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ProductsDTO {
+public class ProductResponse {
 
     private long id;
 
@@ -42,11 +42,11 @@ public class ProductsDTO {
     private long sellerId;
 
 
-    public ProductsDTO() {
+    public ProductResponse() {
 
     }
 
-    public ProductsDTO(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId) {
+    public ProductResponse(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId) {
         this.id = id;
         this.productName = productName;
         this.productCode = productCode;

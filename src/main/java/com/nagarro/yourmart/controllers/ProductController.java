@@ -1,16 +1,12 @@
 package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.dtos.ProductRequest;
-import com.nagarro.yourmart.dtos.ProductsDTO;
+import com.nagarro.yourmart.dtos.ProductResponse;
 import com.nagarro.yourmart.dtos.ResponseModel;
-import com.nagarro.yourmart.dtos.SellerRequest;
 import com.nagarro.yourmart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,18 +21,25 @@ public class ProductController extends RestResponseHandler {
     ProductService productService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/products", produces = "application/json")
-    public ResponseEntity<ResponseModel<List<ProductsDTO>>> getAllProducts() {
-        List<ProductsDTO> productsList = productService.getAllProducts();
+    public ResponseEntity<ResponseModel<List<ProductResponse>>> getAllProducts() {
+        List<ProductResponse> productsList = productService.getAllProducts();
         return super.responseStandardizer(productsList);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/product")
-    public ResponseEntity<ResponseModel<String>> getProductById(
+    public ResponseEntity<ResponseModel<String>> createProduct(
             @RequestBody ProductRequest productRequest
     ) {
         String productResponse = productService.createProduct(productRequest);
         return super.responseStandardizer(productResponse);
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/product/{id}", produces = "application/json")
+    public ResponseEntity<ResponseModel<ProductResponse>> getProductById(
+            @PathVariable("id") long id
+    ) {
+        return null;
     }
 
 }
