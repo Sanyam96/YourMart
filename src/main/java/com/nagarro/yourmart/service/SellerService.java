@@ -55,20 +55,20 @@ public class SellerService {
     @Transactional
     public SellerResponse getSellerById(long id) {
         Seller seller = sellerRepository.getById(id, Seller.class);
-        SellerResponse sellerDTO = Utility.convertModel(seller, SellerResponse.class);
+        SellerResponse sellerResponse = Utility.convertModel(seller, SellerResponse.class);
 
-        if(sellerDTO.getSellerStatusId() == 1) {
-            sellerDTO.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
-        } else if(sellerDTO.getSellerStatusId() == 2) {
-            sellerDTO.setSellerStatus(SellerStatusEnum.NON_REGISTERED);
+        if(sellerResponse.getSellerStatusId() == 1) {
+            sellerResponse.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
+        } else if(sellerResponse.getSellerStatusId() == 2) {
+            sellerResponse.setSellerStatus(SellerStatusEnum.NON_REGISTERED);
         } else {
-            sellerDTO.setSellerStatus(SellerStatusEnum.REJECTED);
+            sellerResponse.setSellerStatus(SellerStatusEnum.REJECTED);
         }
 
-        if(sellerDTO == null || seller == null) {
+        if(sellerResponse == null || seller == null) {
             throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
         }
-        return sellerDTO;
+        return sellerResponse;
     }
 
     @Transactional
@@ -76,7 +76,6 @@ public class SellerService {
 
         // db call
         Seller seller = new Seller();
-        SellerStatus sellerStatus = new SellerStatus();
 
         seller.setCompanyName(sellerRequest.getCompanyName());
         seller.setOwnerName(sellerRequest.getOwnerName());
@@ -86,11 +85,12 @@ public class SellerService {
         seller.setGstNumber(sellerRequest.getGstNumber());
         seller.setPassword(sellerRequest.getPassword());
 
+        // by default status to 1
         seller.setSellerStatus(sellerStatusService.getSellerStatusById(1));
-        System.out.println("done-half");
+//        System.out.println("done-half");
 
         sellerRepository.create(seller);
-        System.out.println("done");
+//        System.out.println("done");
 
         return "created";
     }

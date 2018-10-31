@@ -28,6 +28,7 @@ public class SellerRequest {
     @JsonProperty(required = true)
     private String password;
 
+    // Todo to be removed from the request!
     @JsonProperty(required = false)
     private long sellerStatusId;
 

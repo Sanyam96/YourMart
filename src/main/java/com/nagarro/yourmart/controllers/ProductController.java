@@ -1,10 +1,13 @@
 package com.nagarro.yourmart.controllers;
 
+import com.nagarro.yourmart.dtos.ProductRequest;
 import com.nagarro.yourmart.dtos.ProductsDTO;
 import com.nagarro.yourmart.dtos.ResponseModel;
+import com.nagarro.yourmart.dtos.SellerRequest;
 import com.nagarro.yourmart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +30,13 @@ public class ProductController extends RestResponseHandler {
         return super.responseStandardizer(productsList);
     }
 
-//    public ResponseEntity<ResponseModel<ProductsDTO>>
+    @RequestMapping(method = RequestMethod.POST, value = "/product")
+    public ResponseEntity<ResponseModel<String>> getProductById(
+            @RequestBody ProductRequest productRequest
+    ) {
+        String productResponse = productService.createProduct(productRequest);
+        return super.responseStandardizer(productResponse);
+
+    }
 
 }
