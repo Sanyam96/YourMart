@@ -1,6 +1,8 @@
 package com.nagarro.yourmart.service;
 
 import com.nagarro.yourmart.domains.Seller;
+import com.nagarro.yourmart.dtos.SellerRequest;
+import com.nagarro.yourmart.dtos.SellerResponse;
 import com.nagarro.yourmart.dtos.SellersDTO;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.SellerRepository;
@@ -41,5 +43,29 @@ public class SellerService {
             throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
         }
         return sellerDTO;
+    }
+
+    @Transactional
+    public String createSeller(SellerRequest sellerRequest) {
+
+        // db call
+        Seller seller = new Seller();
+
+        seller.setCompanyName(sellerRequest.getCompanyName());
+        seller.setOwnerName(sellerRequest.getOwnerName());
+        seller.setAddress(sellerRequest.getAddress());
+        seller.setEmailAddress(sellerRequest.getEmailAddress());
+        seller.setTelephoneNumber(sellerRequest.getTelephoneNumber());
+        seller.setGstNumber(sellerRequest.getGstNumber());
+        seller.setPassword(sellerRequest.getPassword());
+        sellerRequest.setSellerStatusId(1);
+        seller.setSellerStatusId(sellerRequest.getSellerStatusId());
+//        seller.setSellerStatus(1);
+        System.out.println("done-half");
+
+        sellerRepository.create(seller);
+        System.out.println("done");
+
+        return "created";
     }
 }

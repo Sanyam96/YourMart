@@ -1,14 +1,13 @@
 package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.dtos.ResponseModel;
+import com.nagarro.yourmart.dtos.SellerRequest;
+import com.nagarro.yourmart.dtos.SellerResponse;
 import com.nagarro.yourmart.dtos.SellersDTO;
 import com.nagarro.yourmart.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +33,14 @@ public class SellerController extends RestResponseHandler {
     ) {
         SellersDTO seller = sellerService.getSellerById(id);
         return super.responseStandardizer(seller);
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/seller")
+    public ResponseEntity<ResponseModel<String>> addSeller(
+            @RequestBody SellerRequest sellerRequest
+    ) {
+        String sellerResponse = sellerService.createSeller(sellerRequest);
+        return super.responseStandardizer(sellerResponse);
     }
 }

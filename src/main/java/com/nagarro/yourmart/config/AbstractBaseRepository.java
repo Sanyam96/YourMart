@@ -4,6 +4,7 @@ import com.nagarro.yourmart.exceptions.YourMartHibernateException;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -45,7 +46,24 @@ public class AbstractBaseRepository {
         } else {
             return output;
         }
+    }
 
+    public Serializable create(Object entity) {
+        try {
+            return this.getCurrentSession().save(entity);
+        } catch (ConstraintViolationException var3) {
+            throw new YourMartResourceNotFoundException(String.format("unable to create resource. constraint voilation exception for %s.", entity.toString()), var3);
+        } catch (HibernateException var4) {
+            throw new YourMartHibernateException(String.format("Hibernate Exception occurred with cause %s", var4.getMessage()), var4);
+        }
+    }
+
+    public void update(Object entity) {
+        try {
+            this.getCurrentSession().update(entity);
+        } catch (HibernateException var3) {
+            throw new YourMartHibernateException(String.format("Hibernate Exception occurred with cause %s", var3.getMessage()), var3);
+        }
     }
 
 }
