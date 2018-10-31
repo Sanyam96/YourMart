@@ -27,12 +27,16 @@ public class SellerResponse {
 
     private SellerStatusEnum sellerStatus;
 
+    private long createdAt;
+
+    private long updatedAt;
+
 
     public SellerResponse() {
 
     }
 
-    public SellerResponse(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId, SellerStatusEnum sellerStatus) {
+    public SellerResponse(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId, SellerStatusEnum sellerStatus, long createdAt, long updatedAt) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -42,6 +46,8 @@ public class SellerResponse {
         this.gstNumber = gstNumber;
         this.sellerStatusId = sellerStatusId;
         this.sellerStatus = sellerStatus;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public long getId() {
@@ -114,5 +120,21 @@ public class SellerResponse {
 
     public void setSellerStatus(SellerStatusEnum sellerStatus) {
         this.sellerStatus = sellerStatus;
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(long updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
