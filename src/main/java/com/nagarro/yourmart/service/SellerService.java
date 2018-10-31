@@ -1,8 +1,8 @@
 package com.nagarro.yourmart.service;
 
 import com.nagarro.yourmart.domains.Seller;
+import com.nagarro.yourmart.domains.SellerStatus;
 import com.nagarro.yourmart.dtos.SellerRequest;
-import com.nagarro.yourmart.dtos.SellerResponse;
 import com.nagarro.yourmart.dtos.SellersDTO;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.SellerRepository;
@@ -21,6 +21,9 @@ public class SellerService {
 
     @Autowired
     SellerRepository sellerRepository;
+
+    @Autowired
+    SellerStatusService sellerStatusService;
 
     @Transactional
     public List<SellersDTO> getAllSellers() {
@@ -50,6 +53,7 @@ public class SellerService {
 
         // db call
         Seller seller = new Seller();
+        SellerStatus sellerStatus = new SellerStatus();
 
         seller.setCompanyName(sellerRequest.getCompanyName());
         seller.setOwnerName(sellerRequest.getOwnerName());
@@ -58,9 +62,8 @@ public class SellerService {
         seller.setTelephoneNumber(sellerRequest.getTelephoneNumber());
         seller.setGstNumber(sellerRequest.getGstNumber());
         seller.setPassword(sellerRequest.getPassword());
-        sellerRequest.setSellerStatusId(1);
-        seller.setSellerStatusId(sellerRequest.getSellerStatusId());
-//        seller.setSellerStatus(1);
+
+        seller.setSellerStatus(sellerStatusService.getSellerStatusById(2));
         System.out.println("done-half");
 
         sellerRepository.create(seller);
