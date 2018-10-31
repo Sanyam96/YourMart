@@ -2,6 +2,7 @@ package com.nagarro.yourmart.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nagarro.yourmart.domains.SellerStatus;
+import com.nagarro.yourmart.enums.SellerStatusEnum;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -29,12 +30,14 @@ public class SellersDTO {
 
     private long sellerStatusId;
 
+    private SellerStatusEnum status;
+
 
     public SellersDTO() {
 
     }
 
-    public SellersDTO(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId) {
+    public SellersDTO(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId, SellerStatusEnum status) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -43,6 +46,7 @@ public class SellersDTO {
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
         this.sellerStatusId = sellerStatusId;
+        this.status = status;
     }
 
     public long getId() {
@@ -107,5 +111,13 @@ public class SellersDTO {
 
     public void setSellerStatusId(long sellerStatusId) {
         this.sellerStatusId = sellerStatusId;
+    }
+
+    public SellerStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(SellerStatusEnum status) {
+        this.status = status;
     }
 }

@@ -4,6 +4,7 @@ import com.nagarro.yourmart.domains.Seller;
 import com.nagarro.yourmart.domains.SellerStatus;
 import com.nagarro.yourmart.dtos.SellerRequest;
 import com.nagarro.yourmart.dtos.SellersDTO;
+import com.nagarro.yourmart.enums.SellerStatusEnum;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.SellerRepository;
 import com.nagarro.yourmart.utils.Utility;
@@ -41,6 +42,14 @@ public class SellerService {
     public SellersDTO getSellerById(long id) {
         Seller seller = sellerRepository.getById(id, Seller.class);
         SellersDTO sellerDTO = Utility.convertModel(seller, SellersDTO.class);
+
+        if(sellerDTO.getSellerStatusId() == 1) {
+            sellerDTO.setStatus(SellerStatusEnum.NEED_APPROVAL);
+        } else if(sellerDTO.getSellerStatusId() == 2) {
+            sellerDTO.setStatus(SellerStatusEnum.NON_REGISTERED);
+        } else {
+            sellerDTO.setStatus(SellerStatusEnum.REJECTED);
+        }
 
         if(sellerDTO == null || seller == null) {
             throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);

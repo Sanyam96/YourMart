@@ -5,20 +5,10 @@ package com.nagarro.yourmart.enums;
  */
 public enum SellerStatusEnum {
 
-    NEED_APPROVAL(1),
+    NEED_APPROVAL,
 
-    NON_REGISTERED(2),
+    NON_REGISTERED,
 
-    REJECTED(3);
-
-    private long value;
-
-    SellerStatusEnum(long value) {
-        this.value = value;
-    }
-
-    public long getValue() {
-        return value;
-    }
+    REJECTED;
 
 }
