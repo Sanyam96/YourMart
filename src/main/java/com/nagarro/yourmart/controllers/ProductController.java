@@ -39,7 +39,8 @@ public class ProductController extends RestResponseHandler {
     public ResponseEntity<ResponseModel<ProductResponse>> getProductById(
             @PathVariable("id") long id
     ) {
-        return null;
+        ProductResponse product = productService.getProductById(id);
+        return super.responseStandardizer(product);
     }
 
 }

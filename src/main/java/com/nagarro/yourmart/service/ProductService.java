@@ -62,19 +62,22 @@ public class ProductService {
         product.setSeller(sellerService.getSellerId(productRequest.getSellerId()));
         System.out.println("halfDone");
 
-
         // product status id
         // NEW with id 1
-        // seller.setSellerStatus(sellerStatusService.getSellerStatusById(1));
-
         product.setProductStatus(productStatusService.getProductStatusById(1));
         System.out.println("done");
         productRepository.create(product);
 
-
         System.out.println("fulldone");
-
         return "created";
+    }
+
+    @Transactional
+    public ProductResponse getProductById(long id) {
+        Products product = productRepository.getById(id, Products.class);
+        ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);
+
+        return productResponse;
     }
 
 }
