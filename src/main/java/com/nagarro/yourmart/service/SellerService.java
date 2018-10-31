@@ -44,11 +44,11 @@ public class SellerService {
         SellersDTO sellerDTO = Utility.convertModel(seller, SellersDTO.class);
 
         if(sellerDTO.getSellerStatusId() == 1) {
-            sellerDTO.setStatus(SellerStatusEnum.NEED_APPROVAL);
+            sellerDTO.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
         } else if(sellerDTO.getSellerStatusId() == 2) {
-            sellerDTO.setStatus(SellerStatusEnum.NON_REGISTERED);
+            sellerDTO.setSellerStatus(SellerStatusEnum.NON_REGISTERED);
         } else {
-            sellerDTO.setStatus(SellerStatusEnum.REJECTED);
+            sellerDTO.setSellerStatus(SellerStatusEnum.REJECTED);
         }
 
         if(sellerDTO == null || seller == null) {

@@ -1,12 +1,7 @@
 package com.nagarro.yourmart.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.nagarro.yourmart.domains.SellerStatus;
 import com.nagarro.yourmart.enums.SellerStatusEnum;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 /**
  * @author Sanyam Goel created on 30/10/18
@@ -30,14 +25,14 @@ public class SellersDTO {
 
     private long sellerStatusId;
 
-    private SellerStatusEnum status;
+    private SellerStatusEnum sellerStatus;
 
 
     public SellersDTO() {
 
     }
 
-    public SellersDTO(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId, SellerStatusEnum status) {
+    public SellersDTO(long id, String companyName, String ownerName, String address, String emailAddress, long telephoneNumber, String gstNumber, long sellerStatusId, SellerStatusEnum sellerStatus) {
         this.id = id;
         this.companyName = companyName;
         this.ownerName = ownerName;
@@ -46,7 +41,7 @@ public class SellersDTO {
         this.telephoneNumber = telephoneNumber;
         this.gstNumber = gstNumber;
         this.sellerStatusId = sellerStatusId;
-        this.status = status;
+        this.sellerStatus = sellerStatus;
     }
 
     public long getId() {
@@ -113,11 +108,11 @@ public class SellersDTO {
         this.sellerStatusId = sellerStatusId;
     }
 
-    public SellerStatusEnum getStatus() {
-        return status;
+    public SellerStatusEnum getSellerStatus() {
+        return sellerStatus;
     }
 
-    public void setStatus(SellerStatusEnum status) {
-        this.status = status;
+    public void setSellerStatus(SellerStatusEnum sellerStatus) {
+        this.sellerStatus = sellerStatus;
     }
 }
