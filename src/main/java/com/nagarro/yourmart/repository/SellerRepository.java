@@ -13,12 +13,11 @@ import org.springframework.stereotype.Repository;
 public class SellerRepository extends AbstractBaseRepository {
 
     public Seller getSellerStatus(long id, String password) {
-        Seller seller = new Seller();
         Criteria criteria = this.getCurrentSession().createCriteria(Seller.class);
         criteria.add(Restrictions.eq("id", id));
         criteria.add(Restrictions.eq("password", password));
-        System.out.println(criteria);
-        seller = (Seller) criteria.uniqueResult();
+//        System.out.println(criteria);
+        Seller seller = (Seller) criteria.uniqueResult();
         return seller;
     }
 }

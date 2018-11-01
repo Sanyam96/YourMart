@@ -14,6 +14,9 @@ public class Admin extends BaseEntity {
     @Column(name = "admin_id")
     private long id;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "name")
     private String name;
 
@@ -27,16 +30,18 @@ public class Admin extends BaseEntity {
 
     }
 
-    public Admin(long createdAt, long updatedAt, long id, String name, String email, String password) {
+    public Admin(long createdAt, long updatedAt, long id, String username, String name, String email, String password) {
         super(createdAt, updatedAt);
         this.id = id;
+        this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public Admin(long id, String name, String email, String password) {
+    public Admin(long id, String username, String name, String email, String password) {
         this.id = id;
+        this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -48,6 +53,14 @@ public class Admin extends BaseEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
