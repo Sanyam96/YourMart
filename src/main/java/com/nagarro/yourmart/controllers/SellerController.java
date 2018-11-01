@@ -38,10 +38,10 @@ public class SellerController extends RestResponseHandler {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/seller")
-    public ResponseEntity<ResponseModel<String>> addSeller(
+    public ResponseEntity<ResponseModel<SellerResponse>> addSeller(
             @RequestBody SellerRequest sellerRequest
     ) {
-        String sellerResponse = sellerService.createSeller(sellerRequest);
+        SellerResponse sellerResponse = sellerService.createSeller(sellerRequest);
         return super.responseStandardizer(sellerResponse);
     }
 

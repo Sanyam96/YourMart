@@ -69,7 +69,7 @@ public class SellerService {
     }
 
     @Transactional
-    public String createSeller(SellerRequest sellerRequest) {
+    public SellerResponse createSeller(SellerRequest sellerRequest) {
 
         // db call
         Seller seller = new Seller();
@@ -89,7 +89,15 @@ public class SellerService {
         sellerRepository.create(seller);
 //        System.out.println("done");
 
-        return "created";
+        SellerResponse sellerResponse = Utility.convertModel(sellerRequest, SellerResponse.class);
+        sellerResponse.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
+        sellerResponse.setSellerStatusId(seller.getSellerStatus().getId());
+        sellerResponse.setId(seller.getId());
+        sellerResponse.setCreatedAt(seller.getCreatedAt());
+        sellerResponse.setUpdatedAt(seller.getUpdatedAt());
+
+        return sellerResponse;
+//        return "created";
     }
 
 
