@@ -2,6 +2,7 @@ package com.nagarro.yourmart.service;
 
 import com.nagarro.yourmart.domains.Seller;
 import com.nagarro.yourmart.domains.SellerStatus;
+import com.nagarro.yourmart.dtos.SellerLoginRequest;
 import com.nagarro.yourmart.dtos.SellerRequest;
 import com.nagarro.yourmart.dtos.SellerResponse;
 import com.nagarro.yourmart.enums.SellerStatusEnum;
@@ -98,5 +99,26 @@ public class SellerService {
         return seller;
     }
 
-
+    @Transactional
+    public String checkUser(SellerLoginRequest sellerlogin) {
+        Seller seller = sellerRepository.getSellerStatus(sellerlogin.getId(), sellerlogin.getPassword());
+        if(seller == null) {
+            return "false";
+        } else {
+            if(seller.getSellerStatusId() == 1) {
+                System.out.println("NEED_APPROVAL");
+                System.out.println(SellerStatusEnum.NEED_APPROVAL);
+                return "NEED_APPROVAL";
+            } else if(seller.getSellerStatusId() == 2) {
+                System.out.println("NON_REGISTERED");
+                System.out.println(SellerStatusEnum.NON_REGISTERED);
+                return "NON_REGISTERED";
+            } else if(seller.getSellerStatusId() == 3   ) {
+                System.out.println("REJECTED");
+                System.out.println(SellerStatusEnum.REJECTED);
+                return "REJECTED";
+            }
+        }
+        return "notKnown";
+    }
 }

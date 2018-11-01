@@ -1,6 +1,7 @@
 package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.dtos.ResponseModel;
+import com.nagarro.yourmart.dtos.SellerLoginRequest;
 import com.nagarro.yourmart.dtos.SellerRequest;
 import com.nagarro.yourmart.dtos.SellerResponse;
 import com.nagarro.yourmart.service.SellerService;
@@ -41,5 +42,14 @@ public class SellerController extends RestResponseHandler {
     ) {
         String sellerResponse = sellerService.createSeller(sellerRequest);
         return super.responseStandardizer(sellerResponse);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/seller/login", produces = "application/json")
+    public ResponseEntity<ResponseModel<String>> loginSeller(
+            @RequestBody SellerLoginRequest sellerlogin
+    ) {
+        String s = sellerService.checkUser(sellerlogin);
+        return super.responseStandardizer(s);
+
     }
 }
