@@ -120,4 +120,16 @@ public class ProductService {
         return productResponses;
     }
 
+    @Transactional
+    public ProductResponse getProductBySellerIdProductId(long sellerId, long productId) {
+        Products product = productRepository.getProductBySellerIdProductId(sellerId, productId);
+        ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);
+
+        if(productResponse == null || product == null) {
+            throw new YourMartResourceNotFoundException("Product not found with the given Seller id: " + sellerId + " or Product id: " + productId);
+        }
+
+        return productResponse;
+    }
+
 }

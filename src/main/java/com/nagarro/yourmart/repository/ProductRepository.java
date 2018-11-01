@@ -20,4 +20,13 @@ public class ProductRepository extends AbstractBaseRepository {
         System.out.println("okok");
         return criteria.list();
     }
+
+    public Products getProductBySellerIdProductId(long sellerId, long productId) {
+        Criteria criteria = this.getCurrentSession().createCriteria(Products.class);
+        criteria.add(Restrictions.eq("sellerId", sellerId));
+        criteria.add(Restrictions.eq("id", productId));
+        System.out.println("successfull");
+        Products product = (Products) criteria.uniqueResult();
+        return product;
+    }
 }
