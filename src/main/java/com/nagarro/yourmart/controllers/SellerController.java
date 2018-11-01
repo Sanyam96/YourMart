@@ -1,9 +1,7 @@
 package com.nagarro.yourmart.controllers;
 
-import com.nagarro.yourmart.dtos.ResponseModel;
-import com.nagarro.yourmart.dtos.SellerLoginRequest;
-import com.nagarro.yourmart.dtos.SellerRequest;
-import com.nagarro.yourmart.dtos.SellerResponse;
+import com.nagarro.yourmart.dtos.*;
+import com.nagarro.yourmart.service.ProductService;
 import com.nagarro.yourmart.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,9 @@ public class SellerController extends RestResponseHandler {
 
     @Autowired
     SellerService sellerService;
+
+    @Autowired
+    ProductService productService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/sellers", produces = "application/json")
     public ResponseEntity<ResponseModel<List<SellerResponse>>> getAllSellers() {
@@ -51,5 +52,13 @@ public class SellerController extends RestResponseHandler {
         String s = sellerService.checkUser(sellerlogin);
         return super.responseStandardizer(s);
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/seller/{sellerId}/products", produces = "application/json")
+    public ResponseEntity<ResponseModel<List<ProductResponse>>> getProductsBySellerId (
+            @PathVariable("sellerId") long sellerId
+    ) {
+        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId);
+        return super.responseStandardizer(productsList);
     }
 }

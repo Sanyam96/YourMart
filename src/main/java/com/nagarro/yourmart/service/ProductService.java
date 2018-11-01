@@ -31,6 +31,7 @@ public class ProductService {
     @Autowired
     SellerService sellerService;
 
+
     @Transactional
     public List<ProductResponse> getAllProducts() {
         List<Products> productsList = productRepository.getList(Products.class);
@@ -101,10 +102,22 @@ public class ProductService {
         }
 
         if(productResponse == null || product == null) {
-            throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
+            throw new YourMartResourceNotFoundException("Product not found with the given id: " + id);
         }
 
         return productResponse;
+    }
+
+    @Transactional
+    public List<ProductResponse> getAllProductsBySellerId(long sellerId) {
+        List<Products> products = productRepository.getProductsListBySellerId(sellerId);
+        List<ProductResponse> productResponses = Utility.convertModelList(products, ProductResponse.class);
+
+        if(productResponses == null || products.isEmpty()) {
+            throw new YourMartResourceNotFoundException("Product List not found with the given id: " + sellerId);
+        }
+        System.out.println("hello");
+        return productResponses;
     }
 
 }
