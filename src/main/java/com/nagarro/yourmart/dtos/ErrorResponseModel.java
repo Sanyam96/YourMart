@@ -29,4 +29,44 @@ public class ErrorResponseModel {
 
     public ErrorResponseModel() {
     }
+
+    public YourMartExceptionType getExceptionType() {
+        return exceptionType;
+    }
+
+    public void setExceptionType(YourMartExceptionType exceptionType) {
+        this.exceptionType = exceptionType;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public List<String> getErrorCause() {
+        return errorCause;
+    }
+
+    public void setErrorCause(List<String> errorCause) {
+        this.errorCause = errorCause;
+    }
 }
