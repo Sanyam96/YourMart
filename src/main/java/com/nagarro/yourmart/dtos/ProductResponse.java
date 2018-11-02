@@ -51,12 +51,16 @@ public class ProductResponse {
     // category
     private long categoryId;
 
+    private String sellerCompanyName;
+
+    private String categoryName;
+
 
     public ProductResponse() {
 
     }
 
-    public ProductResponse(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId, ProductStatusEnum productStatus, long productStatusId, long createdAt, long updatedAt, long categoryId) {
+    public ProductResponse(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId, ProductStatusEnum productStatus, long productStatusId, long createdAt, long updatedAt, long categoryId, String sellerCompanyName, String categoryName) {
         this.id = id;
         this.productName = productName;
         this.productCode = productCode;
@@ -73,6 +77,8 @@ public class ProductResponse {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.categoryId = categoryId;
+        this.sellerCompanyName = sellerCompanyName;
+        this.categoryName = categoryName;
     }
 
     public long getId() {
@@ -201,5 +207,21 @@ public class ProductResponse {
 
     public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getSellerCompanyName() {
+        return sellerCompanyName;
+    }
+
+    public void setSellerCompanyName(String sellerCompanyName) {
+        this.sellerCompanyName = sellerCompanyName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

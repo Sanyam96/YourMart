@@ -8,7 +8,7 @@
 <meta charset="ISO-8859-1">
 <title>Employee Details</title>
 </head>
-<body style="background-color:#ccebff;">
+<body>
     <p>${ab}</p>
 
     <form action="/admin/product" method="POST">
@@ -23,8 +23,10 @@
             <th>createdAt</th>
             <th>updatedAt</th>
             <th>SellerId</th>
-            <th>Category</th>
+            <th>CategoryId</th>
             <th>Status</th>
+            <th>SellerCompanyName</th>
+            <th>categoryName</th>
           </tr>
           <c:forEach items="${ab}" var="product">
             <tr>
@@ -37,6 +39,10 @@
               <td>${product.createdAt}</td>
               <td>${product.updatedAt}</td>
               <td>${product.sellerId}</td>
+              <td>${product.categoryId}</td>
+              <td>${product.productStatus}</td>
+              <td>${product.sellerCompanyName}</td>
+              <td>${product.categoryName}</td>
 
             </tr>
           </c:forEach>

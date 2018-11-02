@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * @author Sanyam Goel created on 30/10/18
@@ -48,6 +51,16 @@ public class ProductService {
             } else if(productResponseList.get((int) i).getProductStatusId() == 4){
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REVIEW);
             }
+            long sellerId = productResponseList.get((int) i).getSellerId();
+            productResponseList.get((int) i).setSellerCompanyName(sellerService.getSellerById(sellerId).getCompanyName());
+
+            long categoryId = productResponseList.get((int) i).getCategoryId();
+            productResponseList.get((int) i).setCategoryName(categoryService.getCategoryById(categoryId).getName());
+
+
+//            long test_timestamp = productResponseList.get((int) i).getCreatedAt();
+//            LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(test_timestamp), TimeZone.getDefault().toZoneId());
+//            productResponseList.get((int) i).setCreatedAt(localDateTime);
         }
 
         if(productResponseList == null || productsList.isEmpty()) {
