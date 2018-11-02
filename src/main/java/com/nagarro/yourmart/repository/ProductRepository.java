@@ -14,9 +14,22 @@ import java.util.List;
 @Repository
 public class ProductRepository extends AbstractBaseRepository {
 
-    public List<Products> getProductsListBySellerId(long sellerId) {
+    public List<Products> getProductsListBySellerId(long sellerId, String productCode, String productName, Long productId) {
         Criteria criteria = this.getCurrentSession().createCriteria(Products.class);
         criteria.add(Restrictions.eq("sellerId", sellerId));
+
+        if(productId != null) {
+            criteria.add(Restrictions.eq("id", productId));
+        }
+
+        if(productCode != null) {
+            criteria.add(Restrictions.like("productCode", ("%" + productCode + "%")));
+        }
+
+        if(productName != null) {
+            criteria.add(Restrictions.like("productName", ("%" + productName + "%")));
+        }
+
         System.out.println("okok");
         return criteria.list();
     }

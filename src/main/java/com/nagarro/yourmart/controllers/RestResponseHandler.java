@@ -13,10 +13,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolation;
@@ -30,6 +27,7 @@ import java.util.Iterator;
  * @author Sanyam Goel created on 29/10/18
  */
 @ControllerAdvice
+@CrossOrigin
 public class RestResponseHandler {
 
     RestResponseHandler() {

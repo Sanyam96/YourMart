@@ -54,11 +54,22 @@ public class SellerController extends RestResponseHandler {
 
     }
 
+    /**
+     * get all products and search products
+     * @param sellerId
+     * @param productCode
+     * @param productName
+     * @param productId
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/seller/{sellerId}/products", produces = "application/json")
     public ResponseEntity<ResponseModel<List<ProductResponse>>> getProductsBySellerId (
-            @PathVariable("sellerId") long sellerId
+            @PathVariable("sellerId") long sellerId,
+            @RequestParam(required = false, name = "productCode") String productCode,
+            @RequestParam(required = false, name = "productName") String productName,
+            @RequestParam(required = false, name = "productId") Long productId
     ) {
-        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId);
+        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId);
         return super.responseStandardizer(productsList);
     }
 
@@ -70,4 +81,5 @@ public class SellerController extends RestResponseHandler {
         ProductResponse product = productService.getProductBySellerIdProductId(sellerId, productId);
         return super.responseStandardizer(product);
     }
+
 }
