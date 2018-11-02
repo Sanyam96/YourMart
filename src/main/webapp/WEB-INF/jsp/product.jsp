@@ -58,6 +58,7 @@
         <input type="radio" name="sortBy" value="ymp" ${ympChecked}/>YMP<br />
         <input type="radio" name="sortBy" value="createdAt" ${createdAtChecked}/>Created At<br />
         <input type="radio" name="sortBy" value="updatedAt" ${updatedAtChecked}/>Updated At<br />
+        <input type"text" name="sellerId" value="sellerId"/>
 
         <input type="submit" value="pessMe">
 

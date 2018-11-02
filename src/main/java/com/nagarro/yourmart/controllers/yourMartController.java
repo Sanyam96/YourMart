@@ -102,6 +102,7 @@ public class yourMartController extends RestResponseHandler {
             HttpServletResponse response,
             HttpServletRequest request,
             @RequestParam(value="sortBy",required=false) String sortBy,
+            @RequestParam(value="sellerId",required=false, defaultValue = "1") long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
             @RequestParam(required = false, name = "productId") Long productId,
@@ -127,13 +128,12 @@ public class yourMartController extends RestResponseHandler {
             String updatedAtChecked = sortBy.equals("updatedAt") ? "checked" : " ";
             model.addAttribute("updatedAtChecked", updatedAtChecked);
         }
-//        if(session!=null && session.getAttribute("admin")!=null) {
-////            List<ProductResponse> productResponse = productService.getAllProducts();
-//
-//        }
-        List<ProductResponse> productResponse = productService.getAllProductsBySellerId(1, productCode, productName, productId, sortBy, categoryId, productStatusId);
+        List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId);
         model.addAttribute("ab", productResponse);
         return "product";
+//        if(session!=null) {
+////            List<ProductResponse> productResponse = productService.getAllProducts();
+//        }
 
 
 
