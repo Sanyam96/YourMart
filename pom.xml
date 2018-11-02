@@ -92,6 +92,7 @@
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
+		<!--do not provide scope in above depenedecy if working on IntelliJ Idea-->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>

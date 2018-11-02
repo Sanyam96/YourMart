@@ -1,6 +1,7 @@
 package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.domains.Admin;
+import com.nagarro.yourmart.dtos.AdminResponse;
 import com.nagarro.yourmart.dtos.ResponseModel;
 import com.nagarro.yourmart.service.AdminService;
 import com.nagarro.yourmart.service.YourMartService;
@@ -60,7 +61,7 @@ public class yourMartController extends RestResponseHandler {
             HttpServletRequest request,
             HttpServletResponse response
     ) {
-        Admin admin = adminService.authenticate(username,password);
+        AdminResponse admin = adminService.authenticate(username,password);
         request.getSession().setAttribute("admin", admin);
         return "redirect:/admin/home";
     }
