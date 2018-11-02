@@ -127,12 +127,13 @@ public class yourMartController extends RestResponseHandler {
             String updatedAtChecked = sortBy.equals("updatedAt") ? "checked" : " ";
             model.addAttribute("updatedAtChecked", updatedAtChecked);
         }
-        if(session!=null && session.getAttribute("admin")!=null) {
-//            List<ProductResponse> productResponse = productService.getAllProducts();
-            List<ProductResponse> productResponse = productService.getAllProductsBySellerId(1, productCode, productName, productId, sortBy, categoryId, productStatusId);
-            model.addAttribute("ab", productResponse);
-            return "product";
-        }
+//        if(session!=null && session.getAttribute("admin")!=null) {
+////            List<ProductResponse> productResponse = productService.getAllProducts();
+//
+//        }
+        List<ProductResponse> productResponse = productService.getAllProductsBySellerId(1, productCode, productName, productId, sortBy, categoryId, productStatusId);
+        model.addAttribute("ab", productResponse);
+        return "product";
 
 
 
@@ -148,7 +149,7 @@ public class yourMartController extends RestResponseHandler {
         <input type="submit" value="pessMe">
     </form>
          */
-        return "redirect:/admin/login";
+//        return "redirect:/admin/login";
     }
 
 }

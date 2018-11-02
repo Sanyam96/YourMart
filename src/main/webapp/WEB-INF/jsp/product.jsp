@@ -11,7 +11,7 @@
 <body>
     <p>${ab}</p>
 
-    <form action="/admin/product" method="GET">
+    <form action="/admin/products" method="GET">
         <table border="1">
           <tr>
             <th>id</th>
@@ -52,14 +52,14 @@
         </table>
 
 
-                <h3>Sort By</h3>
-                <input type="radio" name="sortBy" value="mrp" ${mrpChecked}/>MRP<br />
-                <input type="radio" name="sortBy" value="ssp" ${sspChecked}/>SSP<br />
-                <input type="radio" name="sortBy" value="ymp" ${ympChecked}/>YMP<br />
-                <input type="radio" name="sortBy" value="createdAt" ${createdAtChecked}/>Created At<br />
-                <input type="radio" name="sortBy" value="updatedAt" ${updatedAtChecked}/>Updated At<br />
+        <h3>Sort By</h3>
+        <input type="radio" name="sortBy" value="mrp" ${mrpChecked}/>MRP<br />
+        <input type="radio" name="sortBy" value="ssp" ${sspChecked}/>SSP<br />
+        <input type="radio" name="sortBy" value="ymp" ${ympChecked}/>YMP<br />
+        <input type="radio" name="sortBy" value="createdAt" ${createdAtChecked}/>Created At<br />
+        <input type="radio" name="sortBy" value="updatedAt" ${updatedAtChecked}/>Updated At<br />
 
-                <input type="submit" value="pessMe">
+        <input type="submit" value="pessMe">
 
     </form>
 
