@@ -11,7 +11,7 @@
 <body>
     <p>${ab}</p>
 
-    <form action="/admin/product" method="POST">
+    <form action="/admin/product" method="GET">
         <table border="1">
           <tr>
             <th>id</th>
@@ -47,12 +47,23 @@
               <td>${product.productStatus}</td>
               <td>${product.sellerCompanyName}</td>
               <td>${product.categoryName}</td>
-
-
             </tr>
           </c:forEach>
         </table>
-        <input type="submit" value="Approve">
+
+
+                <h3>Sort By</h3>
+                <input type="radio" name="sortBy" value="mrp" ${mrpChecked}/>MRP<br />
+                <input type="radio" name="sortBy" value="ssp" ${sspChecked}/>SSP<br />
+                <input type="radio" name="sortBy" value="ymp" ${ympChecked}/>YMP<br />
+                <input type="radio" name="sortBy" value="createdAt" ${createdAtChecked}/>Created At<br />
+                <input type="radio" name="sortBy" value="updatedAt" ${updatedAtChecked}/>Updated At<br />
+
+                <input type="submit" value="pessMe">
+
     </form>
+
+
+
 </body>
 </html>

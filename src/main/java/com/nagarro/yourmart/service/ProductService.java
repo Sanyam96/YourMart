@@ -127,13 +127,42 @@ public class ProductService {
     @Transactional
     public List<ProductResponse> getAllProductsBySellerId(long sellerId, String productCode, String productName, Long productId, String sortParamater, Long categoryId, Long productStatusId) {
         List<Products> products = productRepository.getProductsListBySellerId(sellerId, productCode, productName, productId, sortParamater, categoryId, productStatusId);
-        List<ProductResponse> productResponses = Utility.convertModelList(products, ProductResponse.class);
+        List<ProductResponse> productResponseList = Utility.convertModelList(products, ProductResponse.class);
 
-        if(productResponses == null || products.isEmpty()) {
+        for (long i = 0; i < productResponseList.size(); i++) {
+            if(productResponseList.get((int) i).getProductStatusId() == 1) {
+                productResponseList.get((int) i).setProductStatus(ProductStatusEnum.NEW);
+            } else if(productResponseList.get((int) i).getProductStatusId() == 2) {
+                productResponseList.get((int) i).setProductStatus(ProductStatusEnum.APPROVED);
+            } else if(productResponseList.get((int) i).getProductStatusId() == 3){
+                productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REJECTED);
+            } else if(productResponseList.get((int) i).getProductStatusId() == 4){
+                productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REVIEW);
+            }
+
+            // todo
+            long selleId = productResponseList.get((int) i).getSellerId();
+            productResponseList.get((int) i).setSellerCompanyName(sellerService.getSellerById(selleId).getCompanyName());
+
+            long categorId = productResponseList.get((int) i).getCategoryId();
+            productResponseList.get((int) i).setCategoryName(categoryService.getCategoryById(categorId).getName());
+
+            Date createdAtInHumanDate = new Date(productResponseList.get((int) i).getCreatedAt());
+            Date updatedAtInHumanDate = new Date(productResponseList.get((int) i).getUpdatedAt());
+            productResponseList.get((int) i).setCreatedAtInHumanDate(createdAtInHumanDate);
+            productResponseList.get((int) i).setUpdatedAtInHumanDate(updatedAtInHumanDate);
+
+
+//            long test_timestamp = productResponseList.get((int) i).getCreatedAt();
+//            LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(test_timestamp), TimeZone.getDefault().toZoneId());
+//            productResponseList.get((int) i).setCreatedAt(localDateTime);
+        }
+
+        if(productResponseList == null || products.isEmpty()) {
             throw new YourMartResourceNotFoundException("Product List not found with the given id: " + sellerId);
         }
         System.out.println("hello");
-        return productResponses;
+        return productResponseList;
     }
 
     @Transactional

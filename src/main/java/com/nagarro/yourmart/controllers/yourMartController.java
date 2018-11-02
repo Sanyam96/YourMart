@@ -100,12 +100,55 @@ public class yourMartController extends RestResponseHandler {
     public String getAllProducts(
             Model model,
             HttpServletResponse response,
-            HttpServletRequest request
+            HttpServletRequest request,
+            @RequestParam(value="sortBy",required=false) String sortBy,
+            @RequestParam(required = false, name = "productCode") String productCode,
+            @RequestParam(required = false, name = "productName") String productName,
+            @RequestParam(required = false, name = "productId") Long productId,
+//            @RequestParam(required = false, name = "sort") String sortParamater,
+            @RequestParam(required = false, name = "categoryId") Long categoryId,
+            @RequestParam(required = false, name = "productStatusId") Long productStatusId
     ) {
         HttpSession session = request.getSession(false);
-        List<ProductResponse> productResponse = productService.getAllProducts();
-        model.addAttribute("ab", productResponse);
-        return "product";
+
+//        List<ProductResponse> productResponse = productService.getAllProductsBySellerId(1, productCode, productName, productId, sortBy, categoryId, productStatusId);
+//        model.addAttribute("ab", productResponse);
+//        return "product";
+
+        if(sortBy!=null) {
+            String mrpChecked = sortBy.equals("mrp") ? "checked" : " ";
+            model.addAttribute("mrpChecked", mrpChecked);
+            String sspChecked = sortBy.equals("ssp") ? "checked" : " ";
+            model.addAttribute("sspChecked", sspChecked);
+            String ympChecked = sortBy.equals("ymp") ? "checked" : " ";
+            model.addAttribute("ympChecked", ympChecked);
+            String createdAtChecked = sortBy.equals("createdAt") ? "checked" : " ";
+            model.addAttribute("createdAtChecked", createdAtChecked);
+            String updatedAtChecked = sortBy.equals("updatedAt") ? "checked" : " ";
+            model.addAttribute("updatedAtChecked", updatedAtChecked);
+        }
+        if(session!=null && session.getAttribute("admin")!=null) {
+//            List<ProductResponse> productResponse = productService.getAllProducts();
+            List<ProductResponse> productResponse = productService.getAllProductsBySellerId(1, productCode, productName, productId, sortBy, categoryId, productStatusId);
+            model.addAttribute("ab", productResponse);
+            return "product";
+        }
+
+
+
+        /*
+        <form action="/admin/products" method="POST">
+        <h3>Sort By</h3>
+        <input type="radio" name="sortBy" value="mrp" ${mrpChecked}/>MRP<br />
+        <input type="radio" name="sortBy" value="ssp" ${sspChecked}/>SSP<br />
+        <input type="radio" name="sortBy" value="ymp" ${ympChecked}/>YMP<br />
+        <input type="radio" name="sortBy" value="createdAt" ${createdAtChecked}/>Created At<br />
+        <input type="radio" name="sortBy" value="updatedAt" ${updatedAtChecked}/>Updated At<br />
+
+        <input type="submit" value="pessMe">
+    </form>
+         */
+        return "redirect:/admin/login";
     }
 
 }
