@@ -3,6 +3,7 @@ package com.nagarro.yourmart.repository;
 import com.nagarro.yourmart.config.AbstractBaseRepository;
 import com.nagarro.yourmart.domains.Products;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Repository
 public class ProductRepository extends AbstractBaseRepository {
 
-    public List<Products> getProductsListBySellerId(long sellerId, String productCode, String productName, Long productId) {
+    public List<Products> getProductsListBySellerId(long sellerId, String productCode, String productName, Long productId, String sortParameter, Long categoryId, Long productStatusId) {
         Criteria criteria = this.getCurrentSession().createCriteria(Products.class);
         criteria.add(Restrictions.eq("sellerId", sellerId));
 
@@ -28,6 +29,18 @@ public class ProductRepository extends AbstractBaseRepository {
 
         if(productName != null) {
             criteria.add(Restrictions.like("productName", ("%" + productName + "%")));
+        }
+
+        if(sortParameter != null) {
+            criteria.addOrder(Order.asc(sortParameter));
+        }
+
+        if(categoryId != null) {
+            criteria.add(Restrictions.eq("categoryId", categoryId));
+        }
+
+        if(productStatusId != null) {
+            criteria.add(Restrictions.eq("productStatusId", productStatusId));
         }
 
         System.out.println("okok");

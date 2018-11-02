@@ -67,9 +67,12 @@ public class SellerController extends RestResponseHandler {
             @PathVariable("sellerId") long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
-            @RequestParam(required = false, name = "productId") Long productId
+            @RequestParam(required = false, name = "productId") Long productId,
+            @RequestParam(required = false, name = "sort") String sortParamater,
+            @RequestParam(required = false, name = "categoryId") Long categoryId,
+            @RequestParam(required = false, name = "productStatusId") Long productStatusId
     ) {
-        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId);
+        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortParamater, categoryId, productStatusId);
         return super.responseStandardizer(productsList);
     }
 

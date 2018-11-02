@@ -109,8 +109,8 @@ public class ProductService {
     }
 
     @Transactional
-    public List<ProductResponse> getAllProductsBySellerId(long sellerId, String productCode, String productName, Long productId) {
-        List<Products> products = productRepository.getProductsListBySellerId(sellerId, productCode, productName, productId);
+    public List<ProductResponse> getAllProductsBySellerId(long sellerId, String productCode, String productName, Long productId, String sortParamater, Long categoryId, Long productStatusId) {
+        List<Products> products = productRepository.getProductsListBySellerId(sellerId, productCode, productName, productId, sortParamater, categoryId, productStatusId);
         List<ProductResponse> productResponses = Utility.convertModelList(products, ProductResponse.class);
 
         if(productResponses == null || products.isEmpty()) {
