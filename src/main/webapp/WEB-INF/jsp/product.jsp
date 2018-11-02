@@ -20,8 +20,10 @@
             <th>mrp</th>
             <th>ssp</th>
             <th>ymp</th>
-            <th>createdAt</th>
-            <th>updatedAt</th>
+            <th>createdAtInEpochTime</th>
+            <th>updatedAtInEpochTime</th>
+            <th>createdAtInHumanDate</th>
+            <th>updatedAtInHumanDate</th>
             <th>SellerId</th>
             <th>CategoryId</th>
             <th>Status</th>
@@ -38,11 +40,14 @@
               <td>${product.ymp}</td>
               <td>${product.createdAt}</td>
               <td>${product.updatedAt}</td>
+              <td>${product.createdAtInHumanDate}</td>
+              <td>${product.updatedAtInHumanDate}</td>
               <td>${product.sellerId}</td>
               <td>${product.categoryId}</td>
               <td>${product.productStatus}</td>
               <td>${product.sellerCompanyName}</td>
               <td>${product.categoryName}</td>
+
 
             </tr>
           </c:forEach>

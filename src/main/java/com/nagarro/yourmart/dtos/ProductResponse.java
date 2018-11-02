@@ -1,10 +1,9 @@
 package com.nagarro.yourmart.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.nagarro.yourmart.domains.Seller;
 import com.nagarro.yourmart.enums.ProductStatusEnum;
 
-import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author Sanyam Goel created on 29/10/18
@@ -46,6 +45,10 @@ public class ProductResponse {
 
     private long createdAt;
 
+    private Date createdAtInHumanDate;
+
+    private Date updatedAtInHumanDate;
+
     private long updatedAt;
 
     // category
@@ -60,7 +63,7 @@ public class ProductResponse {
 
     }
 
-    public ProductResponse(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId, ProductStatusEnum productStatus, long productStatusId, long createdAt, long updatedAt, long categoryId, String sellerCompanyName, String categoryName) {
+    public ProductResponse(long id, String productName, String productCode, double mrp, double ssp, double ymp, String shortDescription, String longDescription, String dimensions, String comment, long sellerId, ProductStatusEnum productStatus, long productStatusId, long createdAt, Date createdAtInHumanDate, Date updatedAtInHumanDate, long updatedAt, long categoryId, String sellerCompanyName, String categoryName) {
         this.id = id;
         this.productName = productName;
         this.productCode = productCode;
@@ -75,6 +78,8 @@ public class ProductResponse {
         this.productStatus = productStatus;
         this.productStatusId = productStatusId;
         this.createdAt = createdAt;
+        this.createdAtInHumanDate = createdAtInHumanDate;
+        this.updatedAtInHumanDate = updatedAtInHumanDate;
         this.updatedAt = updatedAt;
         this.categoryId = categoryId;
         this.sellerCompanyName = sellerCompanyName;
@@ -191,6 +196,22 @@ public class ProductResponse {
 
     public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getCreatedAtInHumanDate() {
+        return createdAtInHumanDate;
+    }
+
+    public void setCreatedAtInHumanDate(Date createdAtInHumanDate) {
+        this.createdAtInHumanDate = createdAtInHumanDate;
+    }
+
+    public Date getUpdatedAtInHumanDate() {
+        return updatedAtInHumanDate;
+    }
+
+    public void setUpdatedAtInHumanDate(Date updatedAtInHumanDate) {
+        this.updatedAtInHumanDate = updatedAtInHumanDate;
     }
 
     public long getUpdatedAt() {

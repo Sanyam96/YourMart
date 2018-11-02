@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * @author Sanyam Goel created on 30/10/18
@@ -56,6 +54,11 @@ public class ProductService {
 
             long categoryId = productResponseList.get((int) i).getCategoryId();
             productResponseList.get((int) i).setCategoryName(categoryService.getCategoryById(categoryId).getName());
+
+            Date createdAtInHumanDate = new Date(productResponseList.get((int) i).getCreatedAt());
+            Date updatedAtInHumanDate = new Date(productResponseList.get((int) i).getUpdatedAt());
+            productResponseList.get((int) i).setCreatedAtInHumanDate(createdAtInHumanDate);
+            productResponseList.get((int) i).setUpdatedAtInHumanDate(updatedAtInHumanDate);
 
 
 //            long test_timestamp = productResponseList.get((int) i).getCreatedAt();
