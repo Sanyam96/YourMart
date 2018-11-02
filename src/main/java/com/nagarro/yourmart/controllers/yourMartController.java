@@ -2,8 +2,10 @@ package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.domains.Admin;
 import com.nagarro.yourmart.dtos.AdminResponse;
+import com.nagarro.yourmart.dtos.ProductResponse;
 import com.nagarro.yourmart.dtos.ResponseModel;
 import com.nagarro.yourmart.service.AdminService;
+import com.nagarro.yourmart.service.ProductService;
 import com.nagarro.yourmart.service.YourMartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author Sanyam Goel created on 29/10/18
@@ -31,6 +34,9 @@ public class yourMartController extends RestResponseHandler {
 
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    ProductService productService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/hello", produces = "application/json")
     public ResponseEntity<ResponseModel<String>> getAllData() {
@@ -88,6 +94,18 @@ public class yourMartController extends RestResponseHandler {
             session.setAttribute("admin", null);
         }
         return "redirect:/admin/login";
+    }
+
+    @RequestMapping(value = "/admin/products", method = RequestMethod.GET)
+    public String getAllProducts(
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request
+    ) {
+        HttpSession session = request.getSession(false);
+        List<ProductResponse> productResponse = productService.getAllProducts();
+        model.addAttribute("ab", productResponse);
+        return "product";
     }
 
 }
