@@ -18,6 +18,9 @@
 <jsp:useBean id="createdAt" class="java.util.Date"/>
 <jsp:useBean id="updatedAt" class="java.util.Date"/>
 
+<h2>Categories</h2>
+<br>
+
     <form action="/admin/home" method="GET" style="position: absolute; right: 0;">
         <div>
         <button type="submit" >home</button>
@@ -27,14 +30,16 @@
     </br>
     </br>
 
-    <table class="table">
+    <table class="table" border="1">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">id</th>
+          <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Product count</th>
-          <th scope="col">createdAt</th>
-          <th scope="col">updatedAt</th>
+          <th scope="col">created at:</th>
+          <th scope="col">updated at:</th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -42,14 +47,38 @@
         <c:set target="${createdAt}" property="time" value="${category.createdAt}"/>
         <c:set target="${updatedAt}" property="time" value="${category.updatedAt}"/>
         <tr>
-          <td>${category.id}</td>
-          <td>${category.name}</td>
-          <td>${category.productCount}</td>
-          <td>${createdAt}</td>
-          <td>${updatedAt}</td>
+            <td>${category.id}</td>
+            <td>${category.name}</td>
+            <td>${category.productCount}</td>
+            <td>${createdAt}</td>
+            <td>${updatedAt}</td>
+
+            <td>
+                <form action="/admin/categories" method="GET">
+                    <input type="submit" value="Update" name="update">
+                </form>
+            </td>
+            <td>
+                <c:choose>
+                    <c:when test="${category.productCount=='0'}">
+                        <form action="/admin/categories/delete" method="GET">
+                            <p>DELETE</p>
+                            <input type="submit" value="${category.id}" name="categoryId">
+                        </form>
+                    </c:when>
+
+                    <c:otherwise>
+                        <form action="/admin/categories/delete" method="GET">
+                            <DELETE>
+                            <input type="submit" value="${category.id}" name="remove"  disabled="true">
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+
         </tr>
       </c:forEach>
       </tbody>
-    </table>\
+    </table>
 </body>
 </html>

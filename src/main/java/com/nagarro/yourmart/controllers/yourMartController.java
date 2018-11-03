@@ -153,33 +153,19 @@ public class yourMartController extends RestResponseHandler {
 //            return "category";
 //        }
 //        return "redirect:/admin/login";
+    }
 
-
-        /*
-             <fmt:formatDate pattern="MM/dd/yyyy HH:mm">${cat[0].createdAt}</p>
-     <p>${cat[0].createdAt}</p>
-
-
-     <p>${cat[1].createdAt}</p>
-
-
-
-
-
-
-   <c:set var="cat[0]" value="<%=new java.util.Date()%>" />
-        <p>Date & Time Long:
-        <strong>
-            <fmt:formatDate type="both" dateStyle="long" timeStyle="long" value="${cat[0].createdAt}" />
-        </strong></p>
-
-
-
-
-
-
-
-         */
+    @RequestMapping(value = "/admin/categories/delete", method = RequestMethod.GET)
+    public String deleteCategory(
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request,
+            @RequestParam(value="categoryId",required = false) Long categoryId
+    ) {
+        HttpSession session = request.getSession(false);
+        System.out.println(categoryId);
+        String s = categoryService.deleteCategory(categoryId);
+        return "redirect:/admin/categories";
     }
 
 }
