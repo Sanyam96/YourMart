@@ -23,7 +23,7 @@
 		<button type="submit">Seller</button>
 	</form>
 
-	<form action="/admin/products" method="POST">
+	<form action="/admin/products" method="GET">
 		<button type="submit">Product</button>
 	</form>
 
