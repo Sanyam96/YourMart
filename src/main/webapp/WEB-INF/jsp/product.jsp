@@ -29,89 +29,45 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">id</th>
-              <th scope="col">Code</th>
+              <th scope="col">Product Code</th>
               <th scope="col">Name</th>
               <th scope="col">mrp</th>
               <th scope="col">ssp</th>
               <th scope="col">ymp</th>
-              <th scope="col">createdAt</th>
-              <th scope="col">updatedAt</th>
               <th scope="col">SellerId</th>
               <th scope="col">CategoryId</th>
-              <th scope="col">Status</th>
-              <th scope="col">SellerCompanyName</th>
-              <th scope="col">categoryName</th>
+              <th scope="col">Short Description</th>
+              <th scope="col">Long Description</th>
+              <th scope="col">Dimensions</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <c:forEach items="${ab}" var="product">
-            <c:set target="${createdAt}" property="time" value="${product.createdAt}"/>
-            <c:set target="${updatedAt}" property="time" value="${product.updatedAt}"/>
+
             <tr>
-              <td>${product.id}</td>
-              <td>${product.productCode}</td>
-              <td>${product.productName}</td>
-              <td>${product.mrp}</td>
-              <td>${product.ssp}</td>
-              <td>${product.ymp}</td>
-              <td>${createdAt}</td>
-              <td>${updatedAt}</td>
-              <td>${product.sellerId}</td>
-              <td>${product.categoryId}</td>
-              <td>${product.productStatus}</td>
-              <td>${product.sellerCompanyName}</td>
-              <td>${product.categoryName}</td>
+            <form action="/admin/prod" method="GET">
+              <td>${ab.id}</td>
+              <td><input type"text" name="productCode" value="${ab.productCode}"/></td>
+              <td><input type"text" name="productName" value="${ab.productName}"/></td>
+              <td><input type"text" name="mrp" value="${ab.mrp}"/></td>
+              <td><input type"text" name="ssp" value="${ab.ssp}"/></td>
+              <td><input type"text" name="ymp" value="${ab.ymp}"/></td>
+              <td><input type"text" name="sellerId" value="${ab.sellerId}"/></td>
+              <td><input type"text" name="categoryId" value="${ab.categoryId}"/></td>
+              <td><input type"text" name="shortDescription" value="${ab.shortDescription}"/></td>
+              <td><input type"text" name="longDescription" value="${ab.longDescription}"/></td>
+              <td><input type"text" name="dimensions" value="${ab.dimensions}"/></td>
+
               <td>
-                <form action="/admin/products" method="GET">
-                    <input type="hidden" name="productId" value="${product.id}">
-                    <input type="submit" value="VIEW">
+                    <input type="hidden" name="productId" value="${ab.id}">
+                    <input type="hidden" name="flag" value=0>
+                    <input type="submit" value="UPDATE">
                 </form>
               </td>
             </tr>
-          </c:forEach>
+
           </tbody>
         </table>
-
-
-    <form action="/admin/products" method="GET">
-
-        <div class="container" >
-            <h4>SortBy</h4>
-            <select name="sortBy" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                <option value="mrp" class="dropdown-item">mrp</option>
-                <option value="ssp">ssp</option>
-                <option value="ymp">ymp</option>
-                <option value="createdAt">createdAt</option>
-                <option value="updatedAt">updatedAt</option>
-            </select>
-            <input type="submit" value="Submit">
-        </div>
-
-        <h3>Filter By SellerId </h3>
-        <input type"text" name="sellerId"/>
-        <input type="submit" value="pessMe">
-
-        <h3>Filter By productStatus , sellerCompanyName</h3>
-        <input type"text" name="productStatusId"/>
-        <input type="submit" value="pessMe">
-
-        <h3>Filter By category </h3>
-        <input type"text" name="categoryId"/>
-        <input type="submit" value="pessMe">
-
-        <h3>Search By productName</h3>
-        <input type"text" name="productName"/>
-        <input type="submit" value="pessMe">
-
-        <h3>Search By productCode</h3>
-        <input type"text" name="productCode"/>
-        <input type="submit" value="pessMe">
-
-        </div>
-    </form>
-
-
 
 </body>
 </html>
