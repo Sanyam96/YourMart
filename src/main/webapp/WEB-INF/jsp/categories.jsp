@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Product Details</title>
+<title>Categories List</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -35,6 +35,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
+          <th></th>
           <th scope="col">Product count</th>
           <th scope="col">created at:</th>
           <th scope="col">updated at:</th>
@@ -47,30 +48,32 @@
         <c:set target="${createdAt}" property="time" value="${category.createdAt}"/>
         <c:set target="${updatedAt}" property="time" value="${category.updatedAt}"/>
         <tr>
+            <form action="/admin/categories/update" method="GET">
             <td>${category.id}</td>
+            <td><input type"text" name="categoryName" value="${category.name}"/></td>
             <td>${category.name}</td>
             <td>${category.productCount}</td>
             <td>${createdAt}</td>
             <td>${updatedAt}</td>
-
             <td>
-                <form action="/admin/categories" method="GET">
-                    <input type="submit" value="Update" name="update">
-                </form>
+                <input type="hidden" name="categoryId" value="${category.id}">
+                <input type="submit" value="UPDATE" >
             </td>
+            </form>
+
             <td>
                 <c:choose>
                     <c:when test="${category.productCount=='0'}">
                         <form action="/admin/categories/delete" method="GET">
-                            <p>DELETE</p>
-                            <input type="submit" value="${category.id}" name="categoryId">
+                            <input type="hidden" name="categoryId" value="${category.id}">
+                            <input type="submit" value="DELETE">
                         </form>
                     </c:when>
 
                     <c:otherwise>
                         <form action="/admin/categories/delete" method="GET">
-                            <DELETE>
-                            <input type="submit" value="${category.id}" name="remove"  disabled="true">
+                            <input type="hidden" name="categoryId" value="${category.id}">
+                            <input type="submit" value="DELETE" disabled="true">
                         </form>
                     </c:otherwise>
                 </c:choose>

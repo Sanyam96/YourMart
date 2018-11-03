@@ -146,7 +146,7 @@ public class yourMartController extends RestResponseHandler {
         HttpSession session = request.getSession(false);
         List<CategoryResponse> categoryResponses = categoryService.getAllCategories();
         model.addAttribute("cat", categoryResponses);
-        return "category";
+        return "categories";
 //        if(session != null) {
 //            List<CategoryResponse> categoryResponses = categoryService.getAllCategories();
 //            model.addAttribute("cat", categoryResponses);
@@ -165,6 +165,21 @@ public class yourMartController extends RestResponseHandler {
         HttpSession session = request.getSession(false);
         System.out.println(categoryId);
         String s = categoryService.deleteCategory(categoryId);
+        return "redirect:/admin/categories";
+    }
+
+    @RequestMapping(value = "/admin/categories/update", method = RequestMethod.GET)
+    public String updateCategory (
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request,
+            @RequestParam(value="categoryId",required = false) Long categoryId,
+            @RequestParam(value="categoryName",required = false) String categoryName
+        ) {
+        System.out.println(categoryId);
+        System.out.println(categoryName);
+        HttpSession session = request.getSession(false);
+        String s = categoryService.updateCategoryByName(categoryName, categoryId);
         return "redirect:/admin/categories";
     }
 

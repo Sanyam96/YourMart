@@ -77,6 +77,22 @@ public class CategoryService {
     }
 
     @Transactional
+    public String updateCategoryByName(String categoryName, long id) {
+        Categories category = categoryRepository.getById(id, Categories.class);
+
+        if(category == null) {
+            throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
+        }
+        // db call
+        category.setName(categoryName);
+        // todo add everywhere about update time
+        System.out.println(System.currentTimeMillis());
+        category.setUpdatedAt(System.currentTimeMillis());
+        categoryRepository.update(category);
+        return "updated";
+    }
+
+    @Transactional
     public String deleteCategory(long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
 
