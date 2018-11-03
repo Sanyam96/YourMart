@@ -101,8 +101,8 @@ public class yourMartController extends RestResponseHandler {
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(value="sortBy",required=false) String sortBy,
-            @RequestParam(value="sellerId",required=false, defaultValue = "1") long sellerId,
+            @RequestParam(value="sortBy",required = false) String sortBy,
+            @RequestParam(value="sellerId",required = false) Long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
             @RequestParam(required = false, name = "productId") Long productId,
@@ -134,6 +134,23 @@ public class yourMartController extends RestResponseHandler {
 //        if(session!=null) {
 ////            List<ProductResponse> productResponse = productService.getAllProducts();
 //        }
+
+
+        /*
+        *
+        *
+        <form action="/admin/products" method="POST">
+        <h3>Sort By</h3>
+        <input type="radio" name="sortBy" value="mrp" ${mrpChecked}/>MRP<br />
+        <input type="radio" name="sortBy" value="ssp" ${sspChecked}/>SSP<br />
+        <input type="radio" name="sortBy" value="ymp" ${ympChecked}/>YMP<br />
+        <input type="radio" name="sortBy" value="createdAt" ${createdAtChecked}/>Created At<br />
+        <input type="radio" name="sortBy" value="updatedAt" ${updatedAtChecked}/>Updated At<br />
+        <input type"text" name="sellerId"/>
+
+        <input type="submit" value="pessMe">
+    </form>
+    */
 
 
 

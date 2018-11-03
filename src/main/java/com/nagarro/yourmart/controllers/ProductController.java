@@ -21,8 +21,17 @@ public class ProductController extends RestResponseHandler {
     ProductService productService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/products", produces = "application/json")
-    public ResponseEntity<ResponseModel<List<ProductResponse>>> getAllProducts() {
-        List<ProductResponse> productsList = productService.getAllProducts();
+    public ResponseEntity<ResponseModel<List<ProductResponse>>> getAllProducts(
+            @RequestParam(value="sortBy",required=false) String sortBy,
+            @RequestParam(name="sellerId",required=false, defaultValue = "1") Long sellerId,
+            @RequestParam(required = false, name = "productCode") String productCode,
+            @RequestParam(required = false, name = "productName") String productName,
+            @RequestParam(required = false, name = "productId") Long productId,
+//            @RequestParam(required = false, name = "sort") String sortParamater,
+            @RequestParam(required = false, name = "categoryId") Long categoryId,
+            @RequestParam(required = false, name = "productStatusId") Long productStatusId
+    ) {
+        List<ProductResponse> productsList = productService.getAllProducts(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId);
         return super.responseStandardizer(productsList);
     }
 

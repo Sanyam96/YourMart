@@ -15,9 +15,12 @@ import java.util.List;
 @Repository
 public class ProductRepository extends AbstractBaseRepository {
 
-    public List<Products> getProductsListBySellerId(long sellerId, String productCode, String productName, Long productId, String sortParameter, Long categoryId, Long productStatusId) {
+    public List<Products> getProductsListBySellerId(Long sellerId, String productCode, String productName, Long productId, String sortParameter, Long categoryId, Long productStatusId) {
         Criteria criteria = this.getCurrentSession().createCriteria(Products.class);
-        criteria.add(Restrictions.eq("sellerId", sellerId));
+
+        if(sellerId != null) {
+            criteria.add(Restrictions.eq("sellerId", sellerId));
+        }
 
         if(productId != null) {
             criteria.add(Restrictions.eq("id", productId));

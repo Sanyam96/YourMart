@@ -34,7 +34,7 @@ public class ProductService {
 
 
     @Transactional
-    public List<ProductResponse> getAllProducts() {
+    public List<ProductResponse> getAllProducts(long sId, String productCode, String productName, long productId, String sortParamater, long cId, long productStatusId) {
         List<Products> productsList = productRepository.getList(Products.class);
         List<ProductResponse> productResponseList = Utility.convertModelList(productsList, ProductResponse.class);
 //        System.out.println("hello");
@@ -125,7 +125,7 @@ public class ProductService {
     }
 
     @Transactional
-    public List<ProductResponse> getAllProductsBySellerId(long sellerId, String productCode, String productName, Long productId, String sortParamater, Long categoryId, Long productStatusId) {
+    public List<ProductResponse> getAllProductsBySellerId(Long sellerId, String productCode, String productName, Long productId, String sortParamater, Long categoryId, Long productStatusId) {
         List<Products> products = productRepository.getProductsListBySellerId(sellerId, productCode, productName, productId, sortParamater, categoryId, productStatusId);
         List<ProductResponse> productResponseList = Utility.convertModelList(products, ProductResponse.class);
 
@@ -141,11 +141,11 @@ public class ProductService {
             }
 
             // todo
-            long selleId = productResponseList.get((int) i).getSellerId();
-            productResponseList.get((int) i).setSellerCompanyName(sellerService.getSellerById(selleId).getCompanyName());
+            long sellerIdFromResponse = productResponseList.get((int) i).getSellerId();
+            productResponseList.get((int) i).setSellerCompanyName(sellerService.getSellerById(sellerIdFromResponse).getCompanyName());
 
-            long categorId = productResponseList.get((int) i).getCategoryId();
-            productResponseList.get((int) i).setCategoryName(categoryService.getCategoryById(categorId).getName());
+            long categoryIdFromResponse = productResponseList.get((int) i).getCategoryId();
+            productResponseList.get((int) i).setCategoryName(categoryService.getCategoryById(categoryIdFromResponse).getName());
 
             Date createdAtInHumanDate = new Date(productResponseList.get((int) i).getCreatedAt());
             Date updatedAtInHumanDate = new Date(productResponseList.get((int) i).getUpdatedAt());
