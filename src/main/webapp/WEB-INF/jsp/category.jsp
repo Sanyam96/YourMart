@@ -15,21 +15,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-
-
-  <p>${cat[0].createdAt}</p>
-
-
-
-                     <jsp:useBean id="myDate" class="java.util.Date"/>
-                     <c:set target="${myDate}" property="time" value="${cat[0].createdAt}"/>
-
-                     <p>Date: ${myDate}</p>
-
-    <p>${cat}</p>
-
-    <p>${cat[0].id}</p>
+<jsp:useBean id="createdAt" class="java.util.Date"/>
+<jsp:useBean id="updatedAt" class="java.util.Date"/>
 
     <table class="table">
       <thead class="thead-dark">
@@ -42,19 +29,16 @@
       </thead>
       <tbody>
         <c:forEach items="${cat}" var="category">
-        <c:set target="${myDate}" property="time" value="${category.createdAt}"/>
+        <c:set target="${createdAt}" property="time" value="${category.createdAt}"/>
+        <c:set target="${updatedAt}" property="time" value="${category.updatedAt}"/>
         <tr>
           <td>${category.id}</td>
           <td>${category.name}</td>
-          <td>${myDate}</td>
-          <td>${category.updatedAt}</td>
+          <td>${createdAt}</td>
+          <td>${updatedAt}</td>
         </tr>
       </c:forEach>
       </tbody>
-    </table>
-
-
-
-
+    </table>\
 </body>
 </html>
