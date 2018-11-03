@@ -7,6 +7,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Product Details</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     <p>${ab}</p>
@@ -15,26 +22,26 @@
     		<button type="submit">home</button>
     	</form>
 
-    <form action="/admin/products" method="GET">
-        <table border="1">
-          <tr>
-            <th>id</th>
-            <th>Code</th>
-            <th>Name</th>
-            <th>mrp</th>
-            <th>ssp</th>
-            <th>ymp</th>
-            <th>createdAtInEpochTime</th>
-            <th>updatedAtInEpochTime</th>
-            <th>createdAtInHumanDate</th>
-            <th>updatedAtInHumanDate</th>
-            <th>SellerId</th>
-            <th>CategoryId</th>
-            <th>Status</th>
-            <th>SellerCompanyName</th>
-            <th>categoryName</th>
-          </tr>
-          <c:forEach items="${ab}" var="product">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Code</th>
+              <th scope="col">Name</th>
+              <th scope="col">mrp</th>
+              <th scope="col">ssp</th>
+              <th scope="col">ymp</th>
+              <th scope="col">createdAt</th>
+              <th scope="col">updatedAt</th>
+              <th scope="col">SellerId</th>
+              <th scope="col">CategoryId</th>
+              <th scope="col">Status</th>
+              <th scope="col">SellerCompanyName</th>
+              <th scope="col">categoryName</th>
+            </tr>
+          </thead>
+          <tbody>
+            <c:forEach items="${ab}" var="product">
             <tr>
               <td>${product.id}</td>
               <td>${product.productCode}</td>
@@ -42,8 +49,6 @@
               <td>${product.mrp}</td>
               <td>${product.ssp}</td>
               <td>${product.ymp}</td>
-              <td>${product.createdAt}</td>
-              <td>${product.updatedAt}</td>
               <td>${product.createdAtInHumanDate}</td>
               <td>${product.updatedAtInHumanDate}</td>
               <td>${product.sellerId}</td>
@@ -53,11 +58,8 @@
               <td>${product.categoryName}</td>
             </tr>
           </c:forEach>
+          </tbody>
         </table>
-
-
-
-
     </form>
 
     <form action="/admin/products" method="GET">
