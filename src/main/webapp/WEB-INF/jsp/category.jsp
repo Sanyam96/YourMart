@@ -16,19 +16,14 @@
 </head>
 <body>
 
-<jsp:useBean id="now" class="java.util.Date" />
+
 
   <p>${cat[0].createdAt}</p>
 
 
-        <p> Date format in US locale:
-            <fmt:setLocale value="en_US" />
-            <fmt:formatDate value="${now}" />
-        </p>
-
 
                      <jsp:useBean id="myDate" class="java.util.Date"/>
-                     <c:set target="${myDate}" property="time" value="1540997576181"/>
+                     <c:set target="${myDate}" property="time" value="${cat[0].createdAt}"/>
 
                      <p>Date: ${myDate}</p>
 
@@ -47,10 +42,11 @@
       </thead>
       <tbody>
         <c:forEach items="${cat}" var="category">
+        <c:set target="${myDate}" property="time" value="${category.createdAt}"/>
         <tr>
           <td>${category.id}</td>
           <td>${category.name}</td>
-          <td>${category.createdAt}</td>
+          <td>${myDate}</td>
           <td>${category.updatedAt}</td>
         </tr>
       </c:forEach>
