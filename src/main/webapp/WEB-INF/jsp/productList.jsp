@@ -25,61 +25,64 @@
     </br>
 
         <div>
-            <form action="/admin/products/update-status" method"GET">
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">id</th>
-              <th scope="col">Code</th>
-              <th scope="col">Name</th>
-              <th scope="col">mrp</th>
-              <th scope="col">ssp</th>
-              <th scope="col">ymp</th>
-              <th scope="col">createdAt</th>
-              <th scope="col">updatedAt</th>
-              <th scope="col">SellerId</th>
-              <th scope="col">CategoryId</th>
-              <th scope="col">Status</th>
-              <th scope="col">SellerCompanyName</th>
-              <th scope="col">categoryName</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:forEach items="${ab}" var="product">
-            <c:set target="${createdAt}" property="time" value="${product.createdAt}"/>
-            <c:set target="${updatedAt}" property="time" value="${product.updatedAt}"/>
-            <tr>
-              <td>${product.id}</td>
-              <td>${product.productCode}</td>
-              <td>${product.productName}</td>
-              <td>${product.mrp}</td>
-              <td>${product.ssp}</td>
-              <td>${product.ymp}</td>
-              <td>${createdAt}</td>
-              <td>${updatedAt}</td>
-              <td>${product.sellerId}</td>
-              <td>${product.categoryId}</td>
-              <td>${product.productStatus}</td>
-              <td>${product.sellerCompanyName}</td>
-              <td>${product.categoryName}</td>
-              <td>
-                <form action="/admin/prod" method="GET">
-                    <input type="hidden" name="productId" value="${product.id}">
-                    <input type="hidden" name="flag" value=1>
-                    <input type="submit" value="VIEW">
-                </form>
-              </td>
-              <td>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">mrp</th>
+                  <th scope="col">ssp</th>
+                  <th scope="col">ymp</th>
+                  <th scope="col">createdAt</th>
+                  <th scope="col">updatedAt</th>
+                  <th scope="col">SellerId</th>
+                  <th scope="col">CategoryId</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">SellerCompanyName</th>
+                  <th scope="col">categoryName</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <form action="/admin/products/update-status" method"GET">
+                <c:forEach items="${ab}" var="product">
+                <c:set target="${createdAt}" property="time" value="${product.createdAt}"/>
+                <c:set target="${updatedAt}" property="time" value="${product.updatedAt}"/>
+                <tr>
+                  <td>${product.id}</td>
+                  <td>${product.productCode}</td>
+                  <td>${product.productName}</td>
+                  <td>${product.mrp}</td>
+                  <td>${product.ssp}</td>
+                  <td>${product.ymp}</td>
+                  <td>${createdAt}</td>
+                  <td>${updatedAt}</td>
+                  <td>${product.sellerId}</td>
+                  <td>${product.categoryId}</td>
+                  <td>${product.productStatus}</td>
+                  <td>${product.sellerCompanyName}</td>
+                  <td>${product.categoryName}</td>
+                  <td>
+                    ${product.id}
 
-                <c:if test="${product.productStatusId!=2}">
-                    <input type="checkbox" name="cbox" value="${product.id}">
-                </c:if>
-              </td>
-            </tr>
-          </c:forEach>
-          </tbody>
-        </table>
+                    <form action="/admin/prod" method="GET">
+                        <input type="hidden" name="productId" value="${product.id}">
+                        <input type="hidden" name="flag" value=1>
+                        <input type="submit" value="VIEW">
+                    </form>
+                  </td>
+                  <td>
+
+                    <c:if test="${product.productStatusId!=2}">
+                        <input type="checkbox" name="cbox" value="${product.id}">
+                    </c:if>
+                  </td>
+                </tr>
+              </c:forEach>
+              </tbody>
+            </table>
          <input type="submit" value="Approve Selected Products">
          </form>
          </div>

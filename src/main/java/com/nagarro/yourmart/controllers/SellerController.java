@@ -45,6 +45,15 @@ public class SellerController extends RestResponseHandler {
         return super.responseStandardizer(sellerResponse);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "/seller/{sellerId}")
+    public ResponseEntity<ResponseModel<SellerResponse>> updateSeller(
+            @PathVariable("sellerId") Long sellerId,
+            @RequestBody SellerRequest sellerRequest
+    ) {
+        SellerResponse sellerResponse = sellerService.updateSeller(sellerRequest, sellerId);
+        return super.responseStandardizer(sellerResponse);
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/seller/login", produces = "application/json")
     public ResponseEntity<ResponseModel<String>> loginSeller(
             @RequestBody SellerLoginRequest sellerlogin
@@ -65,7 +74,6 @@ public class SellerController extends RestResponseHandler {
     @RequestMapping(method = RequestMethod.GET, value = "/seller/{sellerId}/products", produces = "application/json")
     public ResponseEntity<ResponseModel<List<ProductResponse>>> getProductsBySellerId (
             @PathVariable("sellerId") Long sellerId,
-//            @RequestParam(required = false, name = "sellerId") String sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
             @RequestParam(required = false, name = "productId") Long productId,
@@ -75,7 +83,6 @@ public class SellerController extends RestResponseHandler {
     ) {
         List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortParamater, categoryId, productStatusId);
         return super.responseStandardizer(productsList);
-//        return null;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/seller/{sellerId}/product/{productId}", produces = "application/json")

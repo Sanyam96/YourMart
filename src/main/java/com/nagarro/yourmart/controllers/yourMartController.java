@@ -250,6 +250,15 @@ public class yourMartController extends RestResponseHandler {
         return "redirect:/admin/categories";
     }
 
+    @RequestMapping(value = "/admin/sellers", method = RequestMethod.GET)
+    public String viewSellers(
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request
+    ) {
+        return "sellers";
+    }
+
 
 
 }

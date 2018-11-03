@@ -18,7 +18,16 @@
 <jsp:useBean id="createdAt" class="java.util.Date"/>
 <jsp:useBean id="updatedAt" class="java.util.Date"/>
 <h2>Sellers</h2>
+<br>
 
+    <form action="/admin/home" method="GET" style="position: absolute; right: 0;">
+        <div>
+        <button type="submit" >home</button>
+        </div>
+    </form>
+
+    </br>
+    </br>
 
 </body>
 </html>

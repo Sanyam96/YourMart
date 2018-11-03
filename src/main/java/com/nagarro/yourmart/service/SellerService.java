@@ -100,6 +100,34 @@ public class SellerService {
 //        return "created";
     }
 
+    @Transactional
+    public SellerResponse updateSeller(SellerRequest sellerRequest, Long sellerId) {
+        Seller seller = sellerRepository.getById(sellerId, Seller.class);
+
+        if(seller == null) {
+            throw new YourMartResourceNotFoundException("Seller not found with the given id: " + sellerId);
+        }
+
+        seller.setCompanyName(sellerRequest.getCompanyName());
+        seller.setOwnerName(sellerRequest.getOwnerName());
+        seller.setAddress(sellerRequest.getAddress());
+        seller.setEmailAddress(sellerRequest.getEmailAddress());
+        seller.setTelephoneNumber(sellerRequest.getTelephoneNumber());
+        seller.setGstNumber(sellerRequest.getGstNumber());
+        seller.setPassword(sellerRequest.getPassword());
+
+        seller.setSellerStatus(sellerStatusService.getSellerStatusById(1));
+        sellerRepository.update(seller);
+
+        SellerResponse sellerResponse = Utility.convertModel(sellerRequest, SellerResponse.class);
+        sellerResponse.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
+        sellerResponse.setSellerStatusId(seller.getSellerStatus().getId());
+        sellerResponse.setId(seller.getId());
+        sellerResponse.setCreatedAt(seller.getCreatedAt());
+        sellerResponse.setUpdatedAt(seller.getUpdatedAt());
+        return sellerResponse;
+    }
+
 
     @Transactional
     public Seller getSellerId(long id) {
@@ -129,4 +157,5 @@ public class SellerService {
         }
         return "notKnown";
     }
+
 }

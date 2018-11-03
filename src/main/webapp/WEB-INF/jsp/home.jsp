@@ -19,7 +19,7 @@
 
 	</c:if>
 
-	<form action="/admin/seller" method="POST">
+	<form action="/admin/sellers" method="GET">
 		<button type="submit">Seller</button>
 	</form>
 
