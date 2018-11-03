@@ -18,6 +18,15 @@
 <jsp:useBean id="createdAt" class="java.util.Date"/>
 <jsp:useBean id="updatedAt" class="java.util.Date"/>
 
+    <form action="/admin/home" method="GET" style="position: absolute; right: 0;">
+        <div>
+        <button type="submit" >home</button>
+        </div>
+    </form>
+
+    </br>
+    </br>
+
     <table class="table">
       <thead class="thead-dark">
         <tr>

@@ -12,13 +12,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <p>${ab}</p>
+<jsp:useBean id="createdAt" class="java.util.Date"/>
+<jsp:useBean id="updatedAt" class="java.util.Date"/>
 
     <form action="/admin/home" method="GET" style="position: absolute; right: 0;">
         <div>
         <button type="submit" >home</button>
         </div>
     </form>
+
+    </br>
+    </br>
 
     <form action="/admin/home" method="GET">
         <div>
@@ -42,6 +46,8 @@
           </thead>
           <tbody>
             <c:forEach items="${ab}" var="product">
+            <c:set target="${createdAt}" property="time" value="${product.createdAt}"/>
+            <c:set target="${updatedAt}" property="time" value="${product.updatedAt}"/>
             <tr>
               <td>${product.id}</td>
               <td>${product.productCode}</td>
@@ -49,8 +55,8 @@
               <td>${product.mrp}</td>
               <td>${product.ssp}</td>
               <td>${product.ymp}</td>
-              <td>${product.createdAtInHumanDate}</td>
-              <td>${product.updatedAtInHumanDate}</td>
+              <td>${createdAt}</td>
+              <td>${updatedAt}</td>
               <td>${product.sellerId}</td>
               <td>${product.categoryId}</td>
               <td>${product.productStatus}</td>
