@@ -208,4 +208,22 @@ public class ProductService {
         return productResponse;
     }
 
+    @Transactional
+    public String updateProductStatus(long id) {
+
+        // db call
+        Products product = productRepository.getById(id, Products.class);
+
+
+        // REVIEW with id 4
+        product.setProductStatus(productStatusService.getProductStatusById(2));
+
+        productRepository.update(product);
+
+        System.out.println("fulldone");
+
+        // todo
+        return "updated";
+    }
+
 }

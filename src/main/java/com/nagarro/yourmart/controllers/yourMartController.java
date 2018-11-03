@@ -186,6 +186,24 @@ public class yourMartController extends RestResponseHandler {
 //        return "redirect:/admin/login";
     }
 
+    @RequestMapping(value = "/admin/products/update-status", method = RequestMethod.GET)
+    public String approveProducts(
+            HttpServletResponse response,
+            HttpServletRequest request
+    ) {
+        String[] ids = request.getParameterValues("cbox");
+        if(ids!=null) {
+            for(String value : ids) {
+                System.out.println(value);
+                // 2=>APPROVED
+                long id = Long.parseLong(String.valueOf(value));
+                productService.updateProductStatus(id);
+//                productRepository.setStatus(value,ProductStatus.APPROVED.ordinal()+1);
+            }
+        }
+        return "redirect:/admin/products";
+    }
+
     @RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
     public String getAllCategories(
             Model model,

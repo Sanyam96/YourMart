@@ -25,6 +25,7 @@
     </br>
 
         <div>
+            <form action="/admin/products/update-status" method"GET">
         <table class="table">
           <thead class="thead-dark">
             <tr>
@@ -69,10 +70,19 @@
                     <input type="submit" value="VIEW">
                 </form>
               </td>
+              <td>
+
+                <c:if test="${product.productStatusId!=2}">
+                    <input type="checkbox" name="cbox" value="${product.id}">
+                </c:if>
+              </td>
             </tr>
           </c:forEach>
           </tbody>
         </table>
+         <input type="submit" value="Approve Selected Products">
+         </form>
+         </div>
 
 
     <form action="/admin/products" method="GET">
