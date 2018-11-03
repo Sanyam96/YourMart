@@ -2,9 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +26,6 @@
 
     </br>
     </br>
-
 
         <div>
             <table class="table">
@@ -77,9 +74,27 @@
                     </form>
                     </div>
                   </td>
+
+
                 </tr>
-              </c:forEach>
+                                <form action="/admin/seller/update-seller" method"GET">
+                                </c:forEach>
+
+                                  <c:forEach items="${ab}" var="seller">
+                                  <tr>
+                                    <td>
+                                        ${product.id}
+                                        <c:if test="${seller.sellerStatusId!=4}">
+                                            <input type="checkbox" name="cbox" value="${seller.id}">
+                                        </c:if>
+                                    </td>
+                                  </tr>
+                                </c:forEach>
+
+
+
               </tbody>
+              <input type="submit" value="Approve Selected Products">
             </table>
 
          </div>

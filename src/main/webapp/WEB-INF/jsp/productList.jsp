@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,8 @@
 <body>
 <jsp:useBean id="createdAt" class="java.util.Date"/>
 <jsp:useBean id="updatedAt" class="java.util.Date"/>
+<h2>Product List</h2>
+<br>
 
     <form action="/admin/home" method="GET" style="position: absolute; right: 0;">
         <div>
@@ -25,8 +28,7 @@
     </br>
 
         <div>
-        <form action="/admin/products/update-status" method"GET">
-            <table class="table" border = "1">
+            <table class="table" border = "0.5">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">id</th>
@@ -40,10 +42,10 @@
                   <th scope="col">SellerId</th>
                   <th scope="col">CategoryId</th>
                   <th scope="col">Status</th>
-                  <th scope="col">SellerCompanyName</th>
+                  <th scope="col">CompanyName</th>
                   <th scope="col">categoryName</th>
-                  <th></th>
-                  <th></th>
+                  <th scope="col">v</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -68,26 +70,33 @@
                   <td>${product.sellerCompanyName}</td>
                   <td>${product.categoryName}</td>
                   <td>
-                    ${product.id}
-                    <div>
+
                     <form action="/admin/prod" method="GET">
                         <input type="hidden" name="productId" value="${product.id}">
                         <input type="hidden" name="flag" value=1>
                         <input type="submit" value="VIEW">
                     </form>
-                    </div>
-                  </td>
-                  <td>
-                    <c:if test="${product.productStatusId!=2}">
-                        <input type="checkbox" name="cbox" value="${product.id}">
-                    </c:if>
+
                   </td>
 
                 </tr>
-              </c:forEach>
+                <form action="/admin/products/update-status" method"GET">
+                </c:forEach>
+
+                  <c:forEach items="${ab}" var="product">
+                  <tr>
+                    <td>
+                        ${product.id}
+                        <c:if test="${product.productStatusId!=2}">
+                            <input type="checkbox" name="cbox" value="${product.id}">
+                        </c:if>
+                    </td>
+                  </tr>
+                </c:forEach>
+
               </tbody>
+                <input type="submit" value="Approve Selected Products">
             </table>
-         <input type="submit" value="Approve Selected Products">
          </form>
          </div>
 

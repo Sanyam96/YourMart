@@ -45,17 +45,15 @@ public class yourMartController extends RestResponseHandler {
         return super.responseStandardizer("Hello");
     }
 
-    // jsp
-//    @RequestMapping(value = "/helloo")
-//    public String hello(
-//            Model model,
-//            @RequestParam(value="name", required=false, defaultValue="World") String name
-//    ) {
-//        model.addAttribute("name", name);
-//        return "hello";
-//    }
 
 
+
+
+
+
+
+
+    // LOGIN
     @RequestMapping("/admin/login")
     public String loginPage(ModelMap modelMap) {
         return "login";
@@ -98,6 +96,17 @@ public class yourMartController extends RestResponseHandler {
         return "redirect:/admin/login";
     }
 
+
+
+
+
+
+
+
+
+
+
+//  PRODUCTS
     @RequestMapping(value = "/admin/products", method = RequestMethod.GET)
     public String getAllProducts(
             Model model,
@@ -198,12 +207,25 @@ public class yourMartController extends RestResponseHandler {
                 // 2=>APPROVED
                 long id = Long.parseLong(String.valueOf(value));
                 productService.updateProductStatus(id);
-//                productRepository.setStatus(value,ProductStatus.APPROVED.ordinal()+1);
             }
         }
         return "redirect:/admin/products";
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    CATEGORIES
     @RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
     public String getAllCategories(
             Model model,
@@ -250,6 +272,17 @@ public class yourMartController extends RestResponseHandler {
         return "redirect:/admin/categories";
     }
 
+
+
+
+
+
+
+
+
+
+
+//    SELLERS
     @RequestMapping(value = "/admin/sellers", method = RequestMethod.GET)
     public String viewSellers(
             Model model,
@@ -272,7 +305,14 @@ public class yourMartController extends RestResponseHandler {
             HttpServletResponse response,
             HttpServletRequest request,
             @RequestParam(value="sellerId",required = false) Long sellerId,
-            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag
+            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag,
+            @RequestParam(required = false, name = "companyName") String companyName,
+            @RequestParam(required = false, name = "ownerName") String ownerName,
+            @RequestParam(required = false, name = "address") String address,
+            @RequestParam(required = false, name = "emailAddress") String emailAddress,
+            @RequestParam(required = false, name = "telephoneNumber") Long telephoneNumber,
+            @RequestParam(required = false, name = "gstNumber") String gstNumber,
+            @RequestParam(required = false, name = "password") String password
     ) {
         HttpSession session = request.getSession(false);
 
@@ -283,13 +323,62 @@ public class yourMartController extends RestResponseHandler {
             return "seller";
         }
 
+        SellerRequest sellerRequest = new SellerRequest();
+        sellerRequest.setCompanyName(companyName);
+        sellerRequest.setOwnerName(ownerName);
+        sellerRequest.setAddress(address);
+        sellerRequest.setEmailAddress(emailAddress);
+        sellerRequest.setTelephoneNumber(telephoneNumber);
+        sellerRequest.setGstNumber(gstNumber);
+        SellerResponse s = sellerService.updateSeller(sellerRequest, sellerId);
+        return "redirect:/admin/sellers";
+
+
+
+        /*
+        ProductRequest productRequest = new ProductRequest();
+        productRequest.setProductCode(productCode);
+        productRequest.setProductName(productName);
+        productRequest.setShortDescription(shortDescription);
+        productRequest.setLongDescription(longDescription);
+        productRequest.setDimensions(dimensions);
+        productRequest.setCategoryId(categoryId);
+        productRequest.setMrp(mrp);
+        productRequest.setSsp(ssp);
+        productRequest.setYmp(ymp);
+        productRequest.setSellerId(sellerId);
+        String s = productService.updateProduct(productRequest, productId);
+
+//        List<ProductResponse> responses = productService.getAllProductsBySellerId("0", null, null, 0, null, 0, 0);
+        return "redirect:/admin/products";
+
+
+         */
+
+
 
 //        if(session != null) {
 //            List<SellerResponse> sellerResponses = sellerService.getAllSellers();
 //            model.addAttribute("ab", sellerResponses);
 //            return "sellerList";
 //        }
-        return "redirect:/admin/login";
+    }
+
+    @RequestMapping(value = "/admin/seller/update-seller", method = RequestMethod.GET)
+    public String updateSellerStatus(
+            HttpServletResponse response,
+            HttpServletRequest request
+    ) {
+        String[] ids = request.getParameterValues("cbox");
+        if(ids!=null) {
+            for(String value : ids) {
+                System.out.println(value);
+                // 4=>APPROVED
+                long id = Long.parseLong(String.valueOf(value));
+                sellerService.updateSellerStatus(id);
+            }
+        }
+        return "redirect:/admin/sellers";
     }
 
 

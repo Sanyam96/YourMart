@@ -40,12 +40,7 @@
                   <th scope="col">address</th>
                   <th scope="col">emailAddress</th>
                   <th scope="col">telephoneNumber</th>
-                  <th scope="col">createdAt</th>
-                  <th scope="col">updatedAt</th>
                   <th scope="col">GST Number</th>
-                  <th scope="col">Seller Status ID</th>
-                  <th scope="col">Seller Status</th>
-                  <th></th>
                   <th></th>
                 </tr>
               </thead>
@@ -53,30 +48,26 @@
 
                 <c:set target="${createdAt}" property="time" value="${ab.createdAt}"/>
                 <c:set target="${updatedAt}" property="time" value="${ab.updatedAt}"/>
-                <tr>
-                  <td>${ab.id}</td>
-                  <td>${ab.companyName}</td>
-                  <td>${ab.ownerName}</td>
-                  <td>${ab.address}</td>
-                  <td>${ab.emailAddress}</td>
-                  <td>${ab.telephoneNumber}</td>
-                  <td>${createdAt}</td>
-                  <td>${updatedAt}</td>
-                  <td>${ab.gstNumber}</td>
-                  <td>${ab.sellerStatusId}</td>
-                  <td>${ab.sellerStatus}</td>
 
-                  <td>
-                    ${ab.id}
-                    <div>
-                    <form action="/admin/sel" method="GET">
-                        <input type="hidden" name="productId" value="${ab.id}">
-                        <input type="hidden" name="flag" value=1>
-                        <input type="submit" value="VIEW">
-                    </form>
-                    </div>
-                  </td>
-                </tr>
+
+                <tr>
+                            <form action="/admin/sel" method="GET">
+                              <td>${ab.id}</td>
+                              <td><input type"text" name="companyName" value="${ab.companyName}"/></td>
+                              <td><input type"text" name="ownerName" value="${ab.ownerName}"/></td>
+                              <td><input type"text" name="address" value="${ab.address}"/></td>
+                              <td><input type"text" name="emailAddress" value="${ab.emailAddress}"/></td>
+                              <td><input type"text" name="telephoneNumber" value="${ab.telephoneNumber}"/></td>
+                              <td><input type"text" name="gstNumber" value="${ab.gstNumber}"/></td>
+
+                              <td>
+                                    <input type="hidden" name="sellerId" value="${ab.id}">
+                                    <input type="hidden" name="flag" value=0>
+                                    <input type="submit" value="UPDATE">
+                                </form>
+                              </td>
+                            </tr>
+
               </tbody>
             </table>
 

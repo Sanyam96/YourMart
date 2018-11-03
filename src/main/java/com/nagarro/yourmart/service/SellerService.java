@@ -37,8 +37,10 @@ public class SellerService {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
             } else if(sellerResponseList.get((int) i).getSellerStatusId() == 2) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NON_REGISTERED);
-            } else {
+            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 3) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.REJECTED);
+            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 4) {
+                sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.APPROVED);
             }
         }
 
@@ -58,8 +60,10 @@ public class SellerService {
             sellerResponse.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
         } else if(sellerResponse.getSellerStatusId() == 2) {
             sellerResponse.setSellerStatus(SellerStatusEnum.NON_REGISTERED);
-        } else {
+        } else if(sellerResponse.getSellerStatusId() == 3){
             sellerResponse.setSellerStatus(SellerStatusEnum.REJECTED);
+        } else if(sellerResponse.getSellerStatusId() == 4) {
+            sellerResponse.setSellerStatus(SellerStatusEnum.APPROVED);
         }
 
         if(sellerResponse == null || seller == null) {
@@ -114,7 +118,10 @@ public class SellerService {
         seller.setEmailAddress(sellerRequest.getEmailAddress());
         seller.setTelephoneNumber(sellerRequest.getTelephoneNumber());
         seller.setGstNumber(sellerRequest.getGstNumber());
-        seller.setPassword(sellerRequest.getPassword());
+
+        if(sellerRequest.getPassword() != null) {
+            seller.setPassword(sellerRequest.getPassword());
+        }
 
         seller.setSellerStatus(sellerStatusService.getSellerStatusById(1));
         sellerRepository.update(seller);
@@ -153,9 +160,25 @@ public class SellerService {
                 System.out.println("REJECTED");
                 System.out.println(SellerStatusEnum.REJECTED);
                 return "REJECTED";
+            } else if(seller.getSellerStatusId() == 4) {
+                System.out.println("APPROVED");
+                System.out.println(SellerStatusEnum.APPROVED);
+                return "APPROVED";
             }
         }
         return "notKnown";
     }
 
+    @Transactional
+    public String updateSellerStatus(long id) {
+
+        Seller seller = sellerRepository.getById(id, Seller.class);
+
+//        4 for Approved
+        seller.setSellerStatus(sellerStatusService.getSellerStatusById(4));
+
+        sellerRepository.update(seller);
+
+        return "updated";
+    }
 }

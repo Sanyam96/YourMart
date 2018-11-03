@@ -215,7 +215,7 @@ public class ProductService {
         Products product = productRepository.getById(id, Products.class);
 
 
-        // REVIEW with id 4
+        // Approva with id 2
         product.setProductStatus(productStatusService.getProductStatusById(2));
 
         productRepository.update(product);
