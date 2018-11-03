@@ -2,10 +2,7 @@ package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.domains.Admin;
 import com.nagarro.yourmart.dtos.*;
-import com.nagarro.yourmart.service.AdminService;
-import com.nagarro.yourmart.service.CategoryService;
-import com.nagarro.yourmart.service.ProductService;
-import com.nagarro.yourmart.service.YourMartService;
+import com.nagarro.yourmart.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,6 +36,9 @@ public class yourMartController extends RestResponseHandler {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    SellerService sellerService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/hello", produces = "application/json")
     public ResponseEntity<ResponseModel<String>> getAllData() {
@@ -256,7 +256,40 @@ public class yourMartController extends RestResponseHandler {
             HttpServletResponse response,
             HttpServletRequest request
     ) {
-        return "sellers";
+        HttpSession session = request.getSession(false);
+
+        if(session != null) {
+            List<SellerResponse> sellerResponses = sellerService.getAllSellers();
+            model.addAttribute("ab", sellerResponses);
+            return "sellerList";
+        }
+        return "redirect:/admin/login";
+    }
+
+    @RequestMapping(value = "/admin/sel", method = RequestMethod.GET)
+    public String viewSeller(
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request,
+            @RequestParam(value="sellerId",required = false) Long sellerId,
+            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag
+    ) {
+        HttpSession session = request.getSession(false);
+
+        SellerResponse sellerResponse = sellerService.getSellerById(sellerId);
+        model.addAttribute("ab", sellerResponse);
+
+        if(sellerResponse != null && flag == 1) {
+            return "seller";
+        }
+
+
+//        if(session != null) {
+//            List<SellerResponse> sellerResponses = sellerService.getAllSellers();
+//            model.addAttribute("ab", sellerResponses);
+//            return "sellerList";
+//        }
+        return "redirect:/admin/login";
     }
 
 

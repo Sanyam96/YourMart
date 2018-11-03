@@ -25,7 +25,8 @@
     </br>
 
         <div>
-            <table class="table">
+        <form action="/admin/products/update-status" method"GET">
+            <table class="table" border = "1">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">id</th>
@@ -46,11 +47,13 @@
                 </tr>
               </thead>
               <tbody>
-                <form action="/admin/products/update-status" method"GET">
+
                 <c:forEach items="${ab}" var="product">
                 <c:set target="${createdAt}" property="time" value="${product.createdAt}"/>
                 <c:set target="${updatedAt}" property="time" value="${product.updatedAt}"/>
+
                 <tr>
+
                   <td>${product.id}</td>
                   <td>${product.productCode}</td>
                   <td>${product.productName}</td>
@@ -66,19 +69,20 @@
                   <td>${product.categoryName}</td>
                   <td>
                     ${product.id}
-
+                    <div>
                     <form action="/admin/prod" method="GET">
                         <input type="hidden" name="productId" value="${product.id}">
                         <input type="hidden" name="flag" value=1>
                         <input type="submit" value="VIEW">
                     </form>
+                    </div>
                   </td>
                   <td>
-
                     <c:if test="${product.productStatusId!=2}">
                         <input type="checkbox" name="cbox" value="${product.id}">
                     </c:if>
                   </td>
+
                 </tr>
               </c:forEach>
               </tbody>
@@ -88,6 +92,7 @@
          </div>
 
 
+    <div>
     <form action="/admin/products" method="GET">
 
         <div class="container" >
@@ -124,6 +129,7 @@
 
         </div>
     </form>
+    </div>
 
 
 
