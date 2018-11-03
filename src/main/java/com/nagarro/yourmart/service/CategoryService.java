@@ -1,10 +1,12 @@
 package com.nagarro.yourmart.service;
 
 import com.nagarro.yourmart.domains.Categories;
+import com.nagarro.yourmart.domains.Products;
 import com.nagarro.yourmart.dtos.CategoryRequest;
 import com.nagarro.yourmart.dtos.CategoryResponse;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.CategoryRepository;
+import com.nagarro.yourmart.repository.ProductRepository;
 import com.nagarro.yourmart.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +23,17 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    ProductRepository productRepository;
+
     @Transactional
     public List<CategoryResponse> getAllCategories() {
         List<Categories> categories = categoryRepository.getList(Categories.class);
         List<CategoryResponse> categoryResponseList = Utility.convertModelList(categories, CategoryResponse.class);
+
+        for (int i = 0; i < categoryResponseList.size(); i++) {
+            categoryResponseList.get((int) i).setProductCount(getCountOfProductsPerCategory(categoryResponseList.get((int) i).getId()));
+        }
 
         if(categoryResponseList == null || categories.isEmpty()) {
             throw new YourMartResourceNotFoundException("Categories list not found!");
@@ -36,6 +45,8 @@ public class CategoryService {
     public CategoryResponse getCategoryByUniqueId(long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
         CategoryResponse categoryResponse = Utility.convertModel(category, CategoryResponse.class);
+
+        categoryResponse.setProductCount(getCountOfProductsPerCategory(categoryResponse.getId()));
 
         if(categoryResponse == null || category == null) {
             throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
@@ -85,6 +96,12 @@ public class CategoryService {
             throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
         }
         return category;
+    }
+
+    @Transactional
+    public long getCountOfProductsPerCategory(long categoryId) {
+        List<Products> productsList = productRepository.getCountOfProductByCategory(categoryId);
+        return productsList.size();
     }
 
 

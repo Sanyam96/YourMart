@@ -132,7 +132,7 @@ public class yourMartController extends RestResponseHandler {
         if(session != null) {
             List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId);
             model.addAttribute("ab", productResponse);
-            return "product";
+            return "productList";
         }
         return "redirect:/admin/login";
     }

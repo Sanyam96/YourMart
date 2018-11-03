@@ -58,4 +58,10 @@ public class ProductRepository extends AbstractBaseRepository {
         Products product = (Products) criteria.uniqueResult();
         return product;
     }
+
+    public List<Products> getCountOfProductByCategory(long categoryId) {
+        Criteria criteria = this.getCurrentSession().createCriteria(Products.class);
+        criteria.add(Restrictions.eq("categoryId", categoryId));
+        return criteria.list();
+    }
 }

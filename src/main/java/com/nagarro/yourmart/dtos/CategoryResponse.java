@@ -17,14 +17,17 @@ public class CategoryResponse {
 
     private long updatedAt;
 
+    private long productCount;
+
     public CategoryResponse() {
     }
 
-    public CategoryResponse(long id, String name, long createdAt, long updatedAt) {
+    public CategoryResponse(long id, String name, long createdAt, long updatedAt, long productCount) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.productCount = productCount;
     }
 
     public long getId() {
@@ -57,5 +60,13 @@ public class CategoryResponse {
 
     public void setUpdatedAt(long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public long getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(long productCount) {
+        this.productCount = productCount;
     }
 }

@@ -32,6 +32,7 @@
         <tr>
           <th scope="col">id</th>
           <th scope="col">Name</th>
+          <th scope="col">Product count</th>
           <th scope="col">createdAt</th>
           <th scope="col">updatedAt</th>
         </tr>
@@ -43,6 +44,7 @@
         <tr>
           <td>${category.id}</td>
           <td>${category.name}</td>
+          <td>${category.productCount}</td>
           <td>${createdAt}</td>
           <td>${updatedAt}</td>
         </tr>
