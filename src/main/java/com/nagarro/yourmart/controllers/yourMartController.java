@@ -119,7 +119,9 @@ public class yourMartController extends RestResponseHandler {
             @RequestParam(required = false, name = "productId") Long productId,
 //            @RequestParam(required = false, name = "sort") String sortParamater,
             @RequestParam(required = false, name = "categoryId") Long categoryId,
-            @RequestParam(required = false, name = "productStatusId") Long productStatusId
+            @RequestParam(required = false, name = "productStatusId") Long productStatusId,
+            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
     ) {
         HttpSession session = request.getSession(false);
         if(sortBy!=null) {
@@ -136,7 +138,7 @@ public class yourMartController extends RestResponseHandler {
         }
 
         if(session != null) {
-            List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId);
+            List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId, limit, offset);
             model.addAttribute("ab", productResponse);
             return "productList";
         }

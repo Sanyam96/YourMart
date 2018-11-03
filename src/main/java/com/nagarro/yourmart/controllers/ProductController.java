@@ -29,9 +29,12 @@ public class ProductController extends RestResponseHandler {
             @RequestParam(required = false, name = "productId") Long productId,
 //            @RequestParam(required = false, name = "sort") String sortParamater,
             @RequestParam(required = false, name = "categoryId") Long categoryId,
-            @RequestParam(required = false, name = "productStatusId") Long productStatusId
+            @RequestParam(required = false, name = "productStatusId") Long productStatusId,
+            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
+
     ) {
-        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId);
+        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId, offset, limit);
         return super.responseStandardizer(productsList);
     }
 

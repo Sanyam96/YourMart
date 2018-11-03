@@ -15,8 +15,13 @@ import java.util.List;
 @Repository
 public class ProductRepository extends AbstractBaseRepository {
 
-    public List<Products> getProductsListBySellerId(Long sellerId, String productCode, String productName, Long productId, String sortParameter, Long categoryId, Long productStatusId) {
+    public List<Products> getProductsListBySellerId(Long sellerId, String productCode, String productName, Long productId, String sortParameter, Long categoryId, Long productStatusId, Long offset, Long limit) {
         Criteria criteria = this.getCurrentSession().createCriteria(Products.class);
+
+        int offsetNumber = offset.intValue();
+        int limitNumber = limit.intValue();
+
+        criteria.setFirstResult(offsetNumber);
 
         if(sellerId != null) {
             criteria.add(Restrictions.eq("sellerId", sellerId));
@@ -45,6 +50,8 @@ public class ProductRepository extends AbstractBaseRepository {
         if(productStatusId != null) {
             criteria.add(Restrictions.eq("productStatusId", productStatusId));
         }
+
+        criteria.setMaxResults(limitNumber);
 
         System.out.println("okok");
         return criteria.list();
