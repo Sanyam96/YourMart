@@ -137,6 +137,42 @@ public class yourMartController extends RestResponseHandler {
         return "redirect:/admin/login";
     }
 
+    @RequestMapping(value = "/admin/product", method = RequestMethod.GET)
+    public String getProduct(
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request,
+            @RequestParam(value="sortBy",required = false) String sortBy,
+            @RequestParam(value="sellerId",required = false) Long sellerId,
+            @RequestParam(required = false, name = "productCode") String productCode,
+            @RequestParam(required = false, name = "productName") String productName,
+            @RequestParam(required = false, name = "productId") Long productId,
+//            @RequestParam(required = false, name = "sort") String sortParamater,
+            @RequestParam(required = false, name = "categoryId") Long categoryId,
+            @RequestParam(required = false, name = "productStatusId") Long productStatusId
+    ) {
+        HttpSession session = request.getSession(false);
+        if(sortBy!=null) {
+            String mrpChecked = sortBy.equals("mrp") ? "checked" : " ";
+            model.addAttribute("mrpChecked", mrpChecked);
+            String sspChecked = sortBy.equals("ssp") ? "checked" : " ";
+            model.addAttribute("sspChecked", sspChecked);
+            String ympChecked = sortBy.equals("ymp") ? "checked" : " ";
+            model.addAttribute("ympChecked", ympChecked);
+            String createdAtChecked = sortBy.equals("createdAt") ? "checked" : " ";
+            model.addAttribute("createdAtChecked", createdAtChecked);
+            String updatedAtChecked = sortBy.equals("updatedAt") ? "checked" : " ";
+            model.addAttribute("updatedAtChecked", updatedAtChecked);
+        }
+
+        if(session != null) {
+            List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId);
+            model.addAttribute("ab", productResponse);
+            return "productList";
+        }
+        return "redirect:/admin/login";
+    }
+
     @RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
     public String getAllCategories(
             Model model,
@@ -182,5 +218,7 @@ public class yourMartController extends RestResponseHandler {
         String s = categoryService.updateCategoryByName(categoryName, categoryId);
         return "redirect:/admin/categories";
     }
+
+
 
 }

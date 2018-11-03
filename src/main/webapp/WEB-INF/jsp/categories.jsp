@@ -35,7 +35,6 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
-          <th></th>
           <th scope="col">Product count</th>
           <th scope="col">created at:</th>
           <th scope="col">updated at:</th>
@@ -51,7 +50,6 @@
             <form action="/admin/categories/update" method="GET">
             <td>${category.id}</td>
             <td><input type"text" name="categoryName" value="${category.name}"/></td>
-            <td>${category.name}</td>
             <td>${category.productCount}</td>
             <td>${createdAt}</td>
             <td>${updatedAt}</td>

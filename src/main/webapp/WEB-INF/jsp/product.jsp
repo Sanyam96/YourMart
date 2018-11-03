@@ -63,7 +63,7 @@
               <td>${product.sellerCompanyName}</td>
               <td>${product.categoryName}</td>
               <td>
-                <form action="/admin/product" method="GET">
+                <form action="/admin/products" method="GET">
                     <input type="hidden" name="productId" value="${product.id}">
                     <input type="submit" value="VIEW">
                 </form>

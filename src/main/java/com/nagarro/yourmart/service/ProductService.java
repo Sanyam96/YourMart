@@ -105,6 +105,35 @@ public class ProductService {
     }
 
     @Transactional
+    public String updateProduct(ProductRequest productRequest, long id) {
+
+        // db call
+        Products product = productRepository.getById(id, Products.class);
+
+        product.setProductCode(productRequest.getProductCode());
+        product.setProductName(productRequest.getProductName());
+        product.setShortDescription(productRequest.getShortDescription());
+        product.setLongDescription(productRequest.getLongDescription());
+        product.setDimensions(productRequest.getDimensions());
+//        product.setCategoryId(productRequest.getCategoryId()); // todo arraylist of categories Id or objects
+        product.setCategories(categoryService.getCategoryById(productRequest.getCategoryId()));
+        product.setMrp(productRequest.getMrp());
+        product.setSsp(productRequest.getSsp());
+        product.setYmp(productRequest.getYmp());
+        product.setSellerId(productRequest.getSellerId()); // todo store object
+        product.setSeller(sellerService.getSellerId(productRequest.getSellerId()));
+        // REVIEW with id 4
+        product.setProductStatus(productStatusService.getProductStatusById(4));
+
+        productRepository.update(product);
+
+        System.out.println("fulldone");
+
+        // todo
+        return "updated";
+    }
+
+    @Transactional
     public ProductResponse getProductById(long id) {
         Products product = productRepository.getById(id, Products.class);
         ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);

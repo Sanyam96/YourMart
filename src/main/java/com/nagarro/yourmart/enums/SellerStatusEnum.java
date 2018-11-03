@@ -9,6 +9,8 @@ public enum SellerStatusEnum {
 
     NON_REGISTERED,
 
-    REJECTED;
+    REJECTED,
+
+    APPROVED;
 
 }

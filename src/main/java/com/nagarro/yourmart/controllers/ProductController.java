@@ -44,6 +44,16 @@ public class ProductController extends RestResponseHandler {
 
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "/product/{productId}")
+    public ResponseEntity<ResponseModel<String>> updateProduct(
+            @RequestBody ProductRequest productRequest,
+            @PathVariable("productId") long productId
+    ) {
+        String productResponse = productService.updateProduct(productRequest, productId);
+        return super.responseStandardizer(productResponse);
+
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/product/{id}", produces = "application/json")
     public ResponseEntity<ResponseModel<ProductResponse>> getProductById(
             @PathVariable("id") long id
