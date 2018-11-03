@@ -8,20 +8,20 @@
 <meta charset="ISO-8859-1">
 <title>Product Details</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-<!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     <p>${ab}</p>
 
-    <form action="/admin/home" method="GET">
-    		<button type="submit">home</button>
-    	</form>
+    <form action="/admin/home" method="GET" style="position: absolute; right: 0;">
+        <div>
+        <button type="submit" >home</button>
+        </div>
+    </form>
 
+    <form action="/admin/home" method="GET">
+        <div>
         <table class="table">
           <thead class="thead-dark">
             <tr>
@@ -63,13 +63,18 @@
     </form>
 
     <form action="/admin/products" method="GET">
-        <h3>Sort By</h3>
-        <input type="radio" name="sortBy" value="mrp"/>MRP<br />
-        <input type="radio" name="sortBy" value="ssp"/>SSP<br />
-        <input type="radio" name="sortBy" value="ymp"/>YMP<br />
-        <input type="radio" name="sortBy" value="createdAt"/>Created At<br />
-        <input type="radio" name="sortBy" value="updatedAt" />Updated At<br />
-        <input type="submit" value="pessMe">
+
+        <div class="container" >
+            <h4>SortBy</h4>
+            <select name="sortBy" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <option value="mrp" class="dropdown-item">mrp</option>
+                <option value="ssp">ssp</option>
+                <option value="ymp">ymp</option>
+                <option value="createdAt">createdAt</option>
+                <option value="updatedAt">updatedAt</option>
+            </select>
+            <input type="submit" value="Submit">
+        </div>
 
         <h3>Filter By SellerId </h3>
         <input type"text" name="sellerId"/>
@@ -91,7 +96,7 @@
         <input type"text" name="productCode"/>
         <input type="submit" value="pessMe">
 
-
+        </div>
     </form>
 
 

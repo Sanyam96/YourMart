@@ -2,9 +2,11 @@ package com.nagarro.yourmart.controllers;
 
 import com.nagarro.yourmart.domains.Admin;
 import com.nagarro.yourmart.dtos.AdminResponse;
+import com.nagarro.yourmart.dtos.CategoryResponse;
 import com.nagarro.yourmart.dtos.ProductResponse;
 import com.nagarro.yourmart.dtos.ResponseModel;
 import com.nagarro.yourmart.service.AdminService;
+import com.nagarro.yourmart.service.CategoryService;
 import com.nagarro.yourmart.service.ProductService;
 import com.nagarro.yourmart.service.YourMartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class yourMartController extends RestResponseHandler {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/hello", produces = "application/json")
     public ResponseEntity<ResponseModel<String>> getAllData() {
@@ -111,11 +116,6 @@ public class yourMartController extends RestResponseHandler {
             @RequestParam(required = false, name = "productStatusId") Long productStatusId
     ) {
         HttpSession session = request.getSession(false);
-
-//        List<ProductResponse> productResponse = productService.getAllProductsBySellerId(1, productCode, productName, productId, sortBy, categoryId, productStatusId);
-//        model.addAttribute("ab", productResponse);
-//        return "product";
-
         if(sortBy!=null) {
             String mrpChecked = sortBy.equals("mrp") ? "checked" : " ";
             model.addAttribute("mrpChecked", mrpChecked);
@@ -134,42 +134,52 @@ public class yourMartController extends RestResponseHandler {
             model.addAttribute("ab", productResponse);
             return "product";
         }
-//        if(session!=null) {
-////            List<ProductResponse> productResponse = productService.getAllProducts();
-//        }
-
-
-        /*
-        *
-        *
-        <form action="/admin/products" method="POST">
-        <h3>Sort By</h3>
-        <input type="radio" name="sortBy" value="mrp" ${mrpChecked}/>MRP<br />
-        <input type="radio" name="sortBy" value="ssp" ${sspChecked}/>SSP<br />
-        <input type="radio" name="sortBy" value="ymp" ${ympChecked}/>YMP<br />
-        <input type="radio" name="sortBy" value="createdAt" ${createdAtChecked}/>Created At<br />
-        <input type="radio" name="sortBy" value="updatedAt" ${updatedAtChecked}/>Updated At<br />
-        <input type"text" name="sellerId"/>
-
-        <input type="submit" value="pessMe">
-    </form>
-    */
-
-
-
-        /*
-        <form action="/admin/products" method="POST">
-        <h3>Sort By</h3>
-        <input type="radio" name="sortBy" value="mrp" ${mrpChecked}/>MRP<br />
-        <input type="radio" name="sortBy" value="ssp" ${sspChecked}/>SSP<br />
-        <input type="radio" name="sortBy" value="ymp" ${ympChecked}/>YMP<br />
-        <input type="radio" name="sortBy" value="createdAt" ${createdAtChecked}/>Created At<br />
-        <input type="radio" name="sortBy" value="updatedAt" ${updatedAtChecked}/>Updated At<br />
-
-        <input type="submit" value="pessMe">
-    </form>
-         */
         return "redirect:/admin/login";
+    }
+
+    @RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
+    public String getAllCategories(
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request
+    ) {
+        HttpSession session = request.getSession(false);
+        List<CategoryResponse> categoryResponses = categoryService.getAllCategories();
+        model.addAttribute("cat", categoryResponses);
+        return "category";
+//        if(session != null) {
+//            List<CategoryResponse> categoryResponses = categoryService.getAllCategories();
+//            model.addAttribute("cat", categoryResponses);
+//            return "category";
+//        }
+//        return "redirect:/admin/login";
+
+
+        /*
+             <fmt:formatDate pattern="MM/dd/yyyy HH:mm">${cat[0].createdAt}</p>
+     <p>${cat[0].createdAt}</p>
+
+
+     <p>${cat[1].createdAt}</p>
+
+
+
+
+
+
+   <c:set var="cat[0]" value="<%=new java.util.Date()%>" />
+        <p>Date & Time Long:
+        <strong>
+            <fmt:formatDate type="both" dateStyle="long" timeStyle="long" value="${cat[0].createdAt}" />
+        </strong></p>
+
+
+
+
+
+
+
+         */
     }
 
 }

@@ -27,8 +27,8 @@
 		<button type="submit">Product</button>
 	</form>
 
-	<form action="/admin/category" method="POST">
-		<button type="submit">Category</button>
+	<form action="/admin/categories" method="GET">
+		<button type="submit">View List of Categories</button>
 	</form>
 </body>
 </html>
