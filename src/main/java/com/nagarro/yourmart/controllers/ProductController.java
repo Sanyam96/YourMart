@@ -30,7 +30,7 @@ public class ProductController extends RestResponseHandler {
 //            @RequestParam(required = false, name = "sort") String sortParamater,
             @RequestParam(required = false, name = "categoryId") Long categoryId,
             @RequestParam(required = false, name = "productStatusId") Long productStatusId,
-            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "limit", defaultValue = "10") Long limit,
             @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
 
     ) {

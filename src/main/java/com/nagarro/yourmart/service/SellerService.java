@@ -170,30 +170,41 @@ public class SellerService {
     }
 
     @Transactional
-    public String checkUser(SellerLoginRequest sellerlogin) {
+    public SellerResponse checkUser(SellerLoginRequest sellerlogin) {
         Seller seller = sellerRepository.getSellerStatus(sellerlogin.getId(), sellerlogin.getPassword());
+        SellerResponse response = Utility.convertModel(seller, SellerResponse.class);
         if(seller == null) {
-            return "false";
-        } else {
-            if(seller.getSellerStatusId() == 1) {
-                System.out.println("NEED_APPROVAL");
-                System.out.println(SellerStatusEnum.NEED_APPROVAL);
-                return "NEED_APPROVAL";
-            } else if(seller.getSellerStatusId() == 2) {
-                System.out.println("NON_REGISTERED");
-                System.out.println(SellerStatusEnum.NON_REGISTERED);
-                return "NON_REGISTERED";
-            } else if(seller.getSellerStatusId() == 3   ) {
-                System.out.println("REJECTED");
-                System.out.println(SellerStatusEnum.REJECTED);
-                return "REJECTED";
-            } else if(seller.getSellerStatusId() == 4) {
-                System.out.println("APPROVED");
-                System.out.println(SellerStatusEnum.APPROVED);
-                return "APPROVED";
-            }
+            return null;
         }
-        return "notKnown";
+        else {
+//            if(seller.getSellerStatusId() == 1) {
+//                System.out.println("NEED_APPROVAL");
+//                System.out.println(SellerStatusEnum.NEED_APPROVAL);
+////                return "NEED_APPROVAL";
+//            } else if(seller.getSellerStatusId() == 2) {
+//                System.out.println("NON_REGISTERED");
+//                System.out.println(SellerStatusEnum.NON_REGISTERED);
+////                return "NON_REGISTERED";
+//            } else if(seller.getSellerStatusId() == 3   ) {
+//                System.out.println("REJECTED");
+//                System.out.println(SellerStatusEnum.REJECTED);
+////                return "REJECTED";
+//            } else if(seller.getSellerStatusId() == 4) {
+//                System.out.println("APPROVED");
+//                System.out.println(SellerStatusEnum.APPROVED);
+////                return "APPROVED";
+//            }
+        }
+        if(response.getSellerStatusId() == 1) {
+            response.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
+        } else if(response.getSellerStatusId() == 2) {
+            response.setSellerStatus(SellerStatusEnum.NON_REGISTERED);
+        } else if(response.getSellerStatusId() == 3){
+            response.setSellerStatus(SellerStatusEnum.REJECTED);
+        } else if(response.getSellerStatusId() == 4) {
+            response.setSellerStatus(SellerStatusEnum.APPROVED);
+        }
+        return response;
     }
 
     @Transactional

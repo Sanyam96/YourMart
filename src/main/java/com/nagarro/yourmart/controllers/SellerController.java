@@ -58,10 +58,10 @@ public class SellerController extends RestResponseHandler {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/seller/login", produces = "application/json")
-    public ResponseEntity<ResponseModel<String>> loginSeller(
+    public ResponseEntity<ResponseModel<SellerResponse>> loginSeller(
             @RequestBody SellerLoginRequest sellerlogin
     ) {
-        String s = sellerService.checkUser(sellerlogin);
+        SellerResponse s = sellerService.checkUser(sellerlogin);
         return super.responseStandardizer(s);
 
     }
