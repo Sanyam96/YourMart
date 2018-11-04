@@ -22,8 +22,11 @@ public class CategoryController extends RestResponseHandler {
     CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/categories", produces = "application/json")
-    public ResponseEntity<ResponseModel<List<CategoryResponse>>> getAllCategories() {
-        List<CategoryResponse> categories = categoryService.getAllCategories();
+    public ResponseEntity<ResponseModel<List<CategoryResponse>>> getAllCategories(
+            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
+    ) {
+        List<CategoryResponse> categories = categoryService.getAllCategories(offset, limit);
         return super.responseStandardizer(categories);
     }
 

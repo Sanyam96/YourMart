@@ -27,8 +27,9 @@ public class CategoryService {
     ProductRepository productRepository;
 
     @Transactional
-    public List<CategoryResponse> getAllCategories() {
-        List<Categories> categories = categoryRepository.getList(Categories.class);
+    public List<CategoryResponse> getAllCategories(Long offset, Long limit) {
+//        List<Categories> categories = categoryRepository.getList(Categories.class);
+        List<Categories> categories = categoryRepository.getCategoriesPaginatedResult(offset, limit);
         List<CategoryResponse> categoryResponseList = Utility.convertModelList(categories, CategoryResponse.class);
 
         for (int i = 0; i < categoryResponseList.size(); i++) {

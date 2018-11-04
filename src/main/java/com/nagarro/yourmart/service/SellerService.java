@@ -28,8 +28,9 @@ public class SellerService {
     SellerStatusService sellerStatusService;
 
     @Transactional
-    public List<SellerResponse> getAllSellers() {
-        List<Seller> sellerList = sellerRepository.getList(Seller.class);
+    public List<SellerResponse> getAllSellers(Long offset, Long limit) {
+//        List<Seller> sellerList = sellerRepository.getList(Seller.class);
+        List<Seller> sellerList = sellerRepository.getSellersPaginatedResult(offset, limit);
         List<SellerResponse> sellerResponseList = Utility.convertModelList(sellerList, SellerResponse.class);
 
         for (long i = 0; i < sellerResponseList.size(); i++) {

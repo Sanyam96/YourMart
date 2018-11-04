@@ -138,7 +138,7 @@ public class yourMartController extends RestResponseHandler {
         }
 
         if(session != null) {
-            List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId, limit, offset);
+            List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId, offset, limit);
             model.addAttribute("ab", productResponse);
             return "productList";
         }
@@ -232,10 +232,12 @@ public class yourMartController extends RestResponseHandler {
     public String getAllCategories(
             Model model,
             HttpServletResponse response,
-            HttpServletRequest request
+            HttpServletRequest request,
+            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
     ) {
         HttpSession session = request.getSession(false);
-        List<CategoryResponse> categoryResponses = categoryService.getAllCategories();
+        List<CategoryResponse> categoryResponses = categoryService.getAllCategories(offset, limit);
         model.addAttribute("cat", categoryResponses);
         return "categories";
 //        if(session != null) {
@@ -289,12 +291,14 @@ public class yourMartController extends RestResponseHandler {
     public String viewSellers(
             Model model,
             HttpServletResponse response,
-            HttpServletRequest request
+            HttpServletRequest request,
+            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
     ) {
         HttpSession session = request.getSession(false);
 
         if(session != null) {
-            List<SellerResponse> sellerResponses = sellerService.getAllSellers();
+            List<SellerResponse> sellerResponses = sellerService.getAllSellers(offset, limit);
             model.addAttribute("ab", sellerResponses);
             return "sellerList";
         }

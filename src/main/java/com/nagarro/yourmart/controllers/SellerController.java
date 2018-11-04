@@ -23,8 +23,11 @@ public class SellerController extends RestResponseHandler {
     ProductService productService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/sellers", produces = "application/json")
-    public ResponseEntity<ResponseModel<List<SellerResponse>>> getAllSellers() {
-        List<SellerResponse> sellersList = sellerService.getAllSellers();
+    public ResponseEntity<ResponseModel<List<SellerResponse>>> getAllSellers(
+            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
+    ) {
+        List<SellerResponse> sellersList = sellerService.getAllSellers(offset, limit);
         return super.responseStandardizer(sellersList);
     }
 
@@ -83,7 +86,7 @@ public class SellerController extends RestResponseHandler {
             @RequestParam(required = false, name = "limit", defaultValue = "0") Long limit,
             @RequestParam(required = false, name = "offset", defaultValue = "2") Long offset
     ) {
-        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortParamater, categoryId, productStatusId, limit, offset);
+        List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortParamater, categoryId, productStatusId, offset, limit);
         return super.responseStandardizer(productsList);
     }
 
