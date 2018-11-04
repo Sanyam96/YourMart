@@ -360,8 +360,9 @@ public class yourMartController extends RestResponseHandler {
         return "redirect:/admin/login";
     }
 
+
     @RequestMapping(value = "/admin/sel", method = RequestMethod.GET)
-    public String viewSeller(
+    public String updateSeller(
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
@@ -380,10 +381,6 @@ public class yourMartController extends RestResponseHandler {
         SellerResponse sellerResponse = sellerService.getSellerById(sellerId);
         model.addAttribute("ab", sellerResponse);
 
-        if(sellerResponse != null && flag == 1) {
-            return "seller";
-        }
-
         SellerRequest sellerRequest = new SellerRequest();
         sellerRequest.setCompanyName(companyName);
         sellerRequest.setOwnerName(ownerName);
@@ -393,37 +390,40 @@ public class yourMartController extends RestResponseHandler {
         sellerRequest.setGstNumber(gstNumber);
         SellerResponse s = sellerService.updateSeller(sellerRequest, sellerId);
         return "redirect:/admin/sellers";
-
-
-
-        /*
-        ProductRequest productRequest = new ProductRequest();
-        productRequest.setProductCode(productCode);
-        productRequest.setProductName(productName);
-        productRequest.setShortDescription(shortDescription);
-        productRequest.setLongDescription(longDescription);
-        productRequest.setDimensions(dimensions);
-        productRequest.setCategoryId(categoryId);
-        productRequest.setMrp(mrp);
-        productRequest.setSsp(ssp);
-        productRequest.setYmp(ymp);
-        productRequest.setSellerId(sellerId);
-        String s = productService.updateProduct(productRequest, productId);
-
-//        List<ProductResponse> responses = productService.getAllProductsBySellerId("0", null, null, 0, null, 0, 0);
-        return "redirect:/admin/products";
-
-
-         */
-
-
-
-//        if(session != null) {
-//            List<SellerResponse> sellerResponses = sellerService.getAllSellers();
-//            model.addAttribute("ab", sellerResponses);
-//            return "sellerList";
-//        }
     }
+
+    @RequestMapping(value = "/admin/seller/{sellerId}", method = RequestMethod.GET)
+    public String viewSeller(
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request,
+            @PathVariable("sellerId") Long sellerId,
+            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag,
+            @RequestParam(required = false, name = "companyName") String companyName,
+            @RequestParam(required = false, name = "ownerName") String ownerName,
+            @RequestParam(required = false, name = "address") String address,
+            @RequestParam(required = false, name = "emailAddress") String emailAddress,
+            @RequestParam(required = false, name = "telephoneNumber") Long telephoneNumber,
+            @RequestParam(required = false, name = "gstNumber") String gstNumber,
+            @RequestParam(required = false, name = "password") String password
+    ) {
+        HttpSession session = request.getSession(false);
+        SellerResponse sellerResponse = sellerService.getSellerById(sellerId);
+        model.addAttribute("ab", sellerResponse);
+        if(sellerResponse != null) {
+            return "seller";
+        }
+        SellerRequest sellerRequest = new SellerRequest();
+        sellerRequest.setCompanyName(companyName);
+        sellerRequest.setOwnerName(ownerName);
+        sellerRequest.setAddress(address);
+        sellerRequest.setEmailAddress(emailAddress);
+        sellerRequest.setTelephoneNumber(telephoneNumber);
+        sellerRequest.setGstNumber(gstNumber);
+        SellerResponse s = sellerService.updateSeller(sellerRequest, sellerId);
+        return "redirect:/admin/sellers";
+    }
+
 
     @RequestMapping(value = "/admin/seller/update-seller", method = RequestMethod.GET)
     public String updateSellerStatus(

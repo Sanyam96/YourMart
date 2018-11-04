@@ -50,8 +50,8 @@
                 <c:set target="${updatedAt}" property="time" value="${ab.updatedAt}"/>
 
 
+                            <form action="/admin/sel/" method="GET">
                 <tr>
-                            <form action="/admin/sel" method="GET">
                               <td>${ab.id}</td>
                               <td><input type"text" name="companyName" value="${ab.companyName}"/></td>
                               <td><input type"text" name="ownerName" value="${ab.ownerName}"/></td>

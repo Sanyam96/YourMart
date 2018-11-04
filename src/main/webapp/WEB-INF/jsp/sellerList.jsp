@@ -27,7 +27,6 @@
     </br>
     </br>
 
-                                <form action="/admin/seller/update-seller" method"GET" id="form1" style="position: absolute; right: 0;">
         <div>
             <table class="table">
               <thead class="thead-dark">
@@ -49,6 +48,7 @@
               </thead>
               <tbody>
 
+                <form action="/admin/seller/update-seller" method"GET" style="position: absolute; right: 0;">
                 <c:forEach items="${ab}" var="seller">
                 <c:set target="${createdAt}" property="time" value="${seller.createdAt}"/>
                 <c:set target="${updatedAt}" property="time" value="${seller.updatedAt}"/>
@@ -66,31 +66,25 @@
                   <td>${seller.sellerStatus}</td>
 
                   <td>
-                    ${seller.id}
-                    <div>
-                    <form action="/admin/sel" method="GET" id="form2">
-                        <input type="hidden" name="sellerId" value="${seller.id}">
-                        <input type="hidden" name="flag" value=1>
-                        <input type="submit" value="VIEW" form="form2">
-                    </form>
-                    </div>
+                        <a href="seller/${seller.id}">View</a>
                   </td>
 
 
-                                    <td>
-                                        ${product.id}
-                                        <c:if test="${seller.sellerStatusId!=4}">
-                                            <input type="checkbox" name="cbox" value="${seller.id}">
-                                        </c:if>
-                                    </td>
+                    <td>
+                        ${seller.id}
+                        <c:if test="${seller.sellerStatusId!=4}">
+                            <input type="checkbox" name="cbox" value="${seller.id}">
+                        </c:if>
+                    </td>
 
+                  </tr>
                                 </c:forEach>
 
 
 
               </tbody>
-              <input type="submit" value="Approve Selected Products" form="form1">
             </table>
+              <input type="submit" value="Approve Selected Products" > </form>
 
          </div>
 
