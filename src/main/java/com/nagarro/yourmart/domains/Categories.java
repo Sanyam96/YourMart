@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "categories")
-public class Categories extends BaseEntity  {
+public class Categories extends BaseEntity {
 
     @Id
     @Column(name = "category_id")
