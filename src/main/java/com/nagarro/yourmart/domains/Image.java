@@ -12,12 +12,12 @@ import javax.persistence.*;
 public class Image extends BaseEntity {
 
     @Id
-    @Column(name = "category_id")
+    @Column(name = "image_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "image")
+    private byte[] image;
 
     @Column(name = "product_id", insertable = false, updatable = false)
     private long productId;
@@ -35,17 +35,17 @@ public class Image extends BaseEntity {
         super(createdAt, updatedAt);
     }
 
-    public Image(long createdAt, long updatedAt, long id, String name, long productId, Products products) {
+    public Image(long createdAt, long updatedAt, long id, byte[] image, long productId, Products products) {
         super(createdAt, updatedAt);
         this.id = id;
-        this.name = name;
+        this.image = image;
         this.productId = productId;
         this.products = products;
     }
 
-    public Image(long id, String name, long productId, Products products) {
+    public Image(long id, byte[] image, long productId, Products products) {
         this.id = id;
-        this.name = name;
+        this.image = image;
         this.productId = productId;
         this.products = products;
     }
@@ -58,12 +58,12 @@ public class Image extends BaseEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public long getProductId() {
