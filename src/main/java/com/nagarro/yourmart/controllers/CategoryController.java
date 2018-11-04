@@ -39,10 +39,10 @@ public class CategoryController extends RestResponseHandler {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/category")
-    public ResponseEntity<ResponseModel<String>> addCategory(
+    public ResponseEntity<ResponseModel<CategoryResponse>> addCategory(
             @RequestBody CategoryRequest categoryRequest
     ) {
-        String categoryResponse = categoryService.createCategory(categoryRequest);
+        CategoryResponse categoryResponse = categoryService.createCategory(categoryRequest);
         return super.responseStandardizer(categoryResponse);
     }
 

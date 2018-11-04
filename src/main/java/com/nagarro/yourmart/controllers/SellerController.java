@@ -83,7 +83,7 @@ public class SellerController extends RestResponseHandler {
             @RequestParam(required = false, name = "sort") String sortParamater,
             @RequestParam(required = false, name = "categoryId") Long categoryId,
             @RequestParam(required = false, name = "productStatusId") Long productStatusId,
-            @RequestParam(required = false, name = "limit", defaultValue = "5") Long limit,
+            @RequestParam(required = false, name = "limit", defaultValue = "10") Long limit,
             @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
     ) {
         List<ProductResponse> productsList = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortParamater, categoryId, productStatusId, offset, limit);

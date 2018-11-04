@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.rmi.CORBA.Util;
 import java.util.List;
 
 /**
@@ -56,12 +57,13 @@ public class CategoryService {
     }
 
     @Transactional
-    public String createCategory(CategoryRequest categoryRequest) {
+    public CategoryResponse createCategory(CategoryRequest categoryRequest) {
         // db call
         Categories category = new Categories();
         category.setName(categoryRequest.getName());
         categoryRepository.create(category);
-        return "created";
+        CategoryResponse categoryResponse = Utility.convertModel(category, CategoryResponse.class);
+        return categoryResponse;
     }
 
     @Transactional
