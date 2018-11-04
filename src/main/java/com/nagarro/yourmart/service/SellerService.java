@@ -53,6 +53,32 @@ public class SellerService {
     }
 
     @Transactional
+    public List<SellerResponse> getAllSellersByParams(Long offset, Long limit, String sortBy, Long sellerId, Long sellerStatusId, String companyName, String ownerName, Long telephoneNumber) {
+//        List<Seller> sellerList = sellerRepository.getList(Seller.class);
+        List<Seller> sellerList = sellerRepository.getSellersParamsResult(offset, limit, sortBy, sellerId, sellerStatusId, companyName, ownerName, telephoneNumber);
+        List<SellerResponse> sellerResponseList = Utility.convertModelList(sellerList, SellerResponse.class);
+
+        for (long i = 0; i < sellerResponseList.size(); i++) {
+            if(sellerResponseList.get((int) i).getSellerStatusId() == 1) {
+                sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
+            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 2) {
+                sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NON_REGISTERED);
+            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 3) {
+                sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.REJECTED);
+            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 4) {
+                sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.APPROVED);
+            }
+        }
+
+        if(sellerResponseList == null || sellerList.isEmpty()) {
+            throw new YourMartResourceNotFoundException("Seller List not found");
+        }
+
+        return sellerResponseList;
+    }
+
+
+    @Transactional
     public SellerResponse getSellerById(long id) {
         Seller seller = sellerRepository.getById(id, Seller.class);
         SellerResponse sellerResponse = Utility.convertModel(seller, SellerResponse.class);

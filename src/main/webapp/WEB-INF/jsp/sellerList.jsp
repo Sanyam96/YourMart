@@ -88,6 +88,38 @@
 
          </div>
 
+            <form action="/admin/sellers" method="GET">
+
+                 <div class="container" >
+                     <h4>SortBy</h4>
+                     <select name="sortBy" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                         <option value="id" class="dropdown-item">sellerId</option>
+                         <option value="createdAt">Registration Time</option>
+                     </select>
+                     <input type="submit" value="Submit">
+                 </div>
+
+                 <h3>Filter By SellerId</h3>
+                 <input type"text" name="sellerId"/>
+                 <input type="submit" value="pressMe">
+
+                 <h3>Filter By SellerStatus</h3>
+                 <input type"text" name="sellerStatusId"/>
+                 <input type="submit" value="pressMe">
+
+                 <h3>Search By companyName</h3>
+                 <input type"text" name="companyName"/>
+                 <input type="submit" value="pressMe">
+
+                 <h3>Search By Owner Name</h3>
+                 <input type"text" name="ownerName"/>
+                 <input type="submit" value="pressMe">
+
+                 <h3>Search By Telephone Number</h3>
+                  <input type"text" name="telephoneNumber"/>
+                  <input type="submit" value="pressMe">
+             </form>
+
 
 </body>
 </html>

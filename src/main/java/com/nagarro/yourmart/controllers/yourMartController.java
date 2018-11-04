@@ -344,16 +344,17 @@ public class yourMartController extends RestResponseHandler {
             HttpServletRequest request,
             @RequestParam(required = false, name = "limit", defaultValue = "10") Long limit,
             @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset,
-            @RequestParam(required = false, name = "sortBy") String productCode, //sellerId, SellerStatus, RegistrationTime
-            @RequestParam(required = false, name = "companyName") String productName,
-            @RequestParam(required = false, name = "ownerName") Long productId,
-            @RequestParam(required = false, name = "contactNumber") String sortParamater,
-            @RequestParam(required = false, name = "sellerStatus") Long categoryId //filter
+            @RequestParam(value = "sortBy",required = false) String sortBy,
+            @RequestParam(value = "sellerId", required = false) Long sellerId,
+            @RequestParam(required = false, name = "companyName") String companyName,
+            @RequestParam(required = false, name = "ownerName") String ownerName,
+            @RequestParam(required = false, name = "telephoneNumber") Long telephoneNumber,
+            @RequestParam(required = false, name = "sellerStatusId") Long sellerStatusId //filter
     ) {
         HttpSession session = request.getSession(false);
 
         if(session != null) {
-            List<SellerResponse> sellerResponses = sellerService.getAllSellers(offset, limit);
+            List<SellerResponse> sellerResponses = sellerService.getAllSellersByParams(offset, limit, sortBy, sellerId, sellerStatusId, companyName, ownerName, telephoneNumber);
             model.addAttribute("ab", sellerResponses);
             return "sellerList";
         }

@@ -107,23 +107,23 @@
 
         <h3>Filter By SellerId </h3>
         <input type"text" name="sellerId"/>
-        <input type="submit" value="pessMe">
+        <input type="submit" value="pressMe">
 
-        <h3>Filter By productStatus , sellerCompanyName</h3>
+        <h3>Filter By productStatus</h3>
         <input type"text" name="productStatusId"/>
-        <input type="submit" value="pessMe">
+        <input type="submit" value="pressMe">
 
         <h3>Filter By category </h3>
         <input type"text" name="categoryId"/>
-        <input type="submit" value="pessMe">
+        <input type="submit" value="pressMe">
 
         <h3>Search By productName</h3>
         <input type"text" name="productName"/>
-        <input type="submit" value="pessMe">
+        <input type="submit" value="pressMe">
 
         <h3>Search By productCode</h3>
         <input type"text" name="productCode"/>
-        <input type="submit" value="pessMe">
+        <input type="submit" value="pressMe">
 
         </div>
     </form>
