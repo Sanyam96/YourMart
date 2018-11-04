@@ -53,54 +53,7 @@ public class yourMartController extends RestResponseHandler {
 
 
 
-    //    CATEGORIES
-    @RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
-    public String getAllCategories(
-            Model model,
-            HttpServletResponse response,
-            HttpServletRequest request,
-            @RequestParam(required = false, name = "limit", defaultValue = "10") Long limit,
-            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
-    ) {
-        HttpSession session = request.getSession(false);
-        List<CategoryResponse> categoryResponses = categoryService.getAllCategories(offset, limit);
-        model.addAttribute("cat", categoryResponses);
-        return "categories";
-//        if(session != null) {
-//            List<CategoryResponse> categoryResponses = categoryService.getAllCategories();
-//            model.addAttribute("cat", categoryResponses);
-//            return "category";
-//        }
-//        return "redirect:/admin/login";
-    }
 
-    @RequestMapping(value = "/admin/categories/delete", method = RequestMethod.GET)
-    public String deleteCategory(
-            Model model,
-            HttpServletResponse response,
-            HttpServletRequest request,
-            @RequestParam(value = "categoryId", required = false) Long categoryId
-    ) {
-        HttpSession session = request.getSession(false);
-        System.out.println(categoryId);
-        CategoryResponse s = categoryService.deleteCategory(categoryId);
-        return "redirect:/admin/categories";
-    }
-
-    @RequestMapping(value = "/admin/categories/update", method = RequestMethod.GET)
-    public String updateCategory(
-            Model model,
-            HttpServletResponse response,
-            HttpServletRequest request,
-            @RequestParam(value = "categoryId", required = false) Long categoryId,
-            @RequestParam(value = "categoryName", required = false) String categoryName
-    ) {
-        System.out.println(categoryId);
-        System.out.println(categoryName);
-        HttpSession session = request.getSession(false);
-        CategoryResponse categoryResponse = categoryService.updateCategoryByName(categoryName, categoryId);
-        return "redirect:/admin/categories";
-    }
 
 
     //    SELLERS

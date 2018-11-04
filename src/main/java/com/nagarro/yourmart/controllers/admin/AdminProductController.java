@@ -57,7 +57,7 @@ public class AdminProductController {
             model.addAttribute("updatedAtChecked", updatedAtChecked);
         }
 
-        if(session != null) {
+        if(session != null && session.getAttribute("admin") != null) {
         List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId, offset, limit);
         model.addAttribute("ab", productResponse);
         return "productList";
