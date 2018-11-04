@@ -47,47 +47,7 @@ public class yourMartController extends RestResponseHandler {
 
 
     // LOGIN
-    @RequestMapping("/admin/login")
-    public String loginPage(ModelMap modelMap) {
-        return "login";
-    }
 
-    @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
-    public String getAdminLoggedIn(
-            ModelMap model,
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
-        AdminResponse admin = adminService.authenticate(username, password);
-        request.getSession().setAttribute("admin", admin);
-        return "redirect:/admin/home";
-    }
-
-    @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
-    public String homePage(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("admin") != null) {
-            return "home";
-        }
-        return "redirect:/admin/login";
-    }
-
-    @RequestMapping(value = "/admin/logout", method = RequestMethod.POST)
-    public String adminLogout(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("admin") != null) {
-            session.setAttribute("admin", null);
-        }
-        return "redirect:/admin/login";
-    }
 
 
     //  PRODUCTS
