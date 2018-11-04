@@ -23,37 +23,35 @@ public class ProductRepository extends AbstractBaseRepository {
 
         criteria.setFirstResult(offsetNumber);
 
-        if(sellerId != null) {
+        if (sellerId != null) {
             criteria.add(Restrictions.eq("sellerId", sellerId));
         }
 
-        if(productId != null) {
+        if (productId != null) {
             criteria.add(Restrictions.eq("id", productId));
         }
 
-        if(productCode != null) {
+        if (productCode != null) {
             criteria.add(Restrictions.like("productCode", ("%" + productCode + "%")));
         }
 
-        if(productName != null) {
+        if (productName != null) {
             criteria.add(Restrictions.like("productName", ("%" + productName + "%")));
         }
 
-        if(sortParameter != null) {
+        if (sortParameter != null) {
             criteria.addOrder(Order.asc(sortParameter));
         }
 
-        if(categoryId != null) {
+        if (categoryId != null) {
             criteria.add(Restrictions.eq("categoryId", categoryId));
         }
 
-        if(productStatusId != null) {
+        if (productStatusId != null) {
             criteria.add(Restrictions.eq("productStatusId", productStatusId));
         }
 
         criteria.setMaxResults(limitNumber);
-
-        System.out.println("okok");
         return criteria.list();
     }
 
@@ -61,7 +59,6 @@ public class ProductRepository extends AbstractBaseRepository {
         Criteria criteria = this.getCurrentSession().createCriteria(Products.class);
         criteria.add(Restrictions.eq("sellerId", sellerId));
         criteria.add(Restrictions.eq("id", productId));
-        System.out.println("successfull");
         Products product = (Products) criteria.uniqueResult();
         return product;
     }

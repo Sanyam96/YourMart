@@ -37,16 +37,15 @@ public class ProductService {
     public List<ProductResponse> getAllProducts(long sId, String productCode, String productName, long productId, String sortParamater, long cId, long productStatusId) {
         List<Products> productsList = productRepository.getList(Products.class);
         List<ProductResponse> productResponseList = Utility.convertModelList(productsList, ProductResponse.class);
-//        System.out.println("hello");
 
         for (long i = 0; i < productResponseList.size(); i++) {
-            if(productResponseList.get((int) i).getProductStatusId() == 1) {
+            if (productResponseList.get((int) i).getProductStatusId() == 1) {
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.NEW);
-            } else if(productResponseList.get((int) i).getProductStatusId() == 2) {
+            } else if (productResponseList.get((int) i).getProductStatusId() == 2) {
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.APPROVED);
-            } else if(productResponseList.get((int) i).getProductStatusId() == 3){
+            } else if (productResponseList.get((int) i).getProductStatusId() == 3) {
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REJECTED);
-            } else if(productResponseList.get((int) i).getProductStatusId() == 4){
+            } else if (productResponseList.get((int) i).getProductStatusId() == 4) {
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REVIEW);
             }
             long sellerId = productResponseList.get((int) i).getSellerId();
@@ -59,14 +58,9 @@ public class ProductService {
             Date updatedAtInHumanDate = new Date(productResponseList.get((int) i).getUpdatedAt());
             productResponseList.get((int) i).setCreatedAtInHumanDate(createdAtInHumanDate);
             productResponseList.get((int) i).setUpdatedAtInHumanDate(updatedAtInHumanDate);
-
-
-//            long test_timestamp = productResponseList.get((int) i).getCreatedAt();
-//            LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(test_timestamp), TimeZone.getDefault().toZoneId());
-//            productResponseList.get((int) i).setCreatedAt(localDateTime);
         }
 
-        if(productResponseList == null || productsList.isEmpty()) {
+        if (productResponseList == null || productsList.isEmpty()) {
             throw new YourMartResourceNotFoundException("product list not found!");
         }
         return productResponseList;
@@ -83,21 +77,18 @@ public class ProductService {
         product.setShortDescription(productRequest.getShortDescription());
         product.setLongDescription(productRequest.getLongDescription());
         product.setDimensions(productRequest.getDimensions());
-//        product.setCategoryId(productRequest.getCategoryId()); // todo arraylist of categories Id or objects
         product.setCategories(categoryService.getCategoryById(productRequest.getCategoryId()));
         product.setMrp(productRequest.getMrp());
         product.setSsp(productRequest.getSsp());
         product.setYmp(productRequest.getYmp());
-        product.setSellerId(productRequest.getSellerId()); // todo store object
+        product.setSellerId(productRequest.getSellerId());
         product.setSeller(sellerService.getSellerId(productRequest.getSellerId()));
         System.out.println("halfDone");
 
         // product status id
         // NEW with id 1
         product.setProductStatus(productStatusService.getProductStatusById(1));
-        System.out.println("done");
         productRepository.create(product);
-
 
 
         ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);
@@ -107,14 +98,12 @@ public class ProductService {
         productResponse.setSellerCompanyName(sellerService.getSellerById(product.getSellerId()).getCompanyName());
         productResponse.setProductStatus(ProductStatusEnum.NEW);
         productResponse.setProductStatusId(product.getProductStatusId());
-        System.out.println("fulldone");
 
-        // todo
         return productResponse;
     }
 
     @Transactional
-    public String updateProduct(ProductRequest productRequest, long id) {
+    public ProductResponse updateProduct(ProductRequest productRequest, long id) {
 
         // db call
         Products product = productRepository.getById(id, Products.class);
@@ -136,10 +125,15 @@ public class ProductService {
 
         productRepository.update(product);
 
-        System.out.println("fulldone");
+        ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);
+        System.out.println(productResponse);
+        productResponse.setCategoryId(productRequest.getCategoryId());
+        productResponse.setCategoryName(categoryService.getCategoryById(productRequest.getCategoryId()).getName());
+        productResponse.setSellerCompanyName(sellerService.getSellerById(product.getSellerId()).getCompanyName());
+        productResponse.setProductStatus(ProductStatusEnum.REVIEW);
+        productResponse.setProductStatusId(product.getProductStatusId());
 
-        // todo
-        return "updated";
+        return productResponse;
     }
 
     @Transactional
@@ -147,17 +141,17 @@ public class ProductService {
         Products product = productRepository.getById(id, Products.class);
         ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);
 
-        if(productResponse.getProductStatusId() == 1) {
+        if (productResponse.getProductStatusId() == 1) {
             productResponse.setProductStatus(ProductStatusEnum.NEW);
-        } else if(productResponse.getProductStatusId() == 2) {
+        } else if (productResponse.getProductStatusId() == 2) {
             productResponse.setProductStatus(ProductStatusEnum.APPROVED);
-        } else if(productResponse.getProductStatusId() == 3){
+        } else if (productResponse.getProductStatusId() == 3) {
             productResponse.setProductStatus(ProductStatusEnum.REJECTED);
-        } else if(productResponse.getProductStatusId() == 4){
+        } else if (productResponse.getProductStatusId() == 4) {
             productResponse.setProductStatus(ProductStatusEnum.REVIEW);
         }
 
-        if(productResponse == null || product == null) {
+        if (productResponse == null || product == null) {
             throw new YourMartResourceNotFoundException("Product not found with the given id: " + id);
         }
 
@@ -177,17 +171,16 @@ public class ProductService {
         List<ProductResponse> productResponseList = Utility.convertModelList(products, ProductResponse.class);
 
         for (long i = 0; i < productResponseList.size(); i++) {
-            if(productResponseList.get((int) i).getProductStatusId() == 1) {
+            if (productResponseList.get((int) i).getProductStatusId() == 1) {
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.NEW);
-            } else if(productResponseList.get((int) i).getProductStatusId() == 2) {
+            } else if (productResponseList.get((int) i).getProductStatusId() == 2) {
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.APPROVED);
-            } else if(productResponseList.get((int) i).getProductStatusId() == 3){
+            } else if (productResponseList.get((int) i).getProductStatusId() == 3) {
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REJECTED);
-            } else if(productResponseList.get((int) i).getProductStatusId() == 4){
+            } else if (productResponseList.get((int) i).getProductStatusId() == 4) {
                 productResponseList.get((int) i).setProductStatus(ProductStatusEnum.REVIEW);
             }
 
-            // todo
             long sellerIdFromResponse = productResponseList.get((int) i).getSellerId();
             productResponseList.get((int) i).setSellerCompanyName(sellerService.getSellerById(sellerIdFromResponse).getCompanyName());
 
@@ -198,17 +191,10 @@ public class ProductService {
             Date updatedAtInHumanDate = new Date(productResponseList.get((int) i).getUpdatedAt());
             productResponseList.get((int) i).setCreatedAtInHumanDate(createdAtInHumanDate);
             productResponseList.get((int) i).setUpdatedAtInHumanDate(updatedAtInHumanDate);
-
-
-//            long test_timestamp = productResponseList.get((int) i).getCreatedAt();
-//            LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(test_timestamp), TimeZone.getDefault().toZoneId());
-//            productResponseList.get((int) i).setCreatedAt(localDateTime);
         }
-
-        if(productResponseList == null || products.isEmpty()) {
+        if (productResponseList == null || products.isEmpty()) {
             throw new YourMartResourceNotFoundException("Product List not found with the given id: " + sellerId);
         }
-        System.out.println("hello");
         return productResponseList;
     }
 
@@ -217,7 +203,7 @@ public class ProductService {
         Products product = productRepository.getProductBySellerIdProductId(sellerId, productId);
         ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);
 
-        if(productResponse == null || product == null) {
+        if (productResponse == null || product == null) {
             throw new YourMartResourceNotFoundException("Product not found with the given Seller id: " + sellerId + " or Product id: " + productId);
         }
 
@@ -237,15 +223,10 @@ public class ProductService {
         // db call
         Products product = productRepository.getById(id, Products.class);
 
-
-        // Approva with id 2
+        // Approve with id 2
         product.setProductStatus(productStatusService.getProductStatusById(2));
-
         productRepository.update(product);
 
-        System.out.println("fulldone");
-
-        // todo
         return "updated";
     }
 

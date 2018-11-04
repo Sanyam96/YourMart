@@ -169,7 +169,7 @@ public class yourMartController extends RestResponseHandler {
         productRequest.setSsp(ssp);
         productRequest.setYmp(ymp);
         productRequest.setSellerId(sellerId);
-        String s = productService.updateProduct(productRequest, productId);
+        ProductResponse productResponse1 = productService.updateProduct(productRequest, productId);
 
 //        List<ProductResponse> responses = productService.getAllProductsBySellerId("0", null, null, 0, null, 0, 0);
         return "redirect:/admin/products";
@@ -217,7 +217,7 @@ public class yourMartController extends RestResponseHandler {
         productRequest.setSsp(ssp);
         productRequest.setYmp(ymp);
         productRequest.setSellerId(sellerId);
-        String s = productService.updateProduct(productRequest, productId);
+        ProductResponse s = productService.updateProduct(productRequest, productId);
 
 //        List<ProductResponse> responses = productService.getAllProductsBySellerId("0", null, null, 0, null, 0, 0);
         return "redirect:/admin/products";
