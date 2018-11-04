@@ -73,7 +73,7 @@ public class ProductService {
     }
 
     @Transactional
-    public String createProduct(ProductRequest productRequest) {
+    public ProductResponse createProduct(ProductRequest productRequest) {
 
         // db call
         Products product = new Products();
@@ -98,10 +98,19 @@ public class ProductService {
         System.out.println("done");
         productRepository.create(product);
 
+
+
+        ProductResponse productResponse = Utility.convertModel(product, ProductResponse.class);
+        System.out.println(productResponse);
+        productResponse.setCategoryId(productRequest.getCategoryId());
+        productResponse.setCategoryName(categoryService.getCategoryById(productRequest.getCategoryId()).getName());
+        productResponse.setSellerCompanyName(sellerService.getSellerById(product.getSellerId()).getCompanyName());
+        productResponse.setProductStatus(ProductStatusEnum.NEW);
+        productResponse.setProductStatusId(product.getProductStatusId());
         System.out.println("fulldone");
 
         // todo
-        return "created";
+        return productResponse;
     }
 
     @Transactional
@@ -151,6 +160,13 @@ public class ProductService {
         if(productResponse == null || product == null) {
             throw new YourMartResourceNotFoundException("Product not found with the given id: " + id);
         }
+
+        System.out.println(productResponse);
+        productResponse.setCategoryId(product.getCategoryId());
+        productResponse.setCategoryName(categoryService.getCategoryById(product.getCategoryId()).getName());
+        productResponse.setSellerCompanyName(sellerService.getSellerById(product.getSellerId()).getCompanyName());
+        productResponse.setProductStatus(ProductStatusEnum.NEW);
+        productResponse.setProductStatusId(product.getProductStatusId());
 
         return productResponse;
     }
@@ -204,6 +220,13 @@ public class ProductService {
         if(productResponse == null || product == null) {
             throw new YourMartResourceNotFoundException("Product not found with the given Seller id: " + sellerId + " or Product id: " + productId);
         }
+
+        System.out.println(productResponse);
+        productResponse.setCategoryId(product.getCategoryId());
+        productResponse.setCategoryName(categoryService.getCategoryById(product.getCategoryId()).getName());
+        productResponse.setSellerCompanyName(sellerService.getSellerById(product.getSellerId()).getCompanyName());
+        productResponse.setProductStatus(ProductStatusEnum.NEW);
+        productResponse.setProductStatusId(product.getProductStatusId());
 
         return productResponse;
     }

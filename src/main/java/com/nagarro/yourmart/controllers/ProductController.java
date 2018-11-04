@@ -39,10 +39,10 @@ public class ProductController extends RestResponseHandler {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/product")
-    public ResponseEntity<ResponseModel<String>> createProduct(
+    public ResponseEntity<ResponseModel<ProductResponse>> createProduct(
             @RequestBody ProductRequest productRequest
     ) {
-        String productResponse = productService.createProduct(productRequest);
+        ProductResponse productResponse = productService.createProduct(productRequest);
         return super.responseStandardizer(productResponse);
 
     }
