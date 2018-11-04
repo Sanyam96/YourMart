@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author Sanyam Goel created on 29/10/18
@@ -37,6 +38,8 @@ public class Seller extends BaseEntity {
 
     @Column(name = "gst_number")
     private String gstNumber;
+
+    private String token;
 
     @Column(name = "password")
     private String password;
@@ -91,6 +94,19 @@ public class Seller extends BaseEntity {
         this.password = password;
         this.sellerStatusId = sellerStatusId;
         this.sellerStatus = sellerStatus;
+    }
+
+    @PrePersist
+    private void generateToken() {
+        this.setToken(UUID.randomUUID().toString());
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public long getId() {
