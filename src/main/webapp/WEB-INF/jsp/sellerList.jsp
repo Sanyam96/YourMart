@@ -27,6 +27,7 @@
     </br>
     </br>
 
+                                <form action="/admin/seller/update-seller" method"GET" id="form1" style="position: absolute; right: 0;">
         <div>
             <table class="table">
               <thead class="thead-dark">
@@ -67,34 +68,28 @@
                   <td>
                     ${seller.id}
                     <div>
-                    <form action="/admin/sel" method="GET">
+                    <form action="/admin/sel" method="GET" id="form2">
                         <input type="hidden" name="sellerId" value="${seller.id}">
                         <input type="hidden" name="flag" value=1>
-                        <input type="submit" value="VIEW">
+                        <input type="submit" value="VIEW" form="form2">
                     </form>
                     </div>
                   </td>
 
 
-                </tr>
-                                <form action="/admin/seller/update-seller" method"GET">
-                                </c:forEach>
-
-                                  <c:forEach items="${ab}" var="seller">
-                                  <tr>
                                     <td>
                                         ${product.id}
                                         <c:if test="${seller.sellerStatusId!=4}">
                                             <input type="checkbox" name="cbox" value="${seller.id}">
                                         </c:if>
                                     </td>
-                                  </tr>
+
                                 </c:forEach>
 
 
 
               </tbody>
-              <input type="submit" value="Approve Selected Products">
+              <input type="submit" value="Approve Selected Products" form="form1">
             </table>
 
          </div>

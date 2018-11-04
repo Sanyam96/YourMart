@@ -44,8 +44,8 @@
           </thead>
           <tbody>
 
+                <form action="/admin/prod/" method="GET">
             <tr>
-            <form action="/admin/prod" method="GET">
               <td>${ab.id}</td>
               <td><input type"text" name="productCode" value="${ab.productCode}"/></td>
               <td><input type"text" name="productName" value="${ab.productName}"/></td>

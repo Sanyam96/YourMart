@@ -50,6 +50,7 @@
               </thead>
               <tbody>
 
+                <form action="/admin/products/update-status" method"GET">
                 <c:forEach items="${ab}" var="product">
                 <c:set target="${createdAt}" property="time" value="${product.createdAt}"/>
                 <c:set target="${updatedAt}" property="time" value="${product.updatedAt}"/>
@@ -70,33 +71,21 @@
                   <td>${product.sellerCompanyName}</td>
                   <td>${product.categoryName}</td>
                   <td>
-
-                    <form action="/admin/prod" method="GET">
-                        <input type="hidden" name="productId" value="${product.id}">
-                        <input type="hidden" name="flag" value=1>
-                        <input type="submit" value="VIEW">
-                    </form>
-
+                    <a href="product/${product.id}">View</a>
+                  </td>
+                  <td>
+                      ${product.id}
+                      <c:if test="${product.productStatusId!=2}">
+                          <input type="checkbox" name="cbox" value="${product.id}">
+                      </c:if>
                   </td>
 
                 </tr>
-                <form action="/admin/products/update-status" method"GET">
-                </c:forEach>
-
-                  <c:forEach items="${ab}" var="product">
-                  <tr>
-                    <td>
-                        ${product.id}
-                        <c:if test="${product.productStatusId!=2}">
-                            <input type="checkbox" name="cbox" value="${product.id}">
-                        </c:if>
-                    </td>
-                  </tr>
                 </c:forEach>
 
               </tbody>
-                <input type="submit" value="Approve Selected Products">
             </table>
+                <input type="submit" value="Approve Selected Products">
          </form>
          </div>
 

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,9 +121,10 @@ public class yourMartController extends RestResponseHandler {
 //            @RequestParam(required = false, name = "sort") String sortParamater,
             @RequestParam(required = false, name = "categoryId") Long categoryId,
             @RequestParam(required = false, name = "productStatusId") Long productStatusId,
-            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "limit", defaultValue = "10") Long limit,
             @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
     ) {
+
         HttpSession session = request.getSession(false);
         if(sortBy!=null) {
             String mrpChecked = sortBy.equals("mrp") ? "checked" : " ";
@@ -137,15 +139,15 @@ public class yourMartController extends RestResponseHandler {
             model.addAttribute("updatedAtChecked", updatedAtChecked);
         }
 
-        if(session != null) {
+//        if(session != null) {
             List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId, offset, limit);
             model.addAttribute("ab", productResponse);
             return "productList";
-        }
-        return "redirect:/admin/login";
+//        }
+//        return "redirect:/admin/login";
     }
 
-    @RequestMapping(value = "/admin/prod", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/product/{productId}", method = RequestMethod.GET)
     public String getProduct(
             Model model,
             HttpServletResponse response,
@@ -153,7 +155,7 @@ public class yourMartController extends RestResponseHandler {
             @RequestParam(value="sellerId",required = false) Long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
-            @RequestParam(required = false, name = "productId") Long productId,
+            @PathVariable("productId") Long productId,
 //            @RequestParam(required = false, name = "sort") String sortParamater,
             @RequestParam(required = false, name = "categoryId") Long categoryId,
             @RequestParam(required = false, name = "mrp") Double mrp,
@@ -169,9 +171,57 @@ public class yourMartController extends RestResponseHandler {
         ProductResponse productResponse = productService.getProductById(productId);
         model.addAttribute("ab", productResponse);
 
-        if(productResponse != null && flag == 1) {
+        if(productResponse != null) {
             return "product";
         }
+
+        ProductRequest productRequest = new ProductRequest();
+        productRequest.setProductCode(productCode);
+        productRequest.setProductName(productName);
+        productRequest.setShortDescription(shortDescription);
+        productRequest.setLongDescription(longDescription);
+        productRequest.setDimensions(dimensions);
+        productRequest.setCategoryId(categoryId);
+        productRequest.setMrp(mrp);
+        productRequest.setSsp(ssp);
+        productRequest.setYmp(ymp);
+        productRequest.setSellerId(sellerId);
+        String s = productService.updateProduct(productRequest, productId);
+
+//        List<ProductResponse> responses = productService.getAllProductsBySellerId("0", null, null, 0, null, 0, 0);
+        return "redirect:/admin/products";
+
+//        if(session != null) {
+//            String productResponse = productService.updateProduct(productRequest,productId);
+//            model.addAttribute("ab", productResponse);
+//            return "productList";
+//        }
+//        return "redirect:/admin/login";
+    }
+
+    @RequestMapping(value = "/admin/prod/", method = RequestMethod.GET)
+    public String updateProduct(
+            Model model,
+            HttpServletResponse response,
+            HttpServletRequest request,
+            @RequestParam(value="sellerId",required = false) Long sellerId,
+            @RequestParam(required = false, name = "productCode") String productCode,
+            @RequestParam(required = false, name = "productName") String productName,
+            @RequestParam(name = "productId") Long productId,
+//            @RequestParam(required = false, name = "sort") String sortParamater,
+            @RequestParam(required = false, name = "categoryId") Long categoryId,
+            @RequestParam(required = false, name = "mrp") Double mrp,
+            @RequestParam(required = false, name = "ssp") Double ssp,
+            @RequestParam(required = false, name = "ymp") Double ymp,
+            @RequestParam(required = false, name = "shortDescription") String shortDescription,
+            @RequestParam(required = false, name = "longDescription") String longDescription,
+            @RequestParam(required = false, name = "dimensions") String dimensions,
+            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag
+    ) {
+        HttpSession session = request.getSession(false);
+
+        ProductResponse productResponse = productService.getProductById(productId);
+        model.addAttribute("ab", productResponse);
 
         ProductRequest productRequest = new ProductRequest();
         productRequest.setProductCode(productCode);
@@ -233,7 +283,7 @@ public class yourMartController extends RestResponseHandler {
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
+            @RequestParam(required = false, name = "limit", defaultValue = "10") Long limit,
             @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
     ) {
         HttpSession session = request.getSession(false);
@@ -292,8 +342,13 @@ public class yourMartController extends RestResponseHandler {
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(required = false, name = "limit", defaultValue = "2") Long limit,
-            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
+            @RequestParam(required = false, name = "limit", defaultValue = "10") Long limit,
+            @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset,
+            @RequestParam(required = false, name = "sortBy") String productCode, //sellerId, SellerStatus, RegistrationTime
+            @RequestParam(required = false, name = "companyName") String productName,
+            @RequestParam(required = false, name = "ownerName") Long productId,
+            @RequestParam(required = false, name = "contactNumber") String sortParamater,
+            @RequestParam(required = false, name = "sellerStatus") Long categoryId //filter
     ) {
         HttpSession session = request.getSession(false);
 
