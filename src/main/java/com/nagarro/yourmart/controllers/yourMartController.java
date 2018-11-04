@@ -1,6 +1,5 @@
 package com.nagarro.yourmart.controllers;
 
-import com.nagarro.yourmart.domains.Admin;
 import com.nagarro.yourmart.dtos.*;
 import com.nagarro.yourmart.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,20 +46,13 @@ public class yourMartController extends RestResponseHandler {
     }
 
 
-
-
-
-
-
-
-
     // LOGIN
     @RequestMapping("/admin/login")
     public String loginPage(ModelMap modelMap) {
         return "login";
     }
 
-    @RequestMapping(value="/admin/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public String getAdminLoggedIn(
             ModelMap model,
             @RequestParam("username") String username,
@@ -68,53 +60,44 @@ public class yourMartController extends RestResponseHandler {
             HttpServletRequest request,
             HttpServletResponse response
     ) {
-        AdminResponse admin = adminService.authenticate(username,password);
+        AdminResponse admin = adminService.authenticate(username, password);
         request.getSession().setAttribute("admin", admin);
         return "redirect:/admin/home";
     }
 
-    @RequestMapping(value="/admin/home",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
     public String homePage(
             HttpServletRequest request,
             HttpServletResponse response
     ) {
         HttpSession session = request.getSession(false);
-        if(session!=null && session.getAttribute("admin")!=null) {
+        if (session != null && session.getAttribute("admin") != null) {
             return "home";
         }
         return "redirect:/admin/login";
     }
 
-    @RequestMapping(value="/admin/logout",method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/logout", method = RequestMethod.POST)
     public String adminLogout(
             HttpServletRequest request,
             HttpServletResponse response
     ) {
         HttpSession session = request.getSession(false);
-        if(session!=null && session.getAttribute("admin")!=null) {
+        if (session != null && session.getAttribute("admin") != null) {
             session.setAttribute("admin", null);
         }
         return "redirect:/admin/login";
     }
 
 
-
-
-
-
-
-
-
-
-
-//  PRODUCTS
+    //  PRODUCTS
     @RequestMapping(value = "/admin/products", method = RequestMethod.GET)
     public String getAllProducts(
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(value="sortBy",required = false) String sortBy,
-            @RequestParam(value="sellerId",required = false) Long sellerId,
+            @RequestParam(value = "sortBy", required = false) String sortBy,
+            @RequestParam(value = "sellerId", required = false) Long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
             @RequestParam(required = false, name = "productId") Long productId,
@@ -126,7 +109,7 @@ public class yourMartController extends RestResponseHandler {
     ) {
 
         HttpSession session = request.getSession(false);
-        if(sortBy!=null) {
+        if (sortBy != null) {
             String mrpChecked = sortBy.equals("mrp") ? "checked" : " ";
             model.addAttribute("mrpChecked", mrpChecked);
             String sspChecked = sortBy.equals("ssp") ? "checked" : " ";
@@ -140,9 +123,9 @@ public class yourMartController extends RestResponseHandler {
         }
 
 //        if(session != null) {
-            List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId, offset, limit);
-            model.addAttribute("ab", productResponse);
-            return "productList";
+        List<ProductResponse> productResponse = productService.getAllProductsBySellerId(sellerId, productCode, productName, productId, sortBy, categoryId, productStatusId, offset, limit);
+        model.addAttribute("ab", productResponse);
+        return "productList";
 //        }
 //        return "redirect:/admin/login";
     }
@@ -152,7 +135,7 @@ public class yourMartController extends RestResponseHandler {
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(value="sellerId",required = false) Long sellerId,
+            @RequestParam(value = "sellerId", required = false) Long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
             @PathVariable("productId") Long productId,
@@ -164,14 +147,14 @@ public class yourMartController extends RestResponseHandler {
             @RequestParam(required = false, name = "shortDescription") String shortDescription,
             @RequestParam(required = false, name = "longDescription") String longDescription,
             @RequestParam(required = false, name = "dimensions") String dimensions,
-            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag
+            @RequestParam(required = false, name = "flag", defaultValue = "0") Long flag
     ) {
         HttpSession session = request.getSession(false);
 
         ProductResponse productResponse = productService.getProductById(productId);
         model.addAttribute("ab", productResponse);
 
-        if(productResponse != null) {
+        if (productResponse != null) {
             return "product";
         }
 
@@ -204,7 +187,7 @@ public class yourMartController extends RestResponseHandler {
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(value="sellerId",required = false) Long sellerId,
+            @RequestParam(value = "sellerId", required = false) Long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
             @RequestParam(name = "productId") Long productId,
@@ -216,7 +199,7 @@ public class yourMartController extends RestResponseHandler {
             @RequestParam(required = false, name = "shortDescription") String shortDescription,
             @RequestParam(required = false, name = "longDescription") String longDescription,
             @RequestParam(required = false, name = "dimensions") String dimensions,
-            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag
+            @RequestParam(required = false, name = "flag", defaultValue = "0") Long flag
     ) {
         HttpSession session = request.getSession(false);
 
@@ -253,8 +236,8 @@ public class yourMartController extends RestResponseHandler {
             HttpServletRequest request
     ) {
         String[] ids = request.getParameterValues("cbox");
-        if(ids!=null) {
-            for(String value : ids) {
+        if (ids != null) {
+            for (String value : ids) {
                 System.out.println(value);
                 // 2=>APPROVED
                 long id = Long.parseLong(String.valueOf(value));
@@ -265,19 +248,7 @@ public class yourMartController extends RestResponseHandler {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//    CATEGORIES
+    //    CATEGORIES
     @RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
     public String getAllCategories(
             Model model,
@@ -303,40 +274,31 @@ public class yourMartController extends RestResponseHandler {
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(value="categoryId",required = false) Long categoryId
+            @RequestParam(value = "categoryId", required = false) Long categoryId
     ) {
         HttpSession session = request.getSession(false);
         System.out.println(categoryId);
-        String s = categoryService.deleteCategory(categoryId);
+        CategoryResponse s = categoryService.deleteCategory(categoryId);
         return "redirect:/admin/categories";
     }
 
     @RequestMapping(value = "/admin/categories/update", method = RequestMethod.GET)
-    public String updateCategory (
+    public String updateCategory(
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(value="categoryId",required = false) Long categoryId,
-            @RequestParam(value="categoryName",required = false) String categoryName
-        ) {
+            @RequestParam(value = "categoryId", required = false) Long categoryId,
+            @RequestParam(value = "categoryName", required = false) String categoryName
+    ) {
         System.out.println(categoryId);
         System.out.println(categoryName);
         HttpSession session = request.getSession(false);
-        String s = categoryService.updateCategoryByName(categoryName, categoryId);
+        CategoryResponse categoryResponse = categoryService.updateCategoryByName(categoryName, categoryId);
         return "redirect:/admin/categories";
     }
 
 
-
-
-
-
-
-
-
-
-
-//    SELLERS
+    //    SELLERS
     @RequestMapping(value = "/admin/sellers", method = RequestMethod.GET)
     public String viewSellers(
             Model model,
@@ -344,7 +306,7 @@ public class yourMartController extends RestResponseHandler {
             HttpServletRequest request,
             @RequestParam(required = false, name = "limit", defaultValue = "10") Long limit,
             @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset,
-            @RequestParam(value = "sortBy",required = false) String sortBy,
+            @RequestParam(value = "sortBy", required = false) String sortBy,
             @RequestParam(value = "sellerId", required = false) Long sellerId,
             @RequestParam(required = false, name = "companyName") String companyName,
             @RequestParam(required = false, name = "ownerName") String ownerName,
@@ -353,7 +315,7 @@ public class yourMartController extends RestResponseHandler {
     ) {
         HttpSession session = request.getSession(false);
 
-        if(session != null) {
+        if (session != null) {
             List<SellerResponse> sellerResponses = sellerService.getAllSellersByParams(offset, limit, sortBy, sellerId, sellerStatusId, companyName, ownerName, telephoneNumber);
             model.addAttribute("ab", sellerResponses);
             return "sellerList";
@@ -367,8 +329,8 @@ public class yourMartController extends RestResponseHandler {
             Model model,
             HttpServletResponse response,
             HttpServletRequest request,
-            @RequestParam(value="sellerId",required = false) Long sellerId,
-            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag,
+            @RequestParam(value = "sellerId", required = false) Long sellerId,
+            @RequestParam(required = false, name = "flag", defaultValue = "0") Long flag,
             @RequestParam(required = false, name = "companyName") String companyName,
             @RequestParam(required = false, name = "ownerName") String ownerName,
             @RequestParam(required = false, name = "address") String address,
@@ -399,7 +361,7 @@ public class yourMartController extends RestResponseHandler {
             HttpServletResponse response,
             HttpServletRequest request,
             @PathVariable("sellerId") Long sellerId,
-            @RequestParam(required = false, name = "flag" ,defaultValue = "0") Long flag,
+            @RequestParam(required = false, name = "flag", defaultValue = "0") Long flag,
             @RequestParam(required = false, name = "companyName") String companyName,
             @RequestParam(required = false, name = "ownerName") String ownerName,
             @RequestParam(required = false, name = "address") String address,
@@ -411,7 +373,7 @@ public class yourMartController extends RestResponseHandler {
         HttpSession session = request.getSession(false);
         SellerResponse sellerResponse = sellerService.getSellerById(sellerId);
         model.addAttribute("ab", sellerResponse);
-        if(sellerResponse != null) {
+        if (sellerResponse != null) {
             return "seller";
         }
         SellerRequest sellerRequest = new SellerRequest();
@@ -432,8 +394,8 @@ public class yourMartController extends RestResponseHandler {
             HttpServletRequest request
     ) {
         String[] ids = request.getParameterValues("cbox");
-        if(ids!=null) {
-            for(String value : ids) {
+        if (ids != null) {
+            for (String value : ids) {
                 System.out.println(value);
                 // 4=>APPROVED
                 long id = Long.parseLong(String.valueOf(value));
@@ -442,7 +404,6 @@ public class yourMartController extends RestResponseHandler {
         }
         return "redirect:/admin/sellers";
     }
-
 
 
 }

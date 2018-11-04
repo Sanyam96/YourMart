@@ -1,6 +1,5 @@
 package com.nagarro.yourmart.controllers;
 
-import com.nagarro.yourmart.domains.Categories;
 import com.nagarro.yourmart.dtos.CategoryRequest;
 import com.nagarro.yourmart.dtos.CategoryResponse;
 import com.nagarro.yourmart.dtos.ResponseModel;
@@ -47,19 +46,19 @@ public class CategoryController extends RestResponseHandler {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/category/{id}")
-    public ResponseEntity<ResponseModel<String>> updateCategory(
+    public ResponseEntity<ResponseModel<CategoryResponse>> updateCategory(
             @RequestBody CategoryRequest categoryRequest,
             @PathVariable("id") long id
     ) {
-        String categoryResponse = categoryService.updateCategory(categoryRequest, id);
+        CategoryResponse categoryResponse = categoryService.updateCategory(categoryRequest, id);
         return super.responseStandardizer(categoryResponse);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/category/{id}")
-    public ResponseEntity<ResponseModel<String>> deleteCategory(
+    public ResponseEntity<ResponseModel<CategoryResponse>> deleteCategory(
             @PathVariable("id") long id
     ) {
-        String categoryResponse = categoryService.deleteCategory(id);
+        CategoryResponse categoryResponse = categoryService.deleteCategory(id);
         return super.responseStandardizer(categoryResponse);
     }
 }

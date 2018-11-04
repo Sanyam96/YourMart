@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.rmi.CORBA.Util;
 import java.util.List;
 
 /**
@@ -37,7 +36,7 @@ public class CategoryService {
             categoryResponseList.get((int) i).setProductCount(getCountOfProductsPerCategory(categoryResponseList.get((int) i).getId()));
         }
 
-        if(categoryResponseList == null || categories.isEmpty()) {
+        if (categoryResponseList == null || categories.isEmpty()) {
             throw new YourMartResourceNotFoundException("Categories list not found!");
         }
         return categoryResponseList;
@@ -50,7 +49,7 @@ public class CategoryService {
 
         categoryResponse.setProductCount(getCountOfProductsPerCategory(categoryResponse.getId()));
 
-        if(categoryResponse == null || category == null) {
+        if (categoryResponse == null || category == null) {
             throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
         }
         return categoryResponse;
@@ -67,23 +66,25 @@ public class CategoryService {
     }
 
     @Transactional
-    public String updateCategory(CategoryRequest categoryRequest, long id) {
+    public CategoryResponse updateCategory(CategoryRequest categoryRequest, long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
 
-        if(category == null) {
+        if (category == null) {
             throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
         }
         // db call
         category.setName(categoryRequest.getName());
         categoryRepository.update(category);
-        return "updated";
+        CategoryResponse categoryResponse = Utility.convertModel(category, CategoryResponse.class);
+        categoryResponse.setProductCount(getCountOfProductsPerCategory(categoryResponse.getId()));
+        return categoryResponse;
     }
 
     @Transactional
-    public String updateCategoryByName(String categoryName, long id) {
+    public CategoryResponse updateCategoryByName(String categoryName, long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
 
-        if(category == null) {
+        if (category == null) {
             throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
         }
         // db call
@@ -92,26 +93,29 @@ public class CategoryService {
         System.out.println(System.currentTimeMillis());
         category.setUpdatedAt(System.currentTimeMillis());
         categoryRepository.update(category);
-        return "updated";
+        CategoryResponse categoryResponse = Utility.convertModel(category, CategoryResponse.class);
+        categoryResponse.setProductCount(getCountOfProductsPerCategory(categoryResponse.getId()));
+        return categoryResponse;
     }
 
     @Transactional
-    public String deleteCategory(long id) {
+    public CategoryResponse deleteCategory(long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
 
-        if(category == null) {
+        if (category == null) {
             throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
         }
         // db call
         categoryRepository.delete(category);
-        return "deleted";
+        CategoryResponse categoryResponse = Utility.convertModel(category, CategoryResponse.class);
+        return categoryResponse;
     }
 
     @Transactional
     public Categories getCategoryById(long id) {
         Categories category = categoryRepository.getById(id, Categories.class);
 
-        if(category == null) {
+        if (category == null) {
             throw new YourMartResourceNotFoundException("Category not found with the given id: " + id);
         }
         return category;
