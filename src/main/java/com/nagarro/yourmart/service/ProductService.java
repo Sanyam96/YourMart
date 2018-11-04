@@ -226,4 +226,10 @@ public class ProductService {
         return "updated";
     }
 
+    @Transactional
+    public Products getProductByIdToSetProductId(long id) {
+        Products product = productRepository.getById(id, Products.class);
+        return product;
+    }
+
 }

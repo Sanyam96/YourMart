@@ -1,15 +1,19 @@
 package com.nagarro.yourmart.service;
 
 import com.nagarro.yourmart.domains.Image;
+import com.nagarro.yourmart.domains.Products;
 import com.nagarro.yourmart.dtos.ImageRequest;
 import com.nagarro.yourmart.dtos.ImageResponse;
+import com.nagarro.yourmart.dtos.ProductResponse;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.ImageRepository;
 import com.nagarro.yourmart.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -20,6 +24,9 @@ public class ImageService {
 
     @Autowired
     private ImageRepository imageRepository;
+
+    @Autowired
+    private ProductService productService;
 
     @Transactional
     public List<ImageResponse> getAllImagesByProductId(long productId) {
@@ -33,11 +40,15 @@ public class ImageService {
     }
 
     @Transactional
-    public String uploadImage(ImageRequest imageRequest) {
+    public String uploadImage(long productId, MultipartFile imageFile) {
         Image image = new Image();
-        image.setImage(imageRequest.getImage());
-        image.setProductId(imageRequest.getProductId());
-
+        try {
+            image.setImage(imageFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        ProductResponse response = productService.getProductById(productId);
+        image.setProducts(productService.getProductByIdToSetProductId(productId));
         imageRepository.create(image);
 
         return "Image Added";
