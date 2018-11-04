@@ -18,11 +18,6 @@ public class SellerStatusService {
     @Transactional
     public SellerStatus getSellerStatusById(long id) {
         SellerStatus sellerStatus = sellerStatusRepository.getById(id, SellerStatus.class);
-//        SellerResponse sellerDTO = Utility.convertModel(seller, SellerResponse.class);
-
-//        if(sellerDTO == null || seller == null) {
-//            throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
-//        }
         return sellerStatus;
     }
 }

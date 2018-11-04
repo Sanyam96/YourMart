@@ -68,6 +68,7 @@ public class SellerController extends RestResponseHandler {
 
     /**
      * get all products and search products
+     *
      * @param sellerId
      * @param productCode
      * @param productName
@@ -75,7 +76,7 @@ public class SellerController extends RestResponseHandler {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/seller/{sellerId}/products", produces = "application/json")
-    public ResponseEntity<ResponseModel<List<ProductResponse>>> getProductsBySellerId (
+    public ResponseEntity<ResponseModel<List<ProductResponse>>> getProductsBySellerId(
             @PathVariable("sellerId") Long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
@@ -91,7 +92,7 @@ public class SellerController extends RestResponseHandler {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/seller/{sellerId}/product/{productId}", produces = "application/json")
-    public ResponseEntity<ResponseModel<ProductResponse>> getProductBySellerIdProductId (
+    public ResponseEntity<ResponseModel<ProductResponse>> getProductBySellerIdProductId(
             @PathVariable("sellerId") long sellerId,
             @PathVariable("productId") long productId
     ) {

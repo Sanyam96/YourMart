@@ -22,7 +22,6 @@ public class CategoryRepository extends AbstractBaseRepository {
         criteria.setFirstResult(offsetNumber);
         criteria.setMaxResults(limitNumber);
 
-        System.out.println("okok");
         return criteria.list();
     }
 }

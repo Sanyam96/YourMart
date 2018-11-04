@@ -18,11 +18,9 @@ public class yourMartController extends RestResponseHandler {
     @Autowired
     YourMartService yourMartService;
 
-
     @RequestMapping(method = RequestMethod.GET, value = "/hello", produces = "application/json")
     public ResponseEntity<ResponseModel<String>> getAllData() {
         return super.responseStandardizer("Hello");
     }
-
 
 }

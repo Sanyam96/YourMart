@@ -2,7 +2,6 @@ package com.nagarro.yourmart.repository;
 
 import com.nagarro.yourmart.config.AbstractBaseRepository;
 import com.nagarro.yourmart.domains.Image;
-import com.nagarro.yourmart.domains.Products;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

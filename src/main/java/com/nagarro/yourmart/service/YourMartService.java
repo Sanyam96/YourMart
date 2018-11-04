@@ -24,9 +24,8 @@ public class YourMartService {
     public List<ProductResponse> getAllProducts() {
         List<Products> productsList = yourMartRepository.getList(Products.class);
         List<ProductResponse> productResponseList = Utility.convertModelList(productsList, ProductResponse.class);
-        System.out.println("hello");
 
-        if(productsList == null) {
+        if (productsList == null) {
             throw new YourMartResourceNotFoundException("product list not found!");
         }
 
@@ -36,7 +35,6 @@ public class YourMartService {
     public List<SellerResponse> getAllSellers() {
         List<Seller> sellerList = yourMartRepository.getList(Seller.class);
         List<SellerResponse> sellerResponseList = Utility.convertModelList(sellerList, SellerResponse.class);
-        System.out.println("Hello");
 
         return sellerResponseList;
     }

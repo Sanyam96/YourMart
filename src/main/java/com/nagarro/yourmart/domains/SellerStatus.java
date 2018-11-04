@@ -1,10 +1,6 @@
 package com.nagarro.yourmart.domains;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author Sanyam Goel created on 29/10/18
@@ -26,8 +22,6 @@ public class SellerStatus extends BaseEntity {
 //    @JsonManagedReference
 //    @OneToOne(mappedBy = "sellerStatusId")
 //    private Seller Seller;
-
-
 
 
     // Constructors

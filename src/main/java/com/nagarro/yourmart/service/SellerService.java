@@ -34,18 +34,18 @@ public class SellerService {
         List<SellerResponse> sellerResponseList = Utility.convertModelList(sellerList, SellerResponse.class);
 
         for (long i = 0; i < sellerResponseList.size(); i++) {
-            if(sellerResponseList.get((int) i).getSellerStatusId() == 1) {
+            if (sellerResponseList.get((int) i).getSellerStatusId() == 1) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
-            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 2) {
+            } else if (sellerResponseList.get((int) i).getSellerStatusId() == 2) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NON_REGISTERED);
-            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 3) {
+            } else if (sellerResponseList.get((int) i).getSellerStatusId() == 3) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.REJECTED);
-            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 4) {
+            } else if (sellerResponseList.get((int) i).getSellerStatusId() == 4) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.APPROVED);
             }
         }
 
-        if(sellerResponseList == null || sellerList.isEmpty()) {
+        if (sellerResponseList == null || sellerList.isEmpty()) {
             throw new YourMartResourceNotFoundException("Seller List not found");
         }
 
@@ -59,18 +59,18 @@ public class SellerService {
         List<SellerResponse> sellerResponseList = Utility.convertModelList(sellerList, SellerResponse.class);
 
         for (long i = 0; i < sellerResponseList.size(); i++) {
-            if(sellerResponseList.get((int) i).getSellerStatusId() == 1) {
+            if (sellerResponseList.get((int) i).getSellerStatusId() == 1) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
-            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 2) {
+            } else if (sellerResponseList.get((int) i).getSellerStatusId() == 2) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.NON_REGISTERED);
-            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 3) {
+            } else if (sellerResponseList.get((int) i).getSellerStatusId() == 3) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.REJECTED);
-            } else if(sellerResponseList.get((int) i).getSellerStatusId() == 4) {
+            } else if (sellerResponseList.get((int) i).getSellerStatusId() == 4) {
                 sellerResponseList.get((int) i).setSellerStatus(SellerStatusEnum.APPROVED);
             }
         }
 
-        if(sellerResponseList == null || sellerList.isEmpty()) {
+        if (sellerResponseList == null || sellerList.isEmpty()) {
             throw new YourMartResourceNotFoundException("Seller List not found");
         }
 
@@ -83,17 +83,17 @@ public class SellerService {
         Seller seller = sellerRepository.getById(id, Seller.class);
         SellerResponse sellerResponse = Utility.convertModel(seller, SellerResponse.class);
 
-        if(sellerResponse.getSellerStatusId() == 1) {
+        if (sellerResponse.getSellerStatusId() == 1) {
             sellerResponse.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
-        } else if(sellerResponse.getSellerStatusId() == 2) {
+        } else if (sellerResponse.getSellerStatusId() == 2) {
             sellerResponse.setSellerStatus(SellerStatusEnum.NON_REGISTERED);
-        } else if(sellerResponse.getSellerStatusId() == 3){
+        } else if (sellerResponse.getSellerStatusId() == 3) {
             sellerResponse.setSellerStatus(SellerStatusEnum.REJECTED);
-        } else if(sellerResponse.getSellerStatusId() == 4) {
+        } else if (sellerResponse.getSellerStatusId() == 4) {
             sellerResponse.setSellerStatus(SellerStatusEnum.APPROVED);
         }
 
-        if(sellerResponse == null || seller == null) {
+        if (sellerResponse == null || seller == null) {
             throw new YourMartResourceNotFoundException("Seller not found with the given id: " + id);
         }
         return sellerResponse;
@@ -115,10 +115,8 @@ public class SellerService {
 
         // by default status to 1
         seller.setSellerStatus(sellerStatusService.getSellerStatusById(1));
-//        System.out.println("done-half");
 
         sellerRepository.create(seller);
-//        System.out.println("done");
 
         SellerResponse sellerResponse = Utility.convertModel(sellerRequest, SellerResponse.class);
         sellerResponse.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
@@ -128,14 +126,13 @@ public class SellerService {
         sellerResponse.setUpdatedAt(seller.getUpdatedAt());
 
         return sellerResponse;
-//        return "created";
     }
 
     @Transactional
     public SellerResponse updateSeller(SellerRequest sellerRequest, Long sellerId) {
         Seller seller = sellerRepository.getById(sellerId, Seller.class);
 
-        if(seller == null) {
+        if (seller == null) {
             throw new YourMartResourceNotFoundException("Seller not found with the given id: " + sellerId);
         }
 
@@ -146,7 +143,7 @@ public class SellerService {
         seller.setTelephoneNumber(sellerRequest.getTelephoneNumber());
         seller.setGstNumber(sellerRequest.getGstNumber());
 
-        if(sellerRequest.getPassword() != null) {
+        if (sellerRequest.getPassword() != null) {
             seller.setPassword(sellerRequest.getPassword());
         }
 
@@ -173,10 +170,9 @@ public class SellerService {
     public SellerResponse checkUser(SellerLoginRequest sellerlogin) {
         Seller seller = sellerRepository.getSellerStatus(sellerlogin.getId(), sellerlogin.getPassword());
         SellerResponse response = Utility.convertModel(seller, SellerResponse.class);
-        if(seller == null) {
+        if (seller == null) {
             return null;
-        }
-        else {
+        } else {
 //            if(seller.getSellerStatusId() == 1) {
 //                System.out.println("NEED_APPROVAL");
 //                System.out.println(SellerStatusEnum.NEED_APPROVAL);
@@ -195,13 +191,13 @@ public class SellerService {
 ////                return "APPROVED";
 //            }
         }
-        if(response.getSellerStatusId() == 1) {
+        if (response.getSellerStatusId() == 1) {
             response.setSellerStatus(SellerStatusEnum.NEED_APPROVAL);
-        } else if(response.getSellerStatusId() == 2) {
+        } else if (response.getSellerStatusId() == 2) {
             response.setSellerStatus(SellerStatusEnum.NON_REGISTERED);
-        } else if(response.getSellerStatusId() == 3){
+        } else if (response.getSellerStatusId() == 3) {
             response.setSellerStatus(SellerStatusEnum.REJECTED);
-        } else if(response.getSellerStatusId() == 4) {
+        } else if (response.getSellerStatusId() == 4) {
             response.setSellerStatus(SellerStatusEnum.APPROVED);
         }
         return response;

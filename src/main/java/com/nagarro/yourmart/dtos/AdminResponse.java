@@ -2,8 +2,6 @@ package com.nagarro.yourmart.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-
 /**
  * @author Sanyam Goel created on 2/11/18
  */

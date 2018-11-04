@@ -52,7 +52,7 @@ public class Products extends BaseEntity {
 //    MetaData -> Product Attributes
 //    private Metadata productAttributes
 
-//    CategoryID
+    //    CategoryID
     @Column(name = "category_id", insertable = false, updatable = false)
     private long categoryId;
 
@@ -60,7 +60,7 @@ public class Products extends BaseEntity {
     private long sellerId;
 
 
-//    Mappings
+    //    Mappings
     // Product and Status
     @JsonBackReference
     @ManyToOne

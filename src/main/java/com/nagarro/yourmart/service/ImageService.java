@@ -1,10 +1,7 @@
 package com.nagarro.yourmart.service;
 
 import com.nagarro.yourmart.domains.Image;
-import com.nagarro.yourmart.domains.Products;
-import com.nagarro.yourmart.dtos.ImageRequest;
 import com.nagarro.yourmart.dtos.ImageResponse;
-import com.nagarro.yourmart.dtos.ProductResponse;
 import com.nagarro.yourmart.exceptions.YourMartResourceNotFoundException;
 import com.nagarro.yourmart.repository.ImageRepository;
 import com.nagarro.yourmart.utils.Utility;
@@ -33,7 +30,7 @@ public class ImageService {
         List<Image> images = imageRepository.getImagesByProductId(productId);
         List<ImageResponse> imageResponseList = Utility.convertModelList(images, ImageResponse.class);
 
-        if(images == null || imageResponseList == null) {
+        if (images == null || imageResponseList == null) {
             throw new YourMartResourceNotFoundException("Image list not found");
         }
         return imageResponseList;
@@ -47,7 +44,6 @@ public class ImageService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        ProductResponse response = productService.getProductById(productId);
         image.setProducts(productService.getProductByIdToSetProductId(productId));
         imageRepository.create(image);
 

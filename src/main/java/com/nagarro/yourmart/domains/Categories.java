@@ -1,9 +1,6 @@
 package com.nagarro.yourmart.domains;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * @author Sanyam Goel created on 30/10/18

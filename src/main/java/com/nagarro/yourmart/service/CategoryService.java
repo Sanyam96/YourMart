@@ -28,7 +28,6 @@ public class CategoryService {
 
     @Transactional
     public List<CategoryResponse> getAllCategories(Long offset, Long limit) {
-//        List<Categories> categories = categoryRepository.getList(Categories.class);
         List<Categories> categories = categoryRepository.getCategoriesPaginatedResult(offset, limit);
         List<CategoryResponse> categoryResponseList = Utility.convertModelList(categories, CategoryResponse.class);
 
@@ -89,7 +88,6 @@ public class CategoryService {
         }
         // db call
         category.setName(categoryName);
-        // todo add everywhere about update time
         System.out.println(System.currentTimeMillis());
         category.setUpdatedAt(System.currentTimeMillis());
         categoryRepository.update(category);

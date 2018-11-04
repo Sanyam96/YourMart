@@ -1,7 +1,6 @@
 package com.nagarro.yourmart.repository;
 
 import com.nagarro.yourmart.config.AbstractBaseRepository;
-import com.nagarro.yourmart.domains.Categories;
 import com.nagarro.yourmart.domains.Seller;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -25,7 +24,6 @@ public class SellerRepository extends AbstractBaseRepository {
         criteria.setFirstResult(offsetNumber);
         criteria.setMaxResults(limitNumber);
 
-        System.out.println("okok");
         return criteria.list();
     }
 
@@ -33,7 +31,6 @@ public class SellerRepository extends AbstractBaseRepository {
         Criteria criteria = this.getCurrentSession().createCriteria(Seller.class);
         criteria.add(Restrictions.eq("id", id));
         criteria.add(Restrictions.eq("password", password));
-//        System.out.println(criteria);
         Seller seller = (Seller) criteria.uniqueResult();
         return seller;
     }
@@ -45,27 +42,27 @@ public class SellerRepository extends AbstractBaseRepository {
         int limitNumber = limit.intValue();
         criteria.setFirstResult(offsetNumber);
 
-        if(sortBy != null) {
+        if (sortBy != null) {
             criteria.addOrder(Order.asc(sortBy));
         }
 
-        if(sellerId != null) {
+        if (sellerId != null) {
             criteria.add(Restrictions.eq("id", sellerId));
         }
 
-        if(sellerStatusId != null) {
+        if (sellerStatusId != null) {
             criteria.add(Restrictions.eq("sellerStatusId", sellerStatusId));
         }
 
-        if(companyName != null) {
+        if (companyName != null) {
             criteria.add(Restrictions.like("companyName", ("%" + companyName + "%")));
         }
 
-        if(ownerName != null) {
+        if (ownerName != null) {
             criteria.add(Restrictions.like("ownerName", ("%" + ownerName + "%")));
         }
 
-        if(telephoneNumber != null) {
+        if (telephoneNumber != null) {
             criteria.add(Restrictions.eq("telephoneNumber", telephoneNumber));
         }
 

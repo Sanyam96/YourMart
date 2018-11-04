@@ -22,8 +22,8 @@ public class ProductController extends RestResponseHandler {
 
     @RequestMapping(method = RequestMethod.GET, value = "/products", produces = "application/json")
     public ResponseEntity<ResponseModel<List<ProductResponse>>> getAllProducts(
-            @RequestParam(value="sortBy",required=false) String sortBy,
-            @RequestParam(name="sellerId",required=false) Long sellerId,
+            @RequestParam(value = "sortBy", required = false) String sortBy,
+            @RequestParam(name = "sellerId", required = false) Long sellerId,
             @RequestParam(required = false, name = "productCode") String productCode,
             @RequestParam(required = false, name = "productName") String productName,
             @RequestParam(required = false, name = "productId") Long productId,

@@ -33,7 +33,7 @@ public class AdminCategoryController {
             @RequestParam(required = false, name = "offset", defaultValue = "0") Long offset
     ) {
         HttpSession session = request.getSession(false);
-        if(session != null && session.getAttribute("admin") != null) {
+        if (session != null && session.getAttribute("admin") != null) {
             List<CategoryResponse> categoryResponses = categoryService.getAllCategories(offset, limit);
             model.addAttribute("cat", categoryResponses);
             return "categories";

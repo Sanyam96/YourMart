@@ -1,6 +1,5 @@
 package com.nagarro.yourmart.controllers;
 
-import com.nagarro.yourmart.dtos.ImageRequest;
 import com.nagarro.yourmart.dtos.ImageResponse;
 import com.nagarro.yourmart.dtos.ResponseModel;
 import com.nagarro.yourmart.service.ImageService;

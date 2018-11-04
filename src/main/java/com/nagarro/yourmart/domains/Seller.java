@@ -1,12 +1,8 @@
 package com.nagarro.yourmart.domains;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -64,7 +60,7 @@ public class Seller extends BaseEntity {
 //    @JoinColumn(name = "seller_status_id", referencedColumnName = "seller_status_id", nullable = false)
 //    private SellerStatus sellerStatus;
 
-//    Constructors
+    //    Constructors
     public Seller() {
 
     }
